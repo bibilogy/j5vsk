@@ -1,0 +1,117 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../node_modules/.prisma/client"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model courses {
+  course_id           Int                   @id @default(autoincrement())
+  subject_id          Int
+  created_at          DateTime?             @default(now()) @db.DateTime(0)
+  updated_at          DateTime?             @default(now()) @db.DateTime(0)
+  subjects            subjects              @relation(fields: [subject_id], references: [subject_id], onDelete: NoAction, onUpdate: NoAction, map: "courses_ibfk_1")
+  enrollments         enrollments[]
+  teacher_assignments teacher_assignments[]
+
+  @@index([subject_id], map: "subject_id")
+}
+
+model enrollments {
+  enrollment_id   Int       @id @default(autoincrement())
+  student_id      Int
+  course_id       Int
+  is_test_pending Boolean   @default(false)
+  created_at      DateTime? @default(now()) @db.DateTime(0)
+  updated_at      DateTime? @default(now()) @db.DateTime(0)
+  students        students  @relation(fields: [student_id], references: [student_id], onDelete: NoAction, onUpdate: NoAction, map: "enrollments_ibfk_1")
+  courses         courses   @relation(fields: [course_id], references: [course_id], onDelete: NoAction, onUpdate: NoAction, map: "enrollments_ibfk_2")
+
+  @@unique([student_id, course_id], map: "uniq_student_course")
+  @@index([course_id], map: "course_id")
+}
+
+model grade_groups {
+  grade_group_id Int       @id @default(autoincrement())
+  name           String    @unique(map: "name") @db.VarChar(255)
+  created_at     DateTime? @default(now()) @db.DateTime(0)
+  updated_at     DateTime? @default(now()) @db.DateTime(0)
+  grades         grades[]
+
+  @@index([name], map: "idx_grade_groups_name")
+}
+
+model grades {
+  grade_id       Int          @id @default(autoincrement())
+  name           String       @unique(map: "name") @db.VarChar(255)
+  grade_group_id Int
+  created_at     DateTime?    @default(now()) @db.DateTime(0)
+  updated_at     DateTime?    @default(now()) @db.DateTime(0)
+  grade_groups   grade_groups @relation(fields: [grade_group_id], references: [grade_group_id], onDelete: NoAction, onUpdate: NoAction, map: "grades_ibfk_1")
+  students       students[]
+
+  @@index([grade_group_id], map: "grade_group_id")
+  @@index([name], map: "idx_grade_name")
+}
+
+model students {
+  student_id  Int           @id @default(autoincrement())
+  name        String        @db.VarChar(255)
+  grade_id    Int
+  created_at  DateTime?     @default(now()) @db.DateTime(0)
+  updated_at  DateTime?     @default(now()) @db.DateTime(0)
+  enrollments enrollments[]
+  grades      grades        @relation(fields: [grade_id], references: [grade_id], onDelete: NoAction, onUpdate: NoAction, map: "students_ibfk_1")
+
+  @@index([grade_id], map: "grade_id")
+  @@index([name], map: "idx_student_name")
+}
+
+model subjects {
+  subject_id Int            @id @default(autoincrement())
+  name       String         @db.VarChar(255)
+  field      subjects_field
+  icon       String?        @db.VarChar(255)
+  created_at DateTime?      @default(now()) @db.DateTime(0)
+  updated_at DateTime?      @default(now()) @db.DateTime(0)
+  courses    courses[]
+
+  @@index([field], map: "idx_subject_field")
+  @@index([name], map: "idx_subject_name")
+}
+
+model teacher_assignments {
+  teacher_assignment_id Int       @id @default(autoincrement())
+  teacher_id            Int
+  course_id             Int
+  created_at            DateTime? @default(now()) @db.DateTime(0)
+  updated_at            DateTime? @default(now()) @db.DateTime(0)
+  teachers              teachers  @relation(fields: [teacher_id], references: [teacher_id], onDelete: NoAction, onUpdate: NoAction, map: "teacher_assignments_ibfk_1")
+  courses               courses   @relation(fields: [course_id], references: [course_id], onDelete: NoAction, onUpdate: NoAction, map: "teacher_assignments_ibfk_2")
+
+  @@unique([teacher_id, course_id], map: "uniq_teacher_course")
+  @@index([course_id], map: "course_id")
+}
+
+model teachers {
+  teacher_id          Int                   @id @default(autoincrement())
+  name                String                @db.VarChar(255)
+  created_at          DateTime?             @default(now()) @db.DateTime(0)
+  updated_at          DateTime?             @default(now()) @db.DateTime(0)
+  teacher_assignments teacher_assignments[]
+
+  @@index([name], map: "idx_teacher_name")
+}
+
+enum subjects_field {
+  Soci_l__un_pilsonisk_                   @map("Sociālā un pilsoniskā")
+  Kult_ras_izpratne_un_pa_izpausme_m_ksl_ @map("Kultūras izpratne un pašizpausme mākslā")
+  Valodas
+  Dabaszin_tnes                           @map("Dabaszinātnes")
+  Matem_tika                              @map("Matemātika")
+  Tehnolo_ijas                            @map("Tehnoloģijas")
+  Vesel_ba_un_fizisk_s_aktivit_tes        @map("Veselība un fiziskās aktivitātes")
+}

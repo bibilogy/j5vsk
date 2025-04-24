@@ -3,16 +3,22 @@ import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import AdbIcon from "@mui/icons-material/Adb";
+import logo from "../../../public/logo.png";
 
 function ResponsiveAppBar() {
   return (
-    <AppBar position="sticky">
+    <AppBar position="absolute">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: "flex", mr: 1 }} />
+          <img
+            src={logo.src}
+            alt=""
+            width={30}
+            height={30}
+            style={{ display: "block", marginRight: "10px" }}
+          />
           <Typography
-            variant="h6"
+            variant="h5"
             noWrap
             sx={{
               mr: 2,

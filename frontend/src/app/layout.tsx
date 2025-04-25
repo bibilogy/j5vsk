@@ -4,6 +4,7 @@ import "./globals.css";
 import ResponsiveAppBar from "./components/ResponsiveAppBar";
 import Stack from "@mui/material/Stack";
 import { Container } from "@mui/material";
+import CustomIcons from "./components/CustomMenu";
 
 const robotoSans = Roboto({
   variable: "--font-roboto-sans",
@@ -62,16 +63,11 @@ export default async function RootLayout({
               backgroundColor: "white",
               display: "flex",
               flexDirection: "row",
+              gap: "10px",
             }}
           >
             <nav>
-              <ul>
-                {(gradeGroups?.gradeGroupsWithGrades as GradeGroup[]).map(
-                  (gradeGroup) => (
-                    <li key={gradeGroup.grade_group_id}>{gradeGroup.name}</li>
-                  )
-                )}
-              </ul>
+              <CustomIcons gradeGroups={gradeGroups.gradeGroupsWithGrades} />
             </nav>
             <Stack>{children}</Stack>
           </Stack>

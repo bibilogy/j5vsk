@@ -51,7 +51,7 @@ CREATE TABLE subjects (
     subject_id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(255) NOT NULL,
     field ENUM("Sociālā un pilsoniskā","Kultūras izpratne un pašizpausme mākslā","Valodas","Dabaszinātnes","Matemātika","Tehnoloģijas","Veselība un fiziskās aktivitātes") NOT NULL,
-    icon VARCHAR(255),
+    icon VARCHAR(255) NOT NULL,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );

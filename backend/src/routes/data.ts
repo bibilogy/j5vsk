@@ -77,6 +77,7 @@ router.get(
         courseId: number; // Include course_id
         subjectName: string;
         subjectField: string;
+        icon: string | null;
         teacherNames: string[]; // Array of teacher names
         enrollmentCount: number; // Add the enrollment count
       }[] = [];
@@ -109,6 +110,7 @@ router.get(
             courseId: course.course_id, // Add course_id from courses model
             subjectName: subject.name,
             subjectField: readableField, // Use the mapped field
+            icon: subject.icon,
             teacherNames:
               teacherNames.length > 0 ? teacherNames : ["Unassigned"], // Teachers as an array
             enrollmentCount, // Add enrollment count for the course

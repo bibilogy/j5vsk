@@ -8,7 +8,7 @@ interface Subject {
   subjectField: string;
   icon: string;
   teacherNames: string[];
-  enrollemntCOunt: number;
+  enrollmentCount: number;
 }
 
 export default async function GradeSubjects({
@@ -23,7 +23,7 @@ export default async function GradeSubjects({
   const subjects = await response.json();
 
   return (
-    <Grid container spacing={2}>
+    <Grid container spacing={2} justifyContent="center" alignItems="center">
       {subjects?.map((subject: Subject) => (
         <Grid key={subject.courseId}>
           <SubjectCard subject={subject} />

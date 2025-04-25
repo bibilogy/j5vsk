@@ -1,12 +1,12 @@
 import * as React from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import CardActionArea from "@mui/material/CardActionArea";
 import CardActions from "@mui/material/CardActions";
 import Language from "./icons/Language";
+import { Stack } from "@mui/material";
 
 interface Subject {
   courseId: number;
@@ -14,32 +14,37 @@ interface Subject {
   subjectField: string;
   icon: string;
   teacherNames: string[];
-  enrollemntCOunt: number;
+  enrollmentCount: number;
 }
 
 export default function SubjectCard({ subject }: { subject: Subject }) {
   return (
     <Card
       sx={{
-        minWidth: 200,
-        maxWidth: 200,
+        minWidth: 250,
+        maxWidth: 250,
         height: "100%",
         display: "flex",
         flexDirection: "column",
-        justifyContent: "space-between",
       }}
     >
       <CardActionArea>
-        <Language />
         <CardContent>
-          <Typography gutterBottom variant="h6" component="div">
-            {subject.subjectName}
-          </Typography>
+          <Stack sx={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+            <Language />
+            <Typography
+              gutterBottom
+              sx={{ fontSize: "1rem", fontWeight: 500 }}
+              component="div"
+            >
+              {subject.subjectName}
+            </Typography>
+          </Stack>
         </CardContent>
       </CardActionArea>
       <CardActions>
         <Button size="small" color="primary">
-          Share
+          Skatīt
         </Button>
       </CardActions>
     </Card>

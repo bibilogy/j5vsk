@@ -10,11 +10,30 @@ html {
 }
 
 body {
-  background-color: lightgray;
+  background-image: linear-gradient(120deg, #fdfbfb, #ebedee);
+  margin: 0;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
   width: inherit;
   height: inherit;
+}
+
+.scrollable-area::-webkit-scrollbar {
+  width: 6px;
+}
+
+.scrollable-area::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 4px;
+}
+
+.scrollable-area::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Firefox */
+.scrollable-area {
+  scrollbar-width: thin;
+  scrollbar-color: #888 #f1f1f1;
 }

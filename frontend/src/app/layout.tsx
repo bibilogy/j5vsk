@@ -101,7 +101,7 @@ export default async function RootLayout({
               {/* Sidebar */}
               <Stack
                 sx={{
-                  width: "280px",
+                  width: "150px",
                   height: "100%",
                   overflow: "hidden",
                   flexShrink: 0, // This ensures it doesn't shrink when space is tight
@@ -127,6 +127,7 @@ export default async function RootLayout({
                 sx={{
                   flexGrow: 1, // This allows it to fill remaining space
                   height: "100%",
+                  width: "100%",
                   overflowY: "auto",
                   padding: "10px",
                   minWidth: 0, // Important for flex children to avoid overflow

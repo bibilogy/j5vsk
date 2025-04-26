@@ -75,6 +75,8 @@ router.get(
 
       const result: {
         courseId: number; // Include course_id
+        gradeId: number;
+        gradeName: string;
         subjectName: string;
         subjectField: string;
         icon: string | null;
@@ -108,6 +110,8 @@ router.get(
 
           result.push({
             courseId: course.course_id, // Add course_id from courses model
+            gradeId: grade.grade_id,
+            gradeName: grade.name,
             subjectName: subject.name,
             subjectField: readableField, // Use the mapped field
             icon: subject.icon,
@@ -162,6 +166,15 @@ router.get(
           course_id: courseId,
         },
         include: {
+          enrollments: {
+            include: {
+              students: {
+                include: {
+                  grades: true,
+                },
+              },
+            },
+          },
           subjects: true,
           teacher_assignments: {
             include: {
@@ -203,10 +216,19 @@ router.get(
       const readableSubjectField =
         fieldNameMap[subjectFieldRaw] || subjectFieldRaw;
 
+      // Extract grade name from the first student that has it
+      const firstStudentWithGrade = course.enrollments.find(
+        (e) => e.students?.grades?.name
+      );
+      const gradeName =
+        firstStudentWithGrade?.students?.grades?.name || "Unknown";
+
       const response = {
         courseId: course.course_id,
         subjectName: course.subjects.name,
         subjectField: readableSubjectField,
+        subjectIcon: course.subjects.icon,
+        gradeName: gradeName,
         teacherNames: teacherNames.length ? teacherNames : ["Unassigned"],
         students: studentsList,
       };

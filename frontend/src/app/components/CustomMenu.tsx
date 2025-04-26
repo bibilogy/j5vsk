@@ -40,7 +40,7 @@ export default function CustomIcons({
   gradeGroups: GradeGroup[];
 }) {
   return (
-    <Box sx={{ minHeight: 352, minWidth: 250 }}>
+    <Box sx={{ minHeight: 352, minWidth: 200 }}>
       <SimpleTreeView
         defaultExpandedItems={["grid"]}
         slots={{

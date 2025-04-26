@@ -4,6 +4,8 @@ import { Grid, Stack } from "@mui/material";
 
 interface Subject {
   courseId: number;
+  gradeId: number;
+  gradeName: string;
   subjectName: string;
   subjectField: string;
   icon: string;
@@ -21,14 +23,30 @@ export default async function GradeSubjects({
     `http://localhost:3000/v4/subjects?grade_id=${grade.id}`
   );
   const subjects = await response.json();
+  const gradeName = (subjects as Subject[])[0].gradeName;
 
   return (
-    <Grid container spacing={2} justifyContent="center" alignItems="center">
-      {subjects?.map((subject: Subject) => (
-        <Grid key={subject.courseId}>
-          <SubjectCard subject={subject} />
+    <>
+      <Stack
+        sx={{
+          textAlign: "center",
+          fontWeight: "700",
+          fontSize: "1.2rem",
+          textTransform: "uppercase",
+          marginBottom: "15px",
+        }}
+      >
+        {gradeName}
+      </Stack>
+      <Stack>
+        <Grid container spacing={4} justifyContent="center" alignItems="center">
+          {subjects?.map((subject: Subject) => (
+            <Grid key={subject.courseId}>
+              <SubjectCard subject={subject} />
+            </Grid>
+          ))}
         </Grid>
-      ))}
-    </Grid>
+      </Stack>
+    </>
   );
 }

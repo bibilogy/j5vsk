@@ -27,18 +27,21 @@ export default async function GradeSubjects({
 
   return (
     <>
-      <Stack
-        sx={{
-          textAlign: "center",
-          fontWeight: "700",
-          fontSize: "1.2rem",
-          textTransform: "uppercase",
-          marginBottom: "15px",
-        }}
-      >
-        {gradeName}
-      </Stack>
-      <Stack>
+      <Stack sx={{ padding: "0 15px" }}>
+        <Stack
+          sx={{
+            textAlign: "center",
+            fontWeight: "700",
+            fontSize: "1.2rem",
+            textTransform: "uppercase",
+            marginBottom: "15px",
+            backgroundColor: "#eee",
+            borderRadius: "15px",
+            padding: "10px",
+          }}
+        >
+          {gradeName}
+        </Stack>
         <Grid container spacing={4} justifyContent="center" alignItems="center">
           {subjects?.map((subject: Subject) => (
             <Grid key={subject.courseId}>

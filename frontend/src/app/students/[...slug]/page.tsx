@@ -1,4 +1,5 @@
 import CustomIcon from "@/app/components/CustomIcon";
+import StudentList from "@/app/components/StudentList";
 import SubjectField from "@/app/components/SubjectField";
 import TeachersList from "@/app/components/TeachersList";
 import { Stack, Typography } from "@mui/material";
@@ -55,40 +56,48 @@ export default async function StudentsPage({
   const response: Course = await request.json();
 
   return (
-    <Stack
-      spacing={1}
-      sx={{
-        flexDirection: "row",
-        gap: "20px",
-        backgroundColor: "#eee",
-        padding: "10px",
-        borderRadius: "15px",
-      }}
-    >
-      <Stack>
-        <CustomIcon icon={response.subjectIcon as SubjectType} size={70} />
-      </Stack>
-      <Stack spacing={1}>
-        <Typography
-          gutterBottom
-          sx={{
-            fontSize: "1rem",
-            fontWeight: 700,
-          }}
-          component="div"
-        >
-          {response.subjectName.toUpperCase()}, {response.gradeName}
-        </Typography>
+    <Stack spacing={2}>
+      <Stack
+        spacing={1}
+        sx={{
+          flexDirection: "row",
+          gap: "20px",
+          backgroundColor: "#eee",
+          borderRadius: "15px",
+          padding: "20px",
+        }}
+      >
         <Stack>
-          {response?.teacherNames.length > 1 ? "Skolotāji: " : "Skolotājs: "}
-          {response?.teacherNames.join(", ")}
+          <CustomIcon icon={response.subjectIcon as SubjectType} size={70} />
+        </Stack>
+        <Stack spacing={1}>
+          <Typography
+            gutterBottom
+            sx={{
+              fontSize: "1rem",
+              fontWeight: 700,
+            }}
+            component="div"
+          >
+            {response.subjectName.toUpperCase()}, {response.gradeName}
+          </Typography>
+          <Stack>
+            {response?.teacherNames.length > 1 ? "Skolotāji: " : "Skolotājs: "}
+            {response?.teacherNames.join(", ")}
+          </Stack>
         </Stack>
       </Stack>
+
+      <Stack
+        spacing={1}
+        sx={{
+          backgroundColor: "#eee",
+          padding: "20px",
+          borderRadius: "15px",
+        }}
+      >
+        <StudentList studentList={response.students} />
+      </Stack>
     </Stack>
-    // <ul>
-    //   {response?.students?.map((student: Student) => (
-    //     <li key={student.studentId}>{student.studentName}</li>
-    //   ))}
-    // </ul>
   );
 }

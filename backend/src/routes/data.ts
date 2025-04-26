@@ -260,9 +260,15 @@ router.get(
             },
           },
         },
+        orderBy: {
+          students: {
+            name: "asc", // <-- sort by student's name ascending (A-Z)
+          },
+        },
       });
 
       const response = pendingEnrollments.map((enrollment) => ({
+        enrollmentId: enrollment.enrollment_id,
         studentName: enrollment.students.name,
         gradeName: enrollment.students.grades.name,
         subjectName: enrollment.courses.subjects.name,
@@ -279,24 +285,21 @@ router.patch(
   "/update-test-pending",
   async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-      const updates: { enrollment_id: number; is_test_pending: boolean }[] =
-        req.body;
-
-      if (!Array.isArray(updates)) {
-        res.status(400).json({ error: "Request body must be an array" });
+      const { enrollmentId, isTestPending } = req.body; // destructure object
+      if (
+        typeof enrollmentId !== "number" ||
+        typeof isTestPending !== "boolean"
+      ) {
+        res.status(400).json({ error: "Invalid request body" });
         return;
       }
 
-      const updatePromises = updates.map(({ enrollment_id, is_test_pending }) =>
-        prisma.enrollments.update({
-          where: { enrollment_id },
-          data: { is_test_pending },
-        })
-      );
+      await prisma.enrollments.update({
+        where: { enrollment_id: enrollmentId },
+        data: { is_test_pending: isTestPending },
+      });
 
-      await Promise.all(updatePromises);
-
-      res.status(200).json({ message: "Enrollments updated successfully" });
+      res.status(200).json({ message: "Enrollment updated successfully" });
     } catch (error) {
       next(error);
     }

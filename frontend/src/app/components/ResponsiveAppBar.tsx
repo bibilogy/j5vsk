@@ -11,7 +11,7 @@ import LaunchIcon from "@mui/icons-material/Launch";
 function ResponsiveAppBar() {
   return (
     <AppBar position="static">
-      <Container maxWidth="xl">
+      <Container maxWidth="lg">
         <Toolbar disableGutters sx={{ justifyContent: "space-between" }}>
           <Stack direction="row">
             <Link href="/">

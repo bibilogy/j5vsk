@@ -5,8 +5,9 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import logo from "../../../public/logo.png";
 import Link from "next/link";
-import { Box, Stack } from "@mui/material";
+import { Box, IconButton, Stack } from "@mui/material";
 import LaunchIcon from "@mui/icons-material/Launch";
+import MenuIcon from "@mui/icons-material/Menu";
 
 function ResponsiveAppBar() {
   return (
@@ -40,7 +41,23 @@ function ResponsiveAppBar() {
               j5vsk
             </Typography>
           </Stack>
-
+          <IconButton
+            size="large"
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+            sx={{
+              mr: 2,
+              display: {
+                xs: "block",
+                sm: "block", // hidden on small screens
+                md: "block",
+                lg: "none", // visible on large screens and up
+              },
+            }}
+          >
+            <MenuIcon />
+          </IconButton>
           <Stack
             direction="row"
             alignItems="center"

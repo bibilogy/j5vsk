@@ -134,9 +134,9 @@ router.get(
         ).values()
       );
 
-      // Sort by courseId
-      const sortedSubjects = uniqueSubjects.sort(
-        (a, b) => a.courseId - b.courseId
+      // Sort subjects by subjectName (alphabetically)
+      const sortedSubjects = uniqueSubjects.sort((a, b) =>
+        a.subjectName.localeCompare(b.subjectName)
       );
 
       // Send the sorted result with enrollment counts

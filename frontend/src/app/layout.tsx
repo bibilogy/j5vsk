@@ -49,32 +49,27 @@ export default async function RootLayout({
     <html lang="lv" className={robotoSans.variable}>
       <body>
         <ResponsiveAppBar />
-        <main
-          style={{
-            flexGrow: 1,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <Container>
+        <main>
+          <Container className="main-container" maxWidth="lg" disableGutters>
             <Stack
               sx={{
                 padding: "10px 20px 10px 10px",
                 borderRadius: "10px 10px 0 0",
-                backgroundColor: "#eee",
-                boxShadow: "4px 4px 4px rgba(0, 0, 0, 0.25)",
-                borderBottom: "1px solid #eee",
+                backgroundColor: { xs: "transparent", md: "#eee" },
+                boxShadow: {
+                  xs: "none",
+                  md: "4px 4px 4px rgba(0, 0, 0, 0.25)",
+                },
+                borderBottom: { xs: "none", md: "1px solid #eee" },
                 flexDirection: "row",
                 alignItems: "center",
-                justifyContent: "center", // Centers content horizontally
-                width: "100%", // Ensure the stack takes full width
+                justifyContent: "center",
               }}
             >
-              <img src={buttons.src} alt="controls" width={100} height={100} />
               <Typography
                 variant="h6"
                 sx={{
+                  display: { xs: "none", md: "block" },
                   flex: 1,
                   textAlign: "center",
                   textTransform: "uppercase",
@@ -83,15 +78,19 @@ export default async function RootLayout({
                 }}
               >
                 Kombinētie pārbaudes darbi
-              </Typography>{" "}
-              {/* Center text */}
+              </Typography>
             </Stack>
 
             <Stack
               sx={{
-                height: "600px", // or 'calc(100vh - HEADER_HEIGHT - FOOTER_HEIGHT)' if needed
-                backgroundColor: "white",
-                boxShadow: "4px 4px 4px rgba(0, 0, 0, 0.25)",
+                height: "100%",
+                maxHeight: "100%",
+                backgroundColor: { xs: "transparent", md: "white" },
+                boxShadow: {
+                  xs: "none",
+                  md: "4px 4px 4px rgba(0, 0, 0, 0.25)",
+                },
+                borderRadius: "0 0 10px 10px",
                 display: "flex",
                 flexDirection: "row",
                 gap: "10px",
@@ -101,18 +100,21 @@ export default async function RootLayout({
               {/* Sidebar */}
               <Stack
                 sx={{
-                  width: "150px",
+                  width: { xs: 0, md: "150px" }, // 0 width on small screens, 150px on medium+
                   height: "100%",
+                  maxHeight: "100%",
                   overflow: "hidden",
-                  flexShrink: 0, // This ensures it doesn't shrink when space is tight
+                  flexShrink: 0,
+                  display: { xs: "none", lg: "flex" }, // hide completely on small screens
                 }}
               >
                 <nav
                   className="scrollable-area"
                   style={{
                     height: "100%",
-                    overflowY: "auto", // enable vertical scrollbar
-                    overflowX: "hidden", // hide horizontal scrollbar
+                    maxHeight: "100%",
+                    overflowY: "auto",
+                    overflowX: "hidden",
                   }}
                 >
                   <CustomIcons
@@ -127,6 +129,7 @@ export default async function RootLayout({
                 sx={{
                   flexGrow: 1, // This allows it to fill remaining space
                   height: "100%",
+                  maxHeight: "100%",
                   width: "100%",
                   overflowY: "auto",
                   padding: "10px",
@@ -135,17 +138,6 @@ export default async function RootLayout({
               >
                 {children}
               </Stack>
-            </Stack>
-
-            <Stack
-              sx={{
-                padding: "20px",
-                borderRadius: "0 0 10px 10px",
-                backgroundColor: "white",
-                boxShadow: "4px 4px 4px rgba(0, 0, 0, 0.25)",
-              }}
-            >
-              &copy; Jelgavas 5.vidusskola
             </Stack>
           </Container>
         </main>

@@ -1,8 +1,19 @@
 "use client";
+
 import * as React from "react";
+import { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
-import { DataGrid, GridColDef, GridColumnHeaderParams } from "@mui/x-data-grid";
+import Typography from "@mui/material/Typography";
+import {
+  DataGrid,
+  GridColDef,
+  GridFooterContainer,
+  GridColumnHeaderParams,
+  GridPagination,
+} from "@mui/x-data-grid";
 import { styled } from "@mui/material";
+import { Button } from "@mui/material";
+import * as XLSX from "xlsx";
 
 type TestPending = {
   enrollmentId: number;
@@ -42,6 +53,7 @@ function CustomNoRowsOverlay() {
         aria-hidden
         focusable="false"
       >
+        {/* SVG paths here */}
         <path
           className="no-rows-primary"
           d="M348 69c-46.392 0-84 37.608-84 84s37.608 84 84 84 84-37.608 84-84-37.608-84-84-84Zm-104 84c0-57.438 46.562-104 104-104s104 46.562 104 104-46.562 104-104 104-104-46.562-104-104Z"
@@ -64,11 +76,46 @@ function CustomNoRowsOverlay() {
   );
 }
 
+function DataGridFooter({
+  onExport,
+  disabled,
+}: {
+  onExport: () => void;
+  disabled: boolean;
+}) {
+  return (
+    <GridFooterContainer>
+      <Button
+        onClick={onExport}
+        variant="contained"
+        size="small"
+        sx={{ m: 1 }}
+        disabled={disabled}
+      >
+        Eksportēt uz Excel
+      </Button>
+      <GridPagination />
+    </GridFooterContainer>
+  );
+}
+
 export default function TestPendingsList({
   testsPending,
 }: {
   testsPending: TestPending[];
 }) {
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsSmallScreen(window.innerWidth < 900);
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   const rows = testsPending.map((testPending) => ({
     id: testPending.enrollmentId,
     studentName: testPending.studentName,
@@ -107,20 +154,79 @@ export default function TestPendingsList({
     },
   ];
 
+  const handleExportToExcel = () => {
+    // Build the columns to export: skip 'id' field
+    const exportableColumns = columns.filter((column) => column.field !== "id");
+
+    // Prepare data without 'id'
+    const rowsWithoutId = rows.map(({ id, ...rest }) => rest);
+
+    // Map the column headers (label names) for the fields we keep
+    const headers = exportableColumns.map(
+      (column) => column.headerName || column.field
+    );
+
+    // Rebuild rows according to the exportable columns only
+    const formattedRows = rowsWithoutId.map((row) => {
+      const formattedRow: { [key: string]: any } = {};
+      exportableColumns.forEach((col) => {
+        const fieldName = col.field as keyof typeof row;
+        formattedRow[col.headerName || col.field] = row[fieldName];
+      });
+      return formattedRow;
+    });
+
+    // Create worksheet and workbook
+    const worksheet = XLSX.utils.json_to_sheet(formattedRows, {
+      header: headers,
+    });
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "kpd reģistrs");
+
+    // Export file
+    XLSX.writeFile(workbook, "kpd_registrs.xlsx");
+  };
+
+  if (isSmallScreen) {
+    return (
+      <Box
+        height="100vh"
+        width="100%"
+        display="flex"
+        flexDirection="column"
+        alignItems="center"
+        justifyContent="center"
+        textAlign="center"
+        p={2}
+      >
+        <Typography variant="h5" component="h1">
+          Šis saturs ir pieejams tikai ierīcēm ar ekrānu platumu vismaz 900px.
+        </Typography>
+      </Box>
+    );
+  }
+
   return (
-    <Box sx={{ height: "100%", width: "100%" }}>
+    <Box
+      sx={{
+        width: "100%",
+        height: "100%",
+        maxHeight: "100%",
+        minHeight: "400px",
+      }}
+    >
       <DataGrid
         rows={rows}
         columns={columns}
-        columnVisibilityModel={{
-          id: false, // Hide the id column
-        }}
         getRowId={(row) => row.id}
+        disableRowSelectionOnClick
+        checkboxSelection={false}
+        columnVisibilityModel={{
+          id: false,
+        }}
         initialState={{
           pagination: {
-            paginationModel: {
-              pageSize: 50,
-            },
+            paginationModel: { pageSize: 50 },
           },
         }}
         localeText={{
@@ -130,9 +236,15 @@ export default function TestPendingsList({
               : `Izvēlēti ${count} ieraksti`,
         }}
         pageSizeOptions={[50]}
-        checkboxSelection
-        disableRowSelectionOnClick
-        slots={{ noRowsOverlay: CustomNoRowsOverlay }}
+        slots={{
+          noRowsOverlay: CustomNoRowsOverlay,
+          footer: () => (
+            <DataGridFooter
+              onExport={handleExportToExcel}
+              disabled={rows.length === 0}
+            />
+          ),
+        }}
       />
     </Box>
   );

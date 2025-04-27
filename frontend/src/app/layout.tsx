@@ -15,7 +15,7 @@ const robotoSans = Roboto({
 });
 
 export const metadata: Metadata = {
-  title: "Gada pārbaudījumi",
+  title: "Kombinētie pārbaudes darbi",
   description:
     "Tīmekļa lietotne Jelgavas 5.vidusskolas gada pārbaudījumu uzskaitei",
   creator: "Vadims Mamedovs",

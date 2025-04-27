@@ -55,7 +55,6 @@ function ResponsiveAppBar() {
             gap={1}
             sx={{ display: { xs: "none", lg: "flex" } }}
           >
-            <LaunchIcon sx={{ color: "white" }} />
             <Link href="/">
               <Typography
                 sx={{
@@ -67,6 +66,7 @@ function ResponsiveAppBar() {
                 KPD reģistrs
               </Typography>
             </Link>
+            <LaunchIcon sx={{ color: "white" }} />
           </Stack>
         </Toolbar>
       </Container>

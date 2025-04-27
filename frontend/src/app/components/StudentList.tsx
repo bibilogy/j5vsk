@@ -12,17 +12,19 @@ import { Student } from "../lib/types";
 export default function StudentList({
   studentList,
 }: {
-  studentList: Student[];
+  studentList: Student[] | undefined;
 }) {
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
 
   // ⬇️ Local state based on initial studentList
-  const [students, setStudents] = React.useState<Student[]>(studentList);
+  const [students, setStudents] = React.useState<Student[] | undefined>(
+    studentList
+  );
 
   const handleToggle = async (student: Student) => {
     setIsOpen(true);
     try {
-      const apiUrl = process.env.API_ENDPOINT;
+      const apiUrl = process.env.NEXT_PUBLIC_API_ENDPOINT;
       await fetch(`${apiUrl}/v4/update-test-pending`, {
         method: "PATCH",
         headers: {
@@ -36,7 +38,7 @@ export default function StudentList({
 
       // ⬇️ Update local state to reflect the change
       setStudents((prevStudents) =>
-        prevStudents.map((s) =>
+        prevStudents?.map((s) =>
           s.enrollmentId === student.enrollmentId
             ? { ...s, isTestPending: !s.isTestPending }
             : s
@@ -52,7 +54,7 @@ export default function StudentList({
   return (
     <>
       <List sx={{ width: "100%", maxWidth: 360, bgcolor: "#eee" }}>
-        {students.map((value) => {
+        {students?.map((value) => {
           const labelId = `checkbox-list-label-${value.studentId}`;
 
           return (

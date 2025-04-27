@@ -18,6 +18,9 @@ export const metadata: Metadata = {
   description:
     "Tīmekļa lietotne Jelgavas 5.vidusskolas gada pārbaudījumu uzskaitei",
   creator: "Vadims Mamedovs",
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
 export default async function RootLayout({

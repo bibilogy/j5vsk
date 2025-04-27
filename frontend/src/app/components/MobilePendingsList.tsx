@@ -8,6 +8,7 @@ import ListItemAvatar from "@mui/material/ListItemAvatar";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
+import { Box } from "@mui/material";
 
 export default function MobilePendingsList({
   testsPending,
@@ -15,33 +16,41 @@ export default function MobilePendingsList({
   testsPending: TestPending[];
 }) {
   return (
-    <List sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
-      {testsPending.map((student) => (
-        <React.Fragment>
-          <ListItem key={student.enrollmentId} alignItems="flex-start">
-            <ListItemAvatar>
-              <Avatar>
-                <AssignmentIcon />
-              </Avatar>
-            </ListItemAvatar>
-            <ListItemText
-              primary={`${student.studentName} (${student.gradeName})`}
-              secondary={
-                <React.Fragment>
-                  <Typography
-                    component="span"
-                    variant="body2"
-                    sx={{ color: "text.primary", display: "inline" }}
-                  >
-                    {student.subjectName}
-                  </Typography>
-                </React.Fragment>
-              }
-            />
-          </ListItem>
-          <Divider variant="inset" component="li" />
-        </React.Fragment>
-      ))}
-    </List>
+    <Box>
+      {testsPending.length > 0 ? (
+        <List
+          sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
+        >
+          {testsPending.map((student) => (
+            <React.Fragment key={student.enrollmentId}>
+              <ListItem alignItems="flex-start">
+                <ListItemAvatar>
+                  <Avatar>
+                    <AssignmentIcon />
+                  </Avatar>
+                </ListItemAvatar>
+                <ListItemText
+                  primary={`${student.studentName} (${student.gradeName})`}
+                  secondary={
+                    <Typography
+                      component="span"
+                      variant="body2"
+                      sx={{ color: "text.primary", display: "inline" }}
+                    >
+                      {student.subjectName}
+                    </Typography>
+                  }
+                />
+              </ListItem>
+              <Divider variant="inset" component="li" />
+            </React.Fragment>
+          ))}
+        </List>
+      ) : (
+        <Typography align="center" sx={{ marginTop: 2 }}>
+          Dati nav atrasti
+        </Typography>
+      )}
+    </Box>
   );
 }

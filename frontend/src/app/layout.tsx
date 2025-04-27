@@ -36,7 +36,6 @@ export default async function RootLayout({
   return (
     <html lang="lv" className={robotoSans.variable}>
       <body>
-        <SpeedInsights />
         <ResponsiveAppBar />
         <main>
           <Container className="main-container" maxWidth="lg" disableGutters>
@@ -124,6 +123,7 @@ export default async function RootLayout({
                 }}
               >
                 {children}
+                <SpeedInsights />
               </Stack>
             </Stack>
           </Container>

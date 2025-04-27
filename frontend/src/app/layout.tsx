@@ -62,7 +62,7 @@ export default async function RootLayout({
           <Container className="main-container" maxWidth="lg" disableGutters>
             <Stack
               sx={{
-                display: { xs: "none", md: "block" },
+                // display: { xs: "none", md: "block" },
                 padding: { xs: "0", md: "10px 20px 10px 10px" },
                 borderRadius: "10px 10px 0 0",
                 backgroundColor: { xs: "transparent", md: "#eee" },
@@ -77,13 +77,13 @@ export default async function RootLayout({
               }}
             >
               <Typography
-                variant="h6"
                 sx={{
                   flex: 1,
                   textAlign: "center",
                   textTransform: "uppercase",
+                  fontSize: "1rem",
                   fontWeight: "700",
-                  letterSpacing: ".15rem",
+                  letterSpacing: { xs: "0.1rem", md: ".15rem" },
                 }}
               >
                 Kombinētie pārbaudes darbi

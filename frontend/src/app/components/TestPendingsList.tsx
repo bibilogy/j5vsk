@@ -15,6 +15,7 @@ import { styled } from "@mui/material";
 import { Button } from "@mui/material";
 import * as XLSX from "xlsx";
 import { TestPending } from "../lib/types";
+import MobilePendingsList from "./MobilePendingsList";
 
 const StyledGridOverlay = styled("div")(({ theme }) => ({
   display: "flex",
@@ -192,22 +193,7 @@ export default function TestPendingsList({
   };
 
   if (isSmallScreen) {
-    return (
-      <Box
-        height="100vh"
-        width="100%"
-        display="flex"
-        flexDirection="column"
-        alignItems="center"
-        justifyContent="center"
-        textAlign="center"
-        p={2}
-      >
-        <Typography variant="h5" component="h1">
-          Šis saturs ir pieejams tikai ierīcēm ar ekrānu platumu vismaz 900px.
-        </Typography>
-      </Box>
-    );
+    return <MobilePendingsList testsPending={testsPending} />;
   }
 
   return (

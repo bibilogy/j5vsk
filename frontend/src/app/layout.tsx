@@ -6,6 +6,7 @@ import Stack from "@mui/material/Stack";
 import { Container, Typography } from "@mui/material";
 import CustomMenu from "./components/CustomMenu";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from "@vercel/analytics/react";
 
 const robotoSans = Roboto({
   variable: "--font-roboto-sans",
@@ -141,6 +142,7 @@ export default async function RootLayout({
               >
                 {children}
                 <SpeedInsights />
+                <Analytics />
               </Stack>
             </Stack>
           </Container>

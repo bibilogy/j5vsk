@@ -272,6 +272,9 @@ router.get(
         studentName: enrollment.students.name,
         gradeName: enrollment.students.grades.name,
         subjectName: enrollment.courses.subjects.name,
+        subjectField:
+          fieldNameMap[enrollment.courses.subjects.field] ||
+          enrollment.courses.subjects.field,
       }));
 
       res.json(response);

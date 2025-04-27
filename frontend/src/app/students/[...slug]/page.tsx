@@ -99,7 +99,7 @@ export default function StudentsPage({
             component="div"
           >
             {(course?.subjectName?.toUpperCase() || "No Subject").toUpperCase()}
-            ,{course?.gradeName || "No Grade"}
+            , {course?.gradeName || "No Grade"}
           </Typography>
 
           <Stack>

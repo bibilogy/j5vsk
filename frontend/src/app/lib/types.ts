@@ -62,6 +62,7 @@ export type TestPending = {
   studentName: string;
   gradeName: string;
   subjectName: string;
+  subjectField: string;
 };
 
 export interface Course {

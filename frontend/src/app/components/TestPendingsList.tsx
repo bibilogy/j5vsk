@@ -115,6 +115,7 @@ export default function TestPendingsList({
     studentName: testPending.studentName,
     gradeName: testPending.gradeName.replace(" klase", ""),
     subjectName: testPending.subjectName,
+    subjectField: testPending.subjectField,
   }));
 
   const columns: GridColDef[] = [
@@ -122,7 +123,7 @@ export default function TestPendingsList({
     {
       field: "studentName",
       headerName: "Skolēns",
-      width: 350,
+      width: 320,
       editable: false,
       renderHeader: (params: GridColumnHeaderParams) => (
         <strong>{params.colDef.headerName}</strong>
@@ -131,7 +132,7 @@ export default function TestPendingsList({
     {
       field: "gradeName",
       headerName: "Klase",
-      width: 150,
+      width: 70,
       editable: false,
       renderHeader: (params: GridColumnHeaderParams) => (
         <strong>{params.colDef.headerName}</strong>
@@ -140,7 +141,16 @@ export default function TestPendingsList({
     {
       field: "subjectName",
       headerName: "Mācību priekšmets",
-      width: 350,
+      width: 270,
+      editable: false,
+      renderHeader: (params: GridColumnHeaderParams) => (
+        <strong>{params.colDef.headerName}</strong>
+      ),
+    },
+    {
+      field: "subjectField",
+      headerName: "Mācību joma",
+      width: 270,
       editable: false,
       renderHeader: (params: GridColumnHeaderParams) => (
         <strong>{params.colDef.headerName}</strong>

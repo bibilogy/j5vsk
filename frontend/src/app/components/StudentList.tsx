@@ -7,13 +7,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Checkbox from "@mui/material/Checkbox";
 import CustomBackdrop from "./CustomBackdrop";
-
-interface Student {
-  enrollmentId: number;
-  studentId: number;
-  studentName: string;
-  isTestPending: boolean;
-}
+import { Student } from "../lib/types";
 
 export default function StudentList({
   studentList,
@@ -28,7 +22,8 @@ export default function StudentList({
   const handleToggle = async (student: Student) => {
     setIsOpen(true);
     try {
-      await fetch("http://localhost:3000/v4/update-test-pending", {
+      const apiUrl = process.env.API_ENDPOINT;
+      await fetch(`${apiUrl}/v4/update-test-pending`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",

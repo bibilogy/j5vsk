@@ -2,46 +2,12 @@ import * as React from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
 import CardActionArea from "@mui/material/CardActionArea";
 import CardActions from "@mui/material/CardActions";
-import { Chip, Stack } from "@mui/material";
+import { Stack, Box } from "@mui/material";
 import CustomIcon from "./CustomIcon";
-import SubjectField from "./SubjectField";
-import TeachersList from "./TeachersList";
 import Link from "next/link";
-import { Box } from "@mui/material";
-
-interface Subject {
-  courseId: number;
-  gradeId: number;
-  gradeName: string;
-  subjectName: string;
-  subjectField: string;
-  icon: string;
-  teacherNames: string[];
-  enrollmentCount: number;
-}
-
-type SubjectType =
-  | "biology"
-  | "chemistry"
-  | "computer-science"
-  | "design"
-  | "engineering"
-  | "essential"
-  | "fine-arts"
-  | "geography"
-  | "history"
-  | "literature"
-  | "math"
-  | "music"
-  | "physics"
-  | "social"
-  | "sports"
-  | "talk-and-literature"
-  | "talk"
-  | "theater";
+import { Subject, SubjectType } from "../lib/types";
 
 export default function SubjectCard({ subject }: { subject: Subject }) {
   return (
@@ -82,11 +48,6 @@ export default function SubjectCard({ subject }: { subject: Subject }) {
               >
                 {subject.subjectName}
               </Typography>
-
-              {/* <Stack spacing={1} alignItems="flex-start">
-                <SubjectField field={subject.subjectField} />
-                <TeachersList teachers={subject.teacherNames} />
-              </Stack> */}
             </Stack>
 
             {/* Right: Custom Icon */}

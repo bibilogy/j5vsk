@@ -17,32 +17,9 @@ import Sports from "./Icons/Sports";
 import Talk from "./Icons/Talk";
 import TalkAndRead from "./Icons/TalkAndRead";
 import Theater from "./Icons/Theater";
-
-interface CustomIconProps {
-  icon:
-    | "biology"
-    | "chemistry"
-    | "computer-science"
-    | "design"
-    | "engineering"
-    | "essential"
-    | "fine-arts"
-    | "geography"
-    | "history"
-    | "literature"
-    | "math"
-    | "music"
-    | "physics"
-    | "social"
-    | "sports"
-    | "talk-and-literature"
-    | "talk"
-    | "theater"; // Define a type for the 'icon' prop
-  size?: number; // Optionally pass a size for scaling the SVG
-}
+import { CustomIconProps } from "../lib/types";
 
 const CustomIcon: React.FC<CustomIconProps> = ({ icon, size = 200 }) => {
-  // Render the appropriate icon based on the 'icon' prop
   switch (icon) {
     case "biology":
       return <Biology size={size} />;

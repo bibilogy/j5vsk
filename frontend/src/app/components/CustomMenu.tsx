@@ -9,32 +9,15 @@ import { styled } from "@mui/material/styles";
 import { SimpleTreeView } from "@mui/x-tree-view/SimpleTreeView";
 import { TreeItem, treeItemClasses } from "@mui/x-tree-view/TreeItem";
 import Link from "next/link";
-
-interface Grade {
-  grade_id: number;
-  name: string;
-  grade_group_id: number;
-  created_at: string;
-  updated_at: string;
-}
-
-interface GradeGroup {
-  grade_group_id: number;
-  name: string;
-  created_at: string;
-  updated_at: string;
-  grades: Grade[];
-}
+import { GradeGroup } from "../lib/types";
 
 const CustomTreeItem = styled(TreeItem)({
-  [`& .${treeItemClasses.iconContainer}`]: {
-    "& .close": {
-      opacity: 0.3,
-    },
+  [`& .${treeItemClasses.label}`]: {
+    fontSize: "1.1rem", // Increased font size
   },
 });
 
-export default function CustomIcons({
+export default function CustomMenu({
   gradeGroups,
 }: {
   gradeGroups: GradeGroup[];

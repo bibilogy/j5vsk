@@ -1,45 +1,7 @@
 import CustomIcon from "@/app/components/CustomIcon";
 import StudentList from "@/app/components/StudentList";
-import SubjectField from "@/app/components/SubjectField";
-import TeachersList from "@/app/components/TeachersList";
 import { Stack, Typography } from "@mui/material";
-
-interface Student {
-  enrollmentId: number;
-  studentId: number;
-  studentName: string;
-  isTestPending: boolean;
-}
-
-interface Course {
-  courseId: number;
-  subjectName: string;
-  subjectField: string;
-  subjectIcon: string;
-  gradeName: string;
-  teacherNames: string[];
-  students: Student[];
-}
-
-type SubjectType =
-  | "biology"
-  | "chemistry"
-  | "computer-science"
-  | "design"
-  | "engineering"
-  | "essential"
-  | "fine-arts"
-  | "geography"
-  | "history"
-  | "literature"
-  | "math"
-  | "music"
-  | "physics"
-  | "social"
-  | "sports"
-  | "talk-and-literature"
-  | "talk"
-  | "theater";
+import { Course, SubjectType } from "@/app/lib/types";
 
 export default async function StudentsPage({
   params,
@@ -49,9 +11,9 @@ export default async function StudentsPage({
   const { slug } = await params;
 
   const [gradeId, courseId] = slug;
-
+  const apiUrl = process.env.API_ENDPOINT;
   const request = await fetch(
-    `http://localhost:3000/v4/students-by-course?grade_id=${gradeId}&course_id=${courseId}`
+    `${apiUrl}/v4/students-by-course?grade_id=${gradeId}&course_id=${courseId}`
   );
   const response: Course = await request.json();
 

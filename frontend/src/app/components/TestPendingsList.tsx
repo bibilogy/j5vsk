@@ -14,13 +14,7 @@ import {
 import { styled } from "@mui/material";
 import { Button } from "@mui/material";
 import * as XLSX from "xlsx";
-
-type TestPending = {
-  enrollmentId: number;
-  studentName: string;
-  gradeName: string;
-  subjectName: string;
-};
+import { TestPending } from "../lib/types";
 
 const StyledGridOverlay = styled("div")(({ theme }) => ({
   display: "flex",

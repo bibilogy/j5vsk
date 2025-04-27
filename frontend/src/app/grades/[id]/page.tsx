@@ -1,17 +1,7 @@
 import React from "react";
 import SubjectCard from "../../components/SubjectCard";
 import { Grid, Stack } from "@mui/material";
-
-interface Subject {
-  courseId: number;
-  gradeId: number;
-  gradeName: string;
-  subjectName: string;
-  subjectField: string;
-  icon: string;
-  teacherNames: string[];
-  enrollmentCount: number;
-}
+import { Subject } from "@/app/lib/types";
 
 export default async function GradeSubjects({
   params,
@@ -19,9 +9,8 @@ export default async function GradeSubjects({
   params: Promise<{ id: number }>;
 }) {
   const grade = await params;
-  const response = await fetch(
-    `http://localhost:3000/v4/subjects?grade_id=${grade.id}`
-  );
+  const apiUrl = process.env.API_ENDPOINT;
+  const response = await fetch(`${apiUrl}/v4/subjects?grade_id=${grade.id}`);
   const subjects = await response.json();
   const gradeName = (subjects as Subject[])[0].gradeName;
 

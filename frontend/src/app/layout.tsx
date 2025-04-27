@@ -4,8 +4,7 @@ import "./globals.css";
 import ResponsiveAppBar from "./components/ResponsiveAppBar";
 import Stack from "@mui/material/Stack";
 import { Container, Typography } from "@mui/material";
-import CustomIcons from "./components/CustomMenu";
-import buttons from "../../public/buttons.svg";
+import CustomMenu from "./components/CustomMenu";
 
 const robotoSans = Roboto({
   variable: "--font-roboto-sans",
@@ -13,22 +12,6 @@ const robotoSans = Roboto({
   weight: ["400", "700"],
   display: "swap",
 });
-
-interface Grade {
-  grade_id: number;
-  name: string;
-  grade_group_id: number;
-  created_at: string;
-  updated_at: string;
-}
-
-interface GradeGroup {
-  grade_group_id: number;
-  name: string;
-  created_at: string;
-  updated_at: string;
-  grades: Grade[];
-}
 
 export const metadata: Metadata = {
   title: "Gada pārbaudījumi",
@@ -42,7 +25,8 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const fetchedGrades = await fetch("http://localhost:3000/v4/grades");
+  const apiUrl = process.env.API_ENDPOINT;
+  const fetchedGrades = await fetch(`${apiUrl}/v4/grades`);
   const gradeGroups = await fetchedGrades.json();
 
   return (
@@ -117,9 +101,7 @@ export default async function RootLayout({
                     overflowX: "hidden",
                   }}
                 >
-                  <CustomIcons
-                    gradeGroups={gradeGroups.gradeGroupsWithGrades}
-                  />
+                  <CustomMenu gradeGroups={gradeGroups.gradeGroupsWithGrades} />
                 </nav>
               </Stack>
 

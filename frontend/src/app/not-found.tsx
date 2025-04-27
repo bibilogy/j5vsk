@@ -8,7 +8,7 @@ export default function Custom404() {
       sx={{
         justifyContent: "center",
         alignItems: "center",
-        minHeight: "100vh",
+        maxHeight: "100%",
         textAlign: "center",
       }}
     >

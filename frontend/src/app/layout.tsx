@@ -5,6 +5,7 @@ import ResponsiveAppBar from "./components/ResponsiveAppBar";
 import Stack from "@mui/material/Stack";
 import { Container, Typography } from "@mui/material";
 import CustomMenu from "./components/CustomMenu";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const robotoSans = Roboto({
   variable: "--font-roboto-sans",
@@ -35,6 +36,7 @@ export default async function RootLayout({
   return (
     <html lang="lv" className={robotoSans.variable}>
       <body>
+        <SpeedInsights />
         <ResponsiveAppBar />
         <main>
           <Container className="main-container" maxWidth="lg" disableGutters>

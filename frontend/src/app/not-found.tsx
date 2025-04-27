@@ -16,7 +16,7 @@ export default function Custom404() {
         404
       </Typography>
       <Typography variant="h6" color="textSecondary">
-        Oops! The page you're looking for doesn't exist.
+        Ops! Lapa, kuru meklējat, neeksistē.
       </Typography>
     </Stack>
   );

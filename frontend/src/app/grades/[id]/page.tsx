@@ -15,14 +15,13 @@ export default function GradeSubjects({
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const apiUrl = process.env.NEXT_PUBLIC_API_ENDPOINT;
 
-  // Ensure useRouter() runs only on the client side
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const grade = await params; // Get grade from the params
+        const grade = await params;
         const response = await fetch(`${apiUrl}/subjects?grade_id=${grade.id}`);
         if (!response.ok) {
-          notFound(); // Set noDataFound state if the response is not ok
+          notFound();
         } else {
           const subjects = await response.json();
           setSubjects(subjects);
@@ -30,7 +29,7 @@ export default function GradeSubjects({
       } catch (error) {
         console.error("Error fetching subjects data:", error);
       } finally {
-        setIsLoading(false); // Always stop loading when the request finishes
+        setIsLoading(false);
       }
     };
 
@@ -87,8 +86,10 @@ export default function GradeSubjects({
         <Grid
           container
           spacing={4}
-          justifyContent="flex-start"
-          alignItems="center"
+          sx={{
+            justifyContent: { xs: "center", lg: "flex-start" },
+            alignItems: "center",
+          }}
         >
           {subjects?.map((subject: Subject) => (
             <Grid key={subject.courseId}>

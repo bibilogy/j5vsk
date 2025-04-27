@@ -12,7 +12,7 @@ export default function Home() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`${apiUrl}/v4/pending-tests`);
+        const response = await fetch(`${apiUrl}/pending-tests`);
         const tests = await response.json();
         setTests(tests);
       } catch (error) {

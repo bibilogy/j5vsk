@@ -22,7 +22,7 @@ export default function StudentsPage({
         const { slug } = await params;
         const [gradeId, courseId] = slug;
         const response = await fetch(
-          `${apiUrl}/v4/students-by-course?grade_id=${gradeId}&course_id=${courseId}`
+          `${apiUrl}/students-by-course?grade_id=${gradeId}&course_id=${courseId}`
         );
 
         if (!response.ok) {

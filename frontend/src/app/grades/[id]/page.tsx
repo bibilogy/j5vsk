@@ -20,9 +20,7 @@ export default function GradeSubjects({
     const fetchData = async () => {
       try {
         const grade = await params; // Get grade from the params
-        const response = await fetch(
-          `${apiUrl}/v4/subjects?grade_id=${grade.id}`
-        );
+        const response = await fetch(`${apiUrl}/subjects?grade_id=${grade.id}`);
         if (!response.ok) {
           notFound(); // Set noDataFound state if the response is not ok
         } else {

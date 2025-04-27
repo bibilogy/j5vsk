@@ -26,7 +26,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const apiUrl = process.env.NEXT_PUBLIC_API_ENDPOINT;
-  const fetchedGrades = await fetch(`${apiUrl}/v4/grades`);
+  const fetchedGrades = await fetch(`${apiUrl}/grades`);
   const gradeGroups = await fetchedGrades.json();
 
   return (

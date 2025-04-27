@@ -12,10 +12,11 @@ const nextConfig: NextConfig = {
       },
     };
 
-    // No need for custom SVG rules if using native SVG import or SVG as components manually
-
     return config;
   },
+  allowedDevOrigins: [
+    "http://192.168.8.183:3000", // 👈 Add your IP here
+  ],
 };
 
 export default nextConfig;

@@ -25,7 +25,7 @@ export default function StudentList({
     setIsOpen(true);
     try {
       const apiUrl = process.env.NEXT_PUBLIC_API_ENDPOINT;
-      await fetch(`${apiUrl}/v4/update-test-pending`, {
+      await fetch(`${apiUrl}/update-test-pending`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",

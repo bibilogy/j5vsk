@@ -54,12 +54,16 @@ export default async function RootLayout({
         <link rel="manifest" href="/icons/site.webmanifest" />
       </head>
       <body>
-        <ResponsiveAppBar />
+        <ResponsiveAppBar
+          gradeGroups={gradeGroups?.gradeGroupsWithGrades || []}
+        />
+
         <main>
           <Container className="main-container" maxWidth="lg" disableGutters>
             <Stack
               sx={{
-                padding: "10px 20px 10px 10px",
+                display: { xs: "none", md: "block" },
+                padding: { xs: "0", md: "10px 20px 10px 10px" },
                 borderRadius: "10px 10px 0 0",
                 backgroundColor: { xs: "transparent", md: "#eee" },
                 boxShadow: {
@@ -75,7 +79,6 @@ export default async function RootLayout({
               <Typography
                 variant="h6"
                 sx={{
-                  display: { xs: "none", md: "block" },
                   flex: 1,
                   textAlign: "center",
                   textTransform: "uppercase",

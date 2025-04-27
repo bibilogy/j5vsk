@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Stack, Typography } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 
 export default function Custom404() {
   return (
@@ -8,7 +8,7 @@ export default function Custom404() {
       sx={{
         justifyContent: "center",
         alignItems: "center",
-        maxHeight: "100%",
+        minHeight: "100vh",
         textAlign: "center",
       }}
     >

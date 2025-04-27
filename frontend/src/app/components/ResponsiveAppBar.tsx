@@ -52,6 +52,7 @@ function ResponsiveAppBar() {
           <Stack
             direction="row"
             alignItems="center"
+            justifyContent="center"
             gap={1}
             sx={{ display: { xs: "none", lg: "flex" } }}
           >

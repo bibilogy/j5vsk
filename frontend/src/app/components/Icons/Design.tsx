@@ -13,37 +13,39 @@ const Design: React.FC<{ size?: number }> = ({
     xmlSpace="preserve"
     height={`${size}px`}
     width={`${size}px`}
+    aria-hidden="true"
+    focusable="false"
   >
-    <circle style={{ fill: "#324A5E" }} cx="253" cy="253" r="253" />
+    <circle fill="#324A5E" cx="253" cy="253" r="253" />
     <polygon
-      style={{ fill: "#FF7058" }}
+      fill="#FF7058"
       points="166.7,156.3 156.3,166.7 145.8,177.2 338.7,370.1 349.2,359.7 359.7,349.2 370.1,338.7 177.2,145.8"
     />
     <path
-      style={{ fill: "#FFFFFF" }}
+      fill="#FFFFFF"
       d="M359.6,349.1l-10.5,10.5l-10.5,10.5l23.5,6.7c1.1-1.9,2.4-3.7,4-5.5c0.8-0.9,1.6-1.9,2.5-2.8 s1.8-1.7,2.8-2.5c1.8-1.5,3.6-2.9,5.5-4l-6.7-23.5L359.6,349.1z"
     />
     <path
-      style={{ fill: "#84DBFF" }}
+      fill="#84DBFF"
       d="M164.2,132.8c-4.6-4.6-11.9-4.6-16.5,0l-14.9,14.9c-4.6,4.6-4.6,11.9,0,16.5l13,13l31.4-31.4 L164.2,132.8z"
     />
     <rect
       x="143.407"
       y="157.645"
       transform="matrix(-0.7071 0.7071 -0.7071 -0.7071 399.8723 165.7582)"
-      style={{ fill: "#E6E9EE" }}
+      fill="#E6E9EE"
       width="44.4"
       height="16.1"
     />
     <path
-      style={{ fill: "#2B3B4E" }}
+      fill="#2B3B4E"
       d="M376.8,362.1c-1.9,1.1-3.7,2.4-5.5,4c-0.9,0.8-1.9,1.6-2.8,2.5s-1.7,1.8-2.5,2.8 c-1.5,1.8-2.9,3.6-4,5.5l15.3,3.7c1.9,0.5,3.6-1.2,3.1-3.1L376.8,362.1z"
     />
     <rect
       x="81.882"
       y="209.965"
       transform="matrix(-0.7071 0.7071 -0.7071 -0.7071 610.8232 252.9181)"
-      style={{ fill: "#FFD05B" }}
+      fill="#FFD05B"
       width="342.297"
       height="85.999"
     />
@@ -53,7 +55,7 @@ const Design: React.FC<{ size?: number }> = ({
       x="322.482"
       y="123.878"
       transform="matrix(-0.7071 -0.7071 0.7071 -0.7071 473.5788 447.3196)"
-      style={{ fill: "#F9B54C" }}
+      fill="#F9B54C"
       width="13.9"
       height="3.4"
     />
@@ -61,7 +63,7 @@ const Design: React.FC<{ size?: number }> = ({
       x="314.185"
       y="132.188"
       transform="matrix(-0.7071 -0.7071 0.7071 -0.7071 453.5374 455.6382)"
-      style={{ fill: "#F9B54C" }}
+      fill="#F9B54C"
       width="13.9"
       height="3.4"
     />
@@ -69,7 +71,7 @@ const Design: React.FC<{ size?: number }> = ({
       x="305.887"
       y="140.498"
       transform="matrix(-0.7071 -0.7071 0.7071 -0.7071 433.496 463.9568)"
-      style={{ fill: "#F9B54C" }}
+      fill="#F9B54C"
       width="13.9"
       height="3.4"
     />
@@ -77,7 +79,7 @@ const Design: React.FC<{ size?: number }> = ({
       x="297.589"
       y="148.798"
       transform="matrix(-0.7071 -0.7071 0.7071 -0.7071 413.4617 472.2583)"
-      style={{ fill: "#F9B54C" }}
+      fill="#F9B54C"
       width="13.9"
       height="3.4"
     />
@@ -85,7 +87,7 @@ const Design: React.FC<{ size?: number }> = ({
       x="287.6"
       y="161.055"
       transform="matrix(-0.7071 -0.7071 0.7071 -0.7071 397.3036 490.0776)"
-      style={{ fill: "#F9B54C" }}
+      fill="#F9B54C"
       width="25.1"
       height="3.4"
     />
@@ -93,7 +95,7 @@ const Design: React.FC<{ size?: number }> = ({
       x="281.003"
       y="165.418"
       transform="matrix(-0.7071 -0.7071 0.7071 -0.7071 373.396 488.9026)"
-      style={{ fill: "#F9B54C" }}
+      fill="#F9B54C"
       width="13.9"
       height="3.4"
     />
@@ -101,7 +103,7 @@ const Design: React.FC<{ size?: number }> = ({
       x="272.705"
       y="173.728"
       transform="matrix(-0.7071 -0.7071 0.7071 -0.7071 353.3546 497.2212)"
-      style={{ fill: "#F9B54C" }}
+      fill="#F9B54C"
       width="13.9"
       height="3.4"
     />
@@ -109,7 +111,7 @@ const Design: React.FC<{ size?: number }> = ({
       x="264.407"
       y="182.028"
       transform="matrix(-0.7071 -0.7071 0.7071 -0.7071 333.3203 505.5226)"
-      style={{ fill: "#F9B54C" }}
+      fill="#F9B54C"
       width="13.9"
       height="3.4"
     />
@@ -117,7 +119,7 @@ const Design: React.FC<{ size?: number }> = ({
       x="256.11"
       y="190.338"
       transform="matrix(-0.7071 -0.7071 0.7071 -0.7071 313.2789 513.8412)"
-      style={{ fill: "#F9B54C" }}
+      fill="#F9B54C"
       width="13.9"
       height="3.4"
     />
@@ -125,7 +127,7 @@ const Design: React.FC<{ size?: number }> = ({
       x="246.111"
       y="202.585"
       transform="matrix(-0.7071 -0.7071 0.7071 -0.7071 297.1107 531.6364)"
-      style={{ fill: "#F9B54C" }}
+      fill="#F9B54C"
       width="25.1"
       height="3.4"
     />
@@ -133,7 +135,7 @@ const Design: React.FC<{ size?: number }> = ({
       x="239.443"
       y="206.878"
       transform="matrix(-0.7071 -0.7071 0.7071 -0.7071 273.1325 530.2906)"
-      style={{ fill: "#F9B54C" }}
+      fill="#F9B54C"
       width="13.9"
       height="3.4"
     />
@@ -141,7 +143,7 @@ const Design: React.FC<{ size?: number }> = ({
       x="231.075"
       y="215.258"
       transform="matrix(-0.7071 -0.7071 0.7071 -0.7071 252.9204 538.6799)"
-      style={{ fill: "#F9B54C" }}
+      fill="#F9B54C"
       width="13.9"
       height="3.4"
     />
@@ -149,7 +151,7 @@ const Design: React.FC<{ size?: number }> = ({
       x="222.777"
       y="223.568"
       transform="matrix(-0.7071 -0.7071 0.7071 -0.7071 232.879 546.9985)"
-      style={{ fill: "#F9B54C" }}
+      fill="#F9B54C"
       width="13.9"
       height="3.4"
     />
@@ -157,7 +159,7 @@ const Design: React.FC<{ size?: number }> = ({
       x="214.479"
       y="231.878"
       transform="matrix(-0.7071 -0.7071 0.7071 -0.7071 212.8376 555.3171)"
-      style={{ fill: "#F9B54C" }}
+      fill="#F9B54C"
       width="13.9"
       height="3.4"
     />
@@ -165,7 +167,7 @@ const Design: React.FC<{ size?: number }> = ({
       x="204.632"
       y="244.125"
       transform="matrix(-0.7071 -0.7071 0.7071 -0.7071 196.928 573.2193)"
-      style={{ fill: "#F9B54C" }}
+      fill="#F9B54C"
       width="25.1"
       height="3.4"
     />
@@ -173,7 +175,7 @@ const Design: React.FC<{ size?: number }> = ({
       x="197.893"
       y="248.489"
       transform="matrix(-0.7071 -0.7071 0.7071 -0.7071 172.7783 571.946)"
-      style={{ fill: "#F9B54C" }}
+      fill="#F9B54C"
       width="13.9"
       height="3.4"
     />
@@ -181,7 +183,7 @@ const Design: React.FC<{ size?: number }> = ({
       x="189.595"
       y="256.798"
       transform="matrix(-0.7071 -0.7071 0.7071 -0.7071 152.7376 580.2629)"
-      style={{ fill: "#F9B54C" }}
+      fill="#F9B54C"
       width="13.9"
       height="3.4"
     />
@@ -189,7 +191,7 @@ const Design: React.FC<{ size?: number }> = ({
       x="181.297"
       y="265.108"
       transform="matrix(-0.7071 -0.7071 0.7071 -0.7071 132.6962 588.5814)"
-      style={{ fill: "#F9B54C" }}
+      fill="#F9B54C"
       width="13.9"
       height="3.4"
     />
@@ -197,7 +199,7 @@ const Design: React.FC<{ size?: number }> = ({
       x="173"
       y="273.412"
       transform="matrix(-0.7071 -0.7071 0.7071 -0.7071 112.659 596.8898)"
-      style={{ fill: "#F9B54C" }}
+      fill="#F9B54C"
       width="13.9"
       height="3.4"
     />
@@ -205,7 +207,7 @@ const Design: React.FC<{ size?: number }> = ({
       x="163.001"
       y="285.665"
       transform="matrix(-0.7071 -0.7071 0.7071 -0.7071 96.4867 614.6952)"
-      style={{ fill: "#F9B54C" }}
+      fill="#F9B54C"
       width="25.1"
       height="3.4"
     />
@@ -213,7 +215,7 @@ const Design: React.FC<{ size?: number }> = ({
       x="156.404"
       y="290.028"
       transform="matrix(-0.7071 -0.7071 0.7071 -0.7071 72.5791 613.5201)"
-      style={{ fill: "#F9B54C" }}
+      fill="#F9B54C"
       width="13.9"
       height="3.4"
     />
@@ -221,7 +223,7 @@ const Design: React.FC<{ size?: number }> = ({
       x="148.106"
       y="298.333"
       transform="matrix(-0.7071 -0.7071 0.7071 -0.7071 52.5412 621.8301)"
-      style={{ fill: "#F9B54C" }}
+      fill="#F9B54C"
       width="13.9"
       height="3.4"
     />
@@ -229,7 +231,7 @@ const Design: React.FC<{ size?: number }> = ({
       x="139.808"
       y="306.64"
       transform="matrix(-0.7071 -0.7071 0.7071 -0.7071 32.5019 630.1436)"
-      style={{ fill: "#F9B54C" }}
+      fill="#F9B54C"
       width="13.9"
       height="3.4"
     />
@@ -237,7 +239,7 @@ const Design: React.FC<{ size?: number }> = ({
       x="129.82"
       y="318.885"
       transform="matrix(-0.7071 -0.7071 0.7071 -0.7071 16.3523 647.9424)"
-      style={{ fill: "#F9B54C" }}
+      fill="#F9B54C"
       width="25.1"
       height="3.4"
     />
@@ -245,7 +247,7 @@ const Design: React.FC<{ size?: number }> = ({
       x="123.152"
       y="323.185"
       transform="matrix(-0.7071 -0.7071 0.7071 -0.7071 -7.6309 646.6086)"
-      style={{ fill: "#F9B54C" }}
+      fill="#F9B54C"
       width="13.9"
       height="3.4"
     />
@@ -253,7 +255,7 @@ const Design: React.FC<{ size?: number }> = ({
       x="114.783"
       y="331.562"
       transform="matrix(-0.7071 -0.7071 0.7071 -0.7071 -27.8409 654.9928)"
-      style={{ fill: "#F9B54C" }}
+      fill="#F9B54C"
       width="13.9"
       height="3.4"
     />
@@ -261,7 +263,7 @@ const Design: React.FC<{ size?: number }> = ({
       x="106.485"
       y="339.871"
       transform="matrix(-0.7071 -0.7071 0.7071 -0.7071 -47.8816 663.3097)"
-      style={{ fill: "#F9B54C" }}
+      fill="#F9B54C"
       width="13.9"
       height="3.4"
     />
@@ -269,7 +271,7 @@ const Design: React.FC<{ size?: number }> = ({
       x="231.993"
       y="136.452"
       transform="matrix(-0.7071 -0.7071 0.7071 -0.7071 215.2554 626.5628)"
-      style={{ fill: "#F9B54C" }}
+      fill="#F9B54C"
       width="10.8"
       height="264.497"
     />

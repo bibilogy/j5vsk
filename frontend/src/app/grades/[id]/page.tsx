@@ -1,7 +1,7 @@
-"use client"; // Mark the file as client-side
+"use client";
 
 import React, { useEffect, useState } from "react";
-import { notFound } from "next/navigation"; // Use next/navigation for Next 13+
+import { notFound } from "next/navigation";
 import SubjectCard from "../../components/SubjectCard";
 import { Grid, Skeleton, Stack, Typography } from "@mui/material";
 import { Subject } from "@/app/lib/types";
@@ -23,8 +23,8 @@ export default function GradeSubjects({
         if (!response.ok) {
           notFound();
         } else {
-          const subjects = await response.json();
-          setSubjects(subjects);
+          const data = await response.json();
+          setSubjects(data);
         }
       } catch (error) {
         console.error("Error fetching subjects data:", error);
@@ -36,20 +36,7 @@ export default function GradeSubjects({
     fetchData();
   }, [params, apiUrl]);
 
-  if (isLoading) {
-    return (
-      <Stack width="100%" height="100%">
-        <Skeleton
-          animation="wave"
-          variant="rectangular"
-          width="100%"
-          height="100%"
-        />
-      </Stack>
-    );
-  }
-
-  if (!subjects) {
+  if (!subjects && !isLoading) {
     return (
       <Stack
         sx={{
@@ -67,37 +54,55 @@ export default function GradeSubjects({
     );
   }
 
-  // Render the subjects when data is loaded
   return (
-    <>
-      <Stack sx={{ padding: "0 20px" }}>
-        <Stack
+    <Stack sx={{ padding: "0 20px" }}>
+      {/* Grade name or Skeleton */}
+      <Stack
+        sx={{
+          height: 40,
+          display: "flex",
+          alignItems: "flex-start",
+          marginBottom: "15px",
+        }}
+      >
+        <Typography
+          variant="h6"
           sx={{
-            textAlign: { xs: "center", lg: "left" },
-            fontWeight: "700",
+            fontWeight: 700,
             fontSize: "1.2rem",
             textTransform: "uppercase",
-            marginBottom: "15px",
           }}
         >
-          {subjects[0]?.gradeName} {/* Display the grade name */}
-        </Stack>
-
-        <Grid
-          container
-          spacing={4}
-          sx={{
-            justifyContent: { xs: "center", lg: "flex-start" },
-            alignItems: "center",
-          }}
-        >
-          {subjects?.map((subject: Subject) => (
-            <Grid key={subject.courseId}>
-              <SubjectCard subject={subject} />
-            </Grid>
-          ))}
-        </Grid>
+          {isLoading ? null : subjects?.[0]?.gradeName}
+        </Typography>
       </Stack>
-    </>
+
+      {/* Grid: Always present, conditional content */}
+      <Grid
+        container
+        spacing={4}
+        sx={{
+          justifyContent: { xs: "center", lg: "flex-start" },
+          alignItems: "center",
+        }}
+      >
+        {isLoading
+          ? [...Array(12)].map((_, index) => (
+              <Grid key={index}>
+                <Skeleton
+                  animation="wave"
+                  variant="rectangular"
+                  width={280}
+                  height={150}
+                />
+              </Grid>
+            ))
+          : subjects?.map((subject) => (
+              <Grid key={subject.courseId}>
+                <SubjectCard subject={subject} />
+              </Grid>
+            ))}
+      </Grid>
+    </Stack>
   );
 }

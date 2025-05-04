@@ -61,7 +61,7 @@ export default function GradeSubjects({
         sx={{
           height: 40,
           display: "flex",
-          alignItems: "flex-start",
+          alignItems: { xs: "center", lg: "flex-start" },
           marginBottom: "15px",
         }}
       >

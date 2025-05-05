@@ -1,4 +1,7 @@
+"use client";
+
 import React from "react";
+import Link from "next/link";
 import { TestPending } from "../lib/types";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
@@ -23,25 +26,38 @@ export default function MobilePendingsList({
         >
           {testsPending.map((student) => (
             <React.Fragment key={student.enrollmentId}>
-              <ListItem alignItems="flex-start">
-                <ListItemAvatar>
-                  <Avatar>
-                    <AssignmentIcon />
-                  </Avatar>
-                </ListItemAvatar>
-                <ListItemText
-                  primary={`${student.studentName} (${student.gradeName})`}
-                  secondary={
-                    <Typography
-                      component="span"
-                      variant="body2"
-                      sx={{ color: "text.primary", display: "inline" }}
-                    >
-                      {student.subjectName}
-                    </Typography>
-                  }
-                />
-              </ListItem>
+              <Link
+                href={`/students/${student.gradeId}/${student.courseId}`}
+                style={{ textDecoration: "none", color: "inherit" }}
+              >
+                <ListItem
+                  alignItems="flex-start"
+                  sx={{
+                    "&:hover": {
+                      backgroundColor: "#f5f5f5",
+                      cursor: "pointer",
+                    },
+                  }}
+                >
+                  <ListItemAvatar>
+                    <Avatar>
+                      <AssignmentIcon />
+                    </Avatar>
+                  </ListItemAvatar>
+                  <ListItemText
+                    primary={`${student.studentName} (${student.gradeName})`}
+                    secondary={
+                      <Typography
+                        component="span"
+                        variant="body2"
+                        sx={{ color: "text.primary", display: "inline" }}
+                      >
+                        {student.subjectName}
+                      </Typography>
+                    }
+                  />
+                </ListItem>
+              </Link>
               <Divider variant="inset" component="li" />
             </React.Fragment>
           ))}

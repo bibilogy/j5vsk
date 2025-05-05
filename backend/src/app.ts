@@ -22,7 +22,7 @@ app.use((req, res, next) => {
 });
 
 // Your routes after logging
-app.use("/v4", dataRouter);
+app.use("/", dataRouter);
 
 const port = process.env.PORT || 3000;
 

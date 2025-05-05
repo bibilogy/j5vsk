@@ -59,7 +59,9 @@ export type SubjectType =
 
 export type TestPending = {
   enrollmentId: number;
+  courseId: number;
   studentName: string;
+  gradeId: number;
   gradeName: string;
   subjectName: string;
   subjectField: string;

@@ -2,8 +2,8 @@
 
 import * as React from "react";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
 import {
   DataGrid,
   GridColDef,
@@ -111,12 +111,17 @@ export default function TestPendingsList({
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  const router = useRouter();
+
+  const handleRowClick = (params: any) => {
+    const { gradeId, courseId } = params.row;
+    router.push(`/students/${gradeId}/${courseId}`);
+  };
+
   const rows = testsPending.map((testPending) => ({
+    ...testPending,
     id: testPending.enrollmentId,
-    studentName: testPending.studentName,
     gradeName: testPending.gradeName.replace(" klase", ""),
-    subjectName: testPending.subjectName,
-    subjectField: testPending.subjectField,
   }));
 
   const columns: GridColDef[] = [
@@ -234,6 +239,13 @@ export default function TestPendingsList({
               disabled={rows.length === 0}
             />
           ),
+        }}
+        onRowClick={handleRowClick}
+        sx={{
+          "& .MuiDataGrid-row:hover": {
+            cursor: "pointer",
+            backgroundColor: "#f5f5f5", // Optional: light hover effect
+          },
         }}
       />
     </Box>

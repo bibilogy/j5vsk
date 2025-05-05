@@ -269,7 +269,9 @@ router.get(
 
       const response = pendingEnrollments.map((enrollment) => ({
         enrollmentId: enrollment.enrollment_id,
+        courseId: enrollment.courses.course_id,
         studentName: enrollment.students.name,
+        gradeId: enrollment.students.grades.grade_id,
         gradeName: enrollment.students.grades.name,
         subjectName: enrollment.courses.subjects.name,
         subjectField:

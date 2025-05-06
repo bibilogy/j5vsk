@@ -643,7 +643,7 @@ INSERT INTO subjects(name, field, icon) VALUES('Ķīmija I','Dabaszinātnes','ch
 INSERT INTO subjects(name, field, icon) VALUES('Latviešu valoda I','Valodas','talk');
 INSERT INTO subjects(name, field, icon) VALUES('Literatūra I','Kultūras izpratne un pašizpausme mākslā','literature');
 INSERT INTO subjects(name, field, icon) VALUES('Matemātika I','Matemātika','math');
-INSERT INTO subjects(name, field, icon) VALUES('Sociālās zinātnes I','Sociālā un pilsoniskā','social');
+INSERT INTO subjects(name, field, icon) VALUES('Sociālās zinātnes I','Sociālā un pilsoniskā','history-and-social');
 INSERT INTO subjects(name, field, icon) VALUES('Vēsture I','Sociālā un pilsoniskā','history');
 INSERT INTO subjects(name, field, icon) VALUES('Vēsture un sociālās zinātnes I','Sociālā un pilsoniskā','history-and-social');
 INSERT INTO subjects(name, field, icon) VALUES('Angļu valoda II','Valodas','talk');

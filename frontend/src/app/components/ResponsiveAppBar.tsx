@@ -71,11 +71,18 @@ function ResponsiveAppBar({ gradeGroups }: { gradeGroups: GradeGroup[] }) {
             <Stack
               direction="row"
               alignItems="center"
-              justifyContent="center"
+              justifyContent="space-between"
               gap={1}
-              sx={{ display: { xs: "none", lg: "flex" } }}
+              sx={{
+                display: { xs: "none", lg: "flex" },
+                paddingBottom: "2px",
+                borderBottom: "1px solid white",
+              }}
             >
-              <Link href="/">
+              <Link
+                href="/"
+                style={{ display: "flex", flexDirection: "row", gap: "5px" }}
+              >
                 <Typography
                   sx={{
                     color: "white",
@@ -85,8 +92,8 @@ function ResponsiveAppBar({ gradeGroups }: { gradeGroups: GradeGroup[] }) {
                 >
                   KPD reģistrs
                 </Typography>
+                <LaunchIcon sx={{ color: "white" }} />
               </Link>
-              <LaunchIcon sx={{ color: "white" }} />
             </Stack>
           </Toolbar>
         </Container>

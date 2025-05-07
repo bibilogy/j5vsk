@@ -76,7 +76,7 @@ function ResponsiveAppBar({ gradeGroups }: { gradeGroups: GradeGroup[] }) {
               sx={{
                 display: { xs: "none", lg: "flex" },
                 paddingBottom: "2px",
-                borderBottom: "1px solid white",
+                "&:hover": { borderBottom: "1px solid white" },
               }}
             >
               <Link

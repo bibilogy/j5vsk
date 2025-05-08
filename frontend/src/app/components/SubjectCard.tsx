@@ -77,7 +77,7 @@ export default function SubjectCard({ subject }: { subject: Subject }) {
             color: "#1976d2",
             textTransform: "uppercase",
           }}
-          href={`/students/${subject.gradeId}/${subject.courseId}`}
+          href={`/klases/${subject.gradeId}/kursi/${subject.courseId}`}
         >
           Skatīt
         </Link>

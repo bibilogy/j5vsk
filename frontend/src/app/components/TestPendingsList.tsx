@@ -115,7 +115,7 @@ export default function TestPendingsList({
 
   const handleRowClick = (params: any) => {
     const { gradeId, courseId } = params.row;
-    router.push(`/students/${gradeId}/${courseId}`);
+    router.push(`/klases/${gradeId}/kursi/${courseId}`);
   };
 
   const rows = testsPending.map((testPending) => ({

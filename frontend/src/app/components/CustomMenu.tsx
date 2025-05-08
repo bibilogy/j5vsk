@@ -39,7 +39,7 @@ export default function CustomMenu({
             label={group.name}
           >
             {group.grades.map((grade) => (
-              <Link key={grade.grade_id} href={`/grades/${grade.grade_id}`}>
+              <Link key={grade.grade_id} href={`/klases/${grade.grade_id}`}>
                 <CustomTreeItem
                   key={`grade-${grade.grade_id}`}
                   itemId={`grade-${grade.grade_id}`}

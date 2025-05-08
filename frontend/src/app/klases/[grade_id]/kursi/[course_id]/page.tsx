@@ -3,24 +3,22 @@ import CustomIcon from "@/app/components/CustomIcon";
 import StudentList from "@/app/components/StudentList";
 import { Skeleton, Stack, Typography } from "@mui/material";
 import { Course, SubjectType } from "@/app/lib/types";
+import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { notFound } from "next/navigation";
 
-export default function StudentsPage({
-  params,
-}: {
-  params: Promise<{ slug: string[] }>;
-}) {
+export default function StudentsPage() {
   const [course, setCourse] = useState<Course | null>(null); // Ensure `null` state to handle missing data
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const apiUrl = process.env.NEXT_PUBLIC_API_ENDPOINT;
+  const params = useParams();
 
   // Use `useEffect` to handle the async logic
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { slug } = await params;
-        const [gradeId, courseId] = slug;
+        const gradeId = params.grade_id;
+        const courseId = params.course_id;
         const response = await fetch(
           `${apiUrl}/students-by-course?grade_id=${gradeId}&course_id=${courseId}`
         );

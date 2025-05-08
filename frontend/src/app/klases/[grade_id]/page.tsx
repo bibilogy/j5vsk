@@ -9,7 +9,7 @@ import { Subject } from "@/app/lib/types";
 export default function GradeSubjects({
   params,
 }: {
-  params: Promise<{ id: number }>;
+  params: Promise<{ grade_id: number }>;
 }) {
   const [subjects, setSubjects] = useState<Subject[] | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -19,7 +19,9 @@ export default function GradeSubjects({
     const fetchData = async () => {
       try {
         const grade = await params;
-        const response = await fetch(`${apiUrl}/subjects?grade_id=${grade.id}`);
+        const response = await fetch(
+          `${apiUrl}/subjects?grade_id=${grade.grade_id}`
+        );
         if (!response.ok) {
           notFound();
         } else {

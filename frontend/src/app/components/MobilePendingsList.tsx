@@ -27,7 +27,7 @@ export default function MobilePendingsList({
           {testsPending.map((student) => (
             <React.Fragment key={student.enrollmentId}>
               <Link
-                href={`/students/${student.gradeId}/${student.courseId}`}
+                href={`/klases/${student.gradeId}/kursi/${student.courseId}`}
                 style={{ textDecoration: "none", color: "inherit" }}
               >
                 <ListItem

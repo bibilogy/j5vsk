@@ -28,7 +28,7 @@ export default function MobileCustomMenu({
       </Link>
       {gradeGroups.map((group) =>
         group.grades.map((grade) => (
-          <Link key={grade.name} href={`/grades/${grade.grade_id}`}>
+          <Link key={grade.name} href={`/klases/${grade.grade_id}`}>
             <ListItem>
               <ListItemAvatar>
                 <Avatar>

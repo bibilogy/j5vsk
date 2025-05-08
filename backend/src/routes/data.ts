@@ -158,49 +158,47 @@ router.get(
         res
           .status(400)
           .json({ error: "Invalid or missing grade_id or course_id" });
-        return;
       }
 
+      // Fetch course with its related data
       const course = await prisma.courses.findUnique({
-        where: {
-          course_id: courseId,
-        },
+        where: { course_id: courseId },
         include: {
-          enrollments: {
-            include: {
-              students: {
-                include: {
-                  grades: true,
-                },
-              },
-            },
-          },
           subjects: true,
           teacher_assignments: {
-            include: {
-              teachers: true,
-            },
+            include: { teachers: true },
           },
         },
       });
 
       if (!course) {
         res.status(404).json({ error: "Course not found" });
-        return;
       }
 
+      // Fetch enrollments based on grade_id and course_id, making sure to include students and their grades
       const enrollments = await prisma.enrollments.findMany({
         where: {
           course_id: courseId,
           students: {
-            grade_id: gradeId,
+            grade_id: gradeId, // Ensure filtering by grade_id in the students relation
           },
         },
         include: {
-          students: true,
+          students: {
+            include: {
+              grades: true, // Include grades for each student
+            },
+          },
         },
       });
 
+      if (enrollments.length === 0) {
+        res.status(404).json({
+          error: "No students found for the given grade_id and course_id",
+        });
+      }
+
+      // Map the enrollments to the response format
       const studentsList = enrollments.map((enrollment) => ({
         enrollmentId: enrollment.enrollment_id,
         studentId: enrollment.students.student_id,
@@ -208,31 +206,39 @@ router.get(
         isTestPending: enrollment.is_test_pending,
       }));
 
-      const teacherNames = course.teacher_assignments.map(
+      // Get teacher names
+      const teacherNames = course?.teacher_assignments.map(
         (assignment) => assignment.teachers.name
       );
 
-      const subjectFieldRaw = course.subjects.field;
-      const readableSubjectField =
-        fieldNameMap[subjectFieldRaw] || subjectFieldRaw;
+      // Get subject details and readable field
+      const subjectFieldRaw = course?.subjects?.field;
 
-      // Extract grade name from the first student that has it
-      const firstStudentWithGrade = course.enrollments.find(
-        (e) => e.students?.grades?.name
-      );
-      const gradeName =
-        firstStudentWithGrade?.students?.grades?.name || "Unknown";
+      const readableSubjectField = subjectFieldRaw
+        ? fieldNameMap[subjectFieldRaw] || subjectFieldRaw
+        : "Unknown"; // Default value in case field is undefined
 
+      // Fetch grade name using grade_id
+      const grade = await prisma.grades.findUnique({
+        where: { grade_id: gradeId },
+      });
+
+      if (!grade) {
+        res.status(404).json({ error: "Grade not found" });
+      }
+
+      // Build the response object
       const response = {
-        courseId: course.course_id,
-        subjectName: course.subjects.name,
+        courseId: course?.course_id,
+        subjectName: course?.subjects.name,
         subjectField: readableSubjectField,
-        subjectIcon: course.subjects.icon,
-        gradeName: gradeName,
-        teacherNames: teacherNames.length ? teacherNames : ["Unassigned"],
+        subjectIcon: course?.subjects.icon,
+        gradeName: grade?.name,
+        teacherNames: teacherNames?.length ? teacherNames : ["Unassigned"],
         students: studentsList,
       };
 
+      // Send the response
       res.json(response);
     } catch (error) {
       next(error);

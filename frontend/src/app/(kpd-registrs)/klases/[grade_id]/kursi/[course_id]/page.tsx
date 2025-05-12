@@ -20,7 +20,7 @@ export default function StudentsPage() {
         const gradeId = params.grade_id;
         const courseId = params.course_id;
         const response = await fetch(
-          `${apiUrl}/students-by-course?grade_id=${gradeId}&course_id=${courseId}`
+          `${apiUrl}/kpd/students-by-course?grade_id=${gradeId}&course_id=${courseId}`
         );
 
         if (!response.ok) {

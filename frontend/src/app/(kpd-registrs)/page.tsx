@@ -1,7 +1,7 @@
 "use client";
-import TestPendingsList from "./components/TestPendingsList";
+import TestPendingsList from "../components/TestPendingsList";
 import { Skeleton } from "@mui/material";
-import { TestPending } from "./lib/types";
+import { TestPending } from "../lib/types";
 import { useEffect, useState } from "react";
 
 export default function Home() {
@@ -12,7 +12,7 @@ export default function Home() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`${apiUrl}/pending-tests`);
+        const response = await fetch(`${apiUrl}/kpd/pending-tests`);
         const tests = await response.json();
         setTests(tests);
       } catch (error) {

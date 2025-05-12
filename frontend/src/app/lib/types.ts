@@ -19,6 +19,12 @@ export interface GradeGroup {
   grades: Grade[];
 }
 
+export interface GradeGroupSubject {
+  grade_group_id: number;
+  name: string;
+  courses: { course_target_id: number; subject_name: string }[];
+}
+
 export interface Student {
   enrollmentId: number;
   studentId: number;
@@ -70,6 +76,19 @@ export type TestPending = {
   gradeName: string;
   subjectName: string;
   subjectField: string;
+};
+
+export type CourseSubject = {
+  courseTargetId: number;
+  subjectName: string;
+  subjectField: string;
+  gradeGroupName: string;
+};
+
+export type CourseTarget = CourseSubject & {
+  subjectIcon: string;
+  description: string;
+  target: string;
 };
 
 export interface Course {

@@ -1,7 +1,8 @@
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
-import dataRouter from "./routes/data";
+import kpdRouter from "./routes/kpd";
+import msrRouter from "./routes/msr";
 
 dotenv.config();
 
@@ -22,7 +23,8 @@ app.use((req, res, next) => {
 });
 
 // Your routes after logging
-app.use("/", dataRouter);
+app.use("/kpd", kpdRouter);
+app.use("/msr", msrRouter);
 
 const port = process.env.PORT || 3000;
 

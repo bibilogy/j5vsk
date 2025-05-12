@@ -59,12 +59,22 @@ CREATE TABLE subjects (
 CREATE INDEX idx_subject_name ON subjects(name);
 CREATE INDEX idx_subject_field ON subjects(field);
 
+CREATE TABLE course_targets (
+    course_target_id INT PRIMARY KEY AUTO_INCREMENT,
+    description VARCHAR(100) NOT NULL,
+    target TEXT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
 CREATE TABLE courses (
     course_id INT PRIMARY KEY AUTO_INCREMENT,
     subject_id INT NOT NULL,
+    course_target_id INT NULL,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (subject_id) REFERENCES subjects(subject_id)
+    FOREIGN KEY (subject_id) REFERENCES subjects(subject_id),
+    FOREIGN KEY (course_target_id) REFERENCES course_targets(course_target_id)
 );
 
 CREATE TABLE teacher_assignments (

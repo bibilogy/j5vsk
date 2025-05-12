@@ -7,12 +7,12 @@
     "dev": "ts-node src/app.ts",
     "build": "tsc",
     "start": "node dist/index.js",
-    "postinstall": "prisma generate --schema=/home/bibilogy/Documents/code/big-final-test/backend/prisma/schema.prisma"
+    "postinstall": "prisma generate --schema=/home/bibilogy/Documents/code/j5vsk/backend/prisma/schema.prisma"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "packageManager": "pnpm@10.8.1",
+  "packageManager": "pnpm@10.10.0",
   "dependencies": {
     "@prisma/client": "^6.6.0",
     "@types/express": "^5.0.1",

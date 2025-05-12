@@ -12,7 +12,8 @@ import MenuIcon from "@mui/icons-material/Menu";
 import MobileCustomMenu from "./MobileCustomMenu";
 import { GradeGroup } from "../lib/types"; // your GradeGroup type
 
-function ResponsiveAppBar({ gradeGroups }: { gradeGroups: GradeGroup[] }) {
+// function ResponsiveAppBar({ gradeGroups }: { gradeGroups: GradeGroup[] }) {
+function ResponsiveAppBar() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const toggleDrawer =
@@ -72,37 +73,76 @@ function ResponsiveAppBar({ gradeGroups }: { gradeGroups: GradeGroup[] }) {
               direction="row"
               alignItems="center"
               justifyContent="space-between"
-              gap={1}
+              gap={3}
               sx={{
                 display: { xs: "none", lg: "flex" },
                 paddingBottom: "2px",
-                "&:hover": { borderBottom: "1px solid white" },
               }}
             >
-              <Link
-                href="/"
-                style={{ display: "flex", flexDirection: "row", gap: "5px" }}
+              <Stack
+                direction="row"
+                alignItems="center"
+                justifyContent="space-between"
+                gap={1}
+                sx={{
+                  display: { xs: "none", lg: "flex" },
+                  paddingBottom: "2px",
+                  "&:hover": { borderBottom: "1px solid white" },
+                }}
               >
-                <Typography
-                  sx={{
-                    color: "white",
-                    fontSize: "1rem",
-                    textTransform: "uppercase",
-                  }}
+                <Link
+                  href="/"
+                  style={{ display: "flex", flexDirection: "row", gap: "5px" }}
                 >
-                  KPD reģistrs
-                </Typography>
-                <LaunchIcon sx={{ color: "white" }} />
-              </Link>
+                  <Typography
+                    sx={{
+                      color: "white",
+                      fontSize: "1rem",
+                      textTransform: "uppercase",
+                    }}
+                  >
+                    KPD reģistrs
+                  </Typography>
+                  <LaunchIcon sx={{ color: "white" }} />
+                </Link>
+              </Stack>
+
+              <Stack
+                direction="row"
+                alignItems="center"
+                justifyContent="space-between"
+                gap={1}
+                sx={{
+                  display: { xs: "none", lg: "flex" },
+                  paddingBottom: "2px",
+                  "&:hover": { borderBottom: "1px solid white" },
+                }}
+              >
+                <Link
+                  href="/sasniedzamie-rezultati"
+                  style={{ display: "flex", flexDirection: "row", gap: "5px" }}
+                >
+                  <Typography
+                    sx={{
+                      color: "white",
+                      fontSize: "1rem",
+                      textTransform: "uppercase",
+                    }}
+                  >
+                    SR reģistrs
+                  </Typography>
+                  <LaunchIcon sx={{ color: "white" }} />
+                </Link>
+              </Stack>
             </Stack>
           </Toolbar>
         </Container>
       </AppBar>
 
       {/* Drawer with MobileCustomMenu */}
-      <Drawer anchor="left" open={menuOpen} onClose={toggleDrawer(false)}>
+      {/* <Drawer anchor="left" open={menuOpen} onClose={toggleDrawer(false)}>
         <MobileCustomMenu gradeGroups={gradeGroups} />
-      </Drawer>
+      </Drawer> */}
     </>
   );
 }

@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { notFound } from "next/navigation";
-import SubjectCard from "../../components/SubjectCard";
+import SubjectCard from "@/app/components/SubjectCard";
 import { Grid, Skeleton, Stack, Typography } from "@mui/material";
 import { Subject } from "@/app/lib/types";
 
@@ -20,7 +20,7 @@ export default function GradeSubjects({
       try {
         const grade = await params;
         const response = await fetch(
-          `${apiUrl}/subjects?grade_id=${grade.grade_id}`
+          `${apiUrl}/kpd/subjects?grade_id=${grade.grade_id}`
         );
         if (!response.ok) {
           notFound();
@@ -37,7 +37,6 @@ export default function GradeSubjects({
 
     fetchData();
   }, [params, apiUrl]);
-
   if (!subjects && !isLoading) {
     return (
       <Stack
@@ -55,7 +54,6 @@ export default function GradeSubjects({
       </Stack>
     );
   }
-
   return (
     <Stack sx={{ padding: "0 20px" }}>
       {/* Grade name or Skeleton */}

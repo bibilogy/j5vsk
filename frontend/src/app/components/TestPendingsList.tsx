@@ -229,6 +229,23 @@ export default function TestPendingsList({
             count === 1
               ? `Ievēlēts ${count} ieraksts`
               : `Izvēlēti ${count} ieraksti`,
+          paginationDisplayedRows: ({ from, to, count, estimated }) => {
+            if (!estimated) {
+              return `${from}–${to} no ${
+                count !== -1 ? count : `more than ${to}`
+              }`;
+            }
+            const estimatedLabel =
+              estimated && estimated > to
+                ? `around ${estimated}`
+                : `more than ${to}`;
+            return `${from}–${to} no ${count !== -1 ? count : estimatedLabel}`;
+          },
+          columnMenuSortAsc: "Sakārtot no A uz Z",
+          columnMenuSortDesc: "Sakārtot no Z uz A",
+          columnMenuFilter: "Izveidot filtru",
+          columnMenuHideColumn: "Slēpt kolonnu",
+          columnMenuManageColumns: "Pārvaldīt kolonnas",
         }}
         pageSizeOptions={[50]}
         slots={{

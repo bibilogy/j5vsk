@@ -5,7 +5,7 @@ import Box from "@mui/material/Box";
 import AddBoxIcon from "@mui/icons-material/AddBox";
 import FolderIcon from "@mui/icons-material/Folder";
 import FolderOpenIcon from "@mui/icons-material/FolderOpen";
-import AssignmentIcon from "@mui/icons-material/Assignment";
+import NoteIcon from "@mui/icons-material/Note";
 import IndeterminateCheckBoxIcon from "@mui/icons-material/IndeterminateCheckBox";
 import SchoolIcon from "@mui/icons-material/School";
 import { styled } from "@mui/material/styles";
@@ -45,7 +45,7 @@ export default function CustomMenu({
           collapseIcon: isGradeGroup
             ? IndeterminateCheckBoxIcon
             : FolderOpenIcon,
-          endIcon: isGradeGroup ? SchoolIcon : AssignmentIcon,
+          endIcon: isGradeGroup ? SchoolIcon : NoteIcon,
         }}
       >
         {isGradeGroup

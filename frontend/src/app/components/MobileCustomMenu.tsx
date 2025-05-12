@@ -1,7 +1,7 @@
 import React from "react";
-import { CourseSubject, GradeGroup, GradeGroupSubject } from "../lib/types";
+import { GradeGroup, GradeGroupSubject } from "../lib/types";
 import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
+import AssignmentIcon from "@mui/icons-material/Assignment";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Avatar from "@mui/material/Avatar";
@@ -165,7 +165,7 @@ export default function MobileCustomMenu({
                     sx={{ pl: 4 }}
                   >
                     <ListItemIcon>
-                      <SchoolIcon />
+                      <AssignmentIcon />
                     </ListItemIcon>
                     <ListItemText primary={course.subject_name} />
                   </ListItemButton>

@@ -26,10 +26,12 @@ export default async function RootLayout({
 }>) {
   const apiUrl = process.env.NEXT_PUBLIC_API_ENDPOINT;
 
-  const fetchedGrades = await fetch(`${apiUrl}/kpd/grades`);
-  const gradeGroups = await fetchedGrades.json();
+  const [fetchedGrades, fetchedCourseSubjects] = await Promise.all([
+    fetch(`${apiUrl}/kpd/grades`),
+    fetch(`${apiUrl}/msr/grade-groups`),
+  ]);
 
-  const fetchedCourseSubjects = await fetch(`${apiUrl}/msr/grade-groups`);
+  const gradeGroups = await fetchedGrades.json();
   const courseSubjects = await fetchedCourseSubjects.json();
 
   return (

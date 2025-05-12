@@ -16,6 +16,7 @@ import { Button } from "@mui/material";
 import * as XLSX from "xlsx";
 import { CourseSubject } from "../lib/types";
 import MobilePendingsList from "./MobilePendingsList";
+import MobileCourseTargetsList from "./MobileCourseTargetsList";
 
 const StyledGridOverlay = styled("div")(({ theme }) => ({
   display: "flex",
@@ -130,6 +131,10 @@ export default function CoursesTargetsList({
       ),
     },
   ];
+
+  if (isSmallScreen) {
+    return <MobileCourseTargetsList courseSubjects={courseSubjects} />;
+  }
 
   return (
     <Box

@@ -140,9 +140,9 @@ function ResponsiveAppBar() {
       </AppBar>
 
       {/* Drawer with MobileCustomMenu */}
-      {/* <Drawer anchor="left" open={menuOpen} onClose={toggleDrawer(false)}>
-        <MobileCustomMenu gradeGroups={gradeGroups} />
-      </Drawer> */}
+      <Drawer anchor="left" open={menuOpen} onClose={toggleDrawer(false)}>
+        <MobileCustomMenu />
+      </Drawer>
     </>
   );
 }

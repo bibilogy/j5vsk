@@ -40,15 +40,15 @@ export default async function RootLayout({
         <Typography
           sx={{
             flex: 1,
-            textAlign: "left",
-            // textTransform: "uppercase",
+            textAlign: { xs: "center", lg: "left" },
+            textTransform: "uppercase",
             fontSize: "1rem",
             fontWeight: "700",
             paddingLeft: "15px",
             letterSpacing: { xs: "0.1rem", md: ".15rem" },
           }}
         >
-          Sasniedzamie rezultāti
+          SR reģistrs
         </Typography>
       </Stack>
 

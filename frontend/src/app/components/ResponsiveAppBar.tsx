@@ -10,10 +10,16 @@ import { IconButton, Stack, Drawer } from "@mui/material";
 import LaunchIcon from "@mui/icons-material/Launch";
 import MenuIcon from "@mui/icons-material/Menu";
 import MobileCustomMenu from "./MobileCustomMenu";
-import { GradeGroup } from "../lib/types"; // your GradeGroup type
+import { CourseSubject, GradeGroup, GradeGroupSubject } from "../lib/types"; // your GradeGroup type
 
 // function ResponsiveAppBar({ gradeGroups }: { gradeGroups: GradeGroup[] }) {
-function ResponsiveAppBar({ gradeGroups }: { gradeGroups: GradeGroup[] }) {
+function ResponsiveAppBar({
+  gradeGroups,
+  courseSubjects,
+}: {
+  gradeGroups: GradeGroup[];
+  courseSubjects: GradeGroupSubject[];
+}) {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const toggleDrawer =
@@ -141,7 +147,10 @@ function ResponsiveAppBar({ gradeGroups }: { gradeGroups: GradeGroup[] }) {
 
       {/* Drawer with MobileCustomMenu */}
       <Drawer anchor="left" open={menuOpen} onClose={toggleDrawer(false)}>
-        <MobileCustomMenu gradeGroups={gradeGroups} />
+        <MobileCustomMenu
+          gradeGroups={gradeGroups}
+          courseSubjects={courseSubjects}
+        />
       </Drawer>
     </>
   );

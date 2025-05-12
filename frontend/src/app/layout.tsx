@@ -25,8 +25,13 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const apiUrl = process.env.NEXT_PUBLIC_API_ENDPOINT;
+
   const fetchedGrades = await fetch(`${apiUrl}/kpd/grades`);
   const gradeGroups = await fetchedGrades.json();
+
+  const fetchedCourseSubjects = await fetch(`${apiUrl}/msr/grade-groups`);
+  const courseSubjects = await fetchedCourseSubjects.json();
+
   return (
     <html lang="lv" className={robotoSans.variable}>
       <head>
@@ -52,6 +57,7 @@ export default async function RootLayout({
       <body>
         <ResponsiveAppBar
           gradeGroups={gradeGroups?.gradeGroupsWithGrades || []}
+          courseSubjects={courseSubjects?.gradeGroupsWithGrades || []}
         />
         <main>
           {children}

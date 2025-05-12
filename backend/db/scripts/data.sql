@@ -1193,7 +1193,7 @@ INSERT INTO teacher_assignments(teacher_id, course_id) VALUES(17, 137);
 INSERT INTO teacher_assignments(teacher_id, course_id) VALUES(29, 138);
 INSERT INTO teacher_assignments(teacher_id, course_id) VALUES(38, 139);
 INSERT INTO teacher_assignments(teacher_id, course_id) VALUES(27, 140);
-INSERT INTO teacher_assignments(teacher_id, course_id) VALUES(27, 141);
+INSERT INTO teacher_assignments(teacher_id, course_id) VALUES(37, 141);
 INSERT INTO teacher_assignments(teacher_id, course_id) VALUES(19, 142);
 INSERT INTO teacher_assignments(teacher_id, course_id) VALUES(32, 142);
 INSERT INTO teacher_assignments(teacher_id, course_id) VALUES(7, 143);

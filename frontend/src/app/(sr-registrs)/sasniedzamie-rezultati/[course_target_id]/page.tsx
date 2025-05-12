@@ -161,7 +161,7 @@ export default function CourseSubjectPage() {
           id="filled-multiline-static"
           label={`Sasniedzāmie rezultāti priekšmetā ${courseTarget?.subjectName.toLowerCase()}`}
           multiline
-          rows={25}
+          rows={20}
           value={courseTarget?.target}
           onChange={(e) =>
             setCourseTarget((prev) =>

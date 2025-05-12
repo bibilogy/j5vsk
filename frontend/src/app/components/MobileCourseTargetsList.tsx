@@ -2,7 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-import { CourseSubject, TestPending } from "../lib/types";
+import { CourseSubject } from "../lib/types";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import Divider from "@mui/material/Divider";

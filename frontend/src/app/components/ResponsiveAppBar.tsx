@@ -13,7 +13,7 @@ import MobileCustomMenu from "./MobileCustomMenu";
 import { GradeGroup } from "../lib/types"; // your GradeGroup type
 
 // function ResponsiveAppBar({ gradeGroups }: { gradeGroups: GradeGroup[] }) {
-function ResponsiveAppBar() {
+function ResponsiveAppBar({ gradeGroups }: { gradeGroups: GradeGroup[] }) {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const toggleDrawer =
@@ -141,7 +141,7 @@ function ResponsiveAppBar() {
 
       {/* Drawer with MobileCustomMenu */}
       <Drawer anchor="left" open={menuOpen} onClose={toggleDrawer(false)}>
-        <MobileCustomMenu />
+        <MobileCustomMenu gradeGroups={gradeGroups} />
       </Drawer>
     </>
   );

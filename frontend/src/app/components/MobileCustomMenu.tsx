@@ -6,43 +6,66 @@ import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Avatar from "@mui/material/Avatar";
 import AddIcon from "@mui/icons-material/Add";
-import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
-import DownloadIcon from "@mui/icons-material/Download";
-import Link from "next/link";
+import SchoolIcon from "@mui/icons-material/School";
 
-export default function MobileCustomMenu() {
+import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
+import Link from "next/link";
+import { Collapse, ListItemButton, ListItemIcon } from "@mui/material";
+
+export default function MobileCustomMenu({
+  gradeGroups,
+}: {
+  gradeGroups: GradeGroup[];
+}) {
+  const [open, setOpen] = React.useState(false);
+  const handleClick = () => {
+    setOpen(!open);
+  };
   return (
     <List sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
-      <Link key={0} href="/">
-        <ListItem>
-          <ListItemAvatar>
-            <Avatar>
-              <AppRegistrationIcon />
-            </Avatar>
-          </ListItemAvatar>
-          <ListItemText primary="KPD saraksts" secondary="KPD reģistrs" />
-        </ListItem>
-      </Link>
-      <Link key={1} href="/sasniedzamie-rezultati">
-        <ListItem>
-          <ListItemAvatar>
-            <Avatar>
-              <AppRegistrationIcon />
-            </Avatar>
-          </ListItemAvatar>
-          <ListItemText primary="SR saraksts" secondary="SR reģistrs" />
-        </ListItem>
-      </Link>
-      <Link key={2} href="/">
-        <ListItem>
-          <ListItemAvatar>
-            <Avatar>
-              <AddIcon />
-            </Avatar>
-          </ListItemAvatar>
-          <ListItemText primary="Pievienot KPD" secondary="KPD reģistrs" />
-        </ListItem>
-      </Link>
+      <ListItemButton component={Link} href="/">
+        <ListItemAvatar>
+          <Avatar>
+            <AppRegistrationIcon />
+          </Avatar>
+        </ListItemAvatar>
+        <ListItemText primary="KPD saraksts" secondary="KPD reģistrs" />
+      </ListItemButton>
+      <ListItemButton component={Link} href="/sasniedzamie-rezultati">
+        <ListItemAvatar>
+          <Avatar>
+            <AppRegistrationIcon />
+          </Avatar>
+        </ListItemAvatar>
+        <ListItemText primary="SR saraksts" secondary="SR reģistrs" />
+      </ListItemButton>
+
+      <ListItemButton onClick={handleClick}>
+        <ListItemAvatar>
+          <Avatar>
+            <AddIcon />
+          </Avatar>
+        </ListItemAvatar>
+        <ListItemText primary="Pievienot KPD" secondary="KPD reģistrs" />
+      </ListItemButton>
+      <Collapse in={open} timeout="auto" unmountOnExit>
+        {gradeGroups.map((group) =>
+          group.grades.map((grade) => (
+            <List component="div" disablePadding key={grade.grade_id}>
+              <ListItemButton
+                component={Link}
+                href={`/klases/${grade.grade_id}`}
+                sx={{ pl: 4 }}
+              >
+                <ListItemIcon>
+                  <SchoolIcon />
+                </ListItemIcon>
+                <ListItemText primary={grade.name} secondary={group.name} />
+              </ListItemButton>
+            </List>
+          ))
+        )}
+      </Collapse>
 
       <Link key={3} href="/sasniedzamie-rezultati">
         <ListItem>
@@ -54,20 +77,6 @@ export default function MobileCustomMenu() {
           <ListItemText primary="Pievienot SR" secondary="SR reģistrs" />
         </ListItem>
       </Link>
-      {/* {gradeGroups.map((group) =>
-        group.grades.map((grade) => (
-          <Link key={grade.name} href={`/klases/${grade.grade_id}`}>
-            <ListItem>
-              <ListItemAvatar>
-                <Avatar>
-                  <SchoolIcon />
-                </Avatar>
-              </ListItemAvatar>
-              <ListItemText primary={grade.name} secondary={group.name} />
-            </ListItem>
-          </Link>
-        ))
-      )} */}
     </List>
   );
 }

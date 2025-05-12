@@ -225,10 +225,6 @@ export default function TestPendingsList({
           },
         }}
         localeText={{
-          footerRowSelected: (count) =>
-            count === 1
-              ? `Ievēlēts ${count} ieraksts`
-              : `Izvēlēti ${count} ieraksti`,
           paginationDisplayedRows: ({ from, to, count, estimated }) => {
             if (!estimated) {
               return `${from}–${to} no ${
@@ -243,6 +239,7 @@ export default function TestPendingsList({
           },
           columnMenuSortAsc: "Sakārtot no A uz Z",
           columnMenuSortDesc: "Sakārtot no Z uz A",
+          columnMenuUnsort: "Atcelt kārtošanu",
           columnMenuFilter: "Izveidot filtru",
           columnMenuHideColumn: "Slēpt kolonnu",
           columnMenuManageColumns: "Pārvaldīt kolonnas",

@@ -19,6 +19,19 @@ export default function CourseSubjectPage() {
   const isChanged = courseTarget?.target !== originalTarget;
   const apiUrl = process.env.NEXT_PUBLIC_API_ENDPOINT;
   const params = useParams();
+
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsSmallScreen(window.innerWidth < 900);
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -161,7 +174,7 @@ export default function CourseSubjectPage() {
           id="filled-multiline-static"
           label={`Sasniedzāmie rezultāti priekšmetā ${courseTarget?.subjectName.toLowerCase()}`}
           multiline
-          rows={20}
+          rows={isSmallScreen ? 15 : 20}
           value={courseTarget?.target}
           onChange={(e) =>
             setCourseTarget((prev) =>

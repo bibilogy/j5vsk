@@ -178,6 +178,23 @@ export default function CoursesTargetsList({
           columnMenuFilter: "Izveidot filtru",
           columnMenuHideColumn: "Slēpt kolonnu",
           columnMenuManageColumns: "Pārvaldīt kolonnas",
+          columnsManagementSearchTitle: "Meklēt",
+          columnsManagementShowHideAllText: "Rādīt/Slēpt visu",
+          columnsManagementReset: "Atiestatīt",
+          columnsManagementDeleteIconLabel: "Dzēst",
+          filterPanelColumns: "Kolonnas",
+          filterPanelOperator: "Operators",
+          filterPanelInputLabel: "Vērtība",
+          filterPanelInputPlaceholder: "Filtra vērtība",
+          filterOperatorContains: "Tekstā ir",
+          filterOperatorDoesNotContain: "Teksts nesatur",
+          filterOperatorEquals: "Ir vienāds ar",
+          filterOperatorDoesNotEqual: "Nav vienāds ar",
+          filterOperatorStartsWith: "Teksts sākas ar",
+          filterOperatorEndsWith: "Teksts beidzas ar",
+          filterOperatorIsEmpty: "Ir tukša",
+          filterOperatorIsNotEmpty: "Nav tukša",
+          filterOperatorIsAnyOf: "Jebkura no",
         }}
         pageSizeOptions={[50]}
         slots={{

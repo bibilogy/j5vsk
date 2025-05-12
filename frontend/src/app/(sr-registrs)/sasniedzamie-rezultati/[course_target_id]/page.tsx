@@ -5,7 +5,6 @@ import { CourseTarget, SubjectType } from "@/app/lib/types";
 import { Button, Skeleton, Stack, TextField, Typography } from "@mui/material";
 import Snackbar, { SnackbarCloseReason } from "@mui/material/Snackbar";
 import CustomIcon from "@/app/components/CustomIcon";
-import SaveIcon from "@mui/icons-material/Save";
 
 export default function CourseSubjectPage() {
   const [courseTarget, setCourseTarget] = useState<CourseTarget | null>(null);
@@ -207,7 +206,6 @@ export default function CourseSubjectPage() {
         <Button
           variant="contained"
           onClick={handleSaveCourseTarget}
-          startIcon={<SaveIcon />}
           loading={isSaving}
           loadingPosition="end"
           disabled={!isChanged || isSaving}

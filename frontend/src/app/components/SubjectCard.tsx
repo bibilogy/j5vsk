@@ -26,45 +26,46 @@ export default function SubjectCard({ subject }: { subject: Subject }) {
         overflow: "hidden",
       }}
     >
-      <CardActionArea>
-        <CardContent>
-          <Stack
-            direction="row"
-            spacing={1}
-            alignItems="flex-start"
-            justifyContent="space-between"
-          >
-            {/* Left: Subject Info */}
-            <Stack spacing={3}>
-              <Typography
-                gutterBottom
-                sx={{
-                  fontSize: "1rem",
-                  fontWeight: 700,
-                  textTransform: "uppercase",
-                  height: 40,
-                }}
-                component="div"
-              >
-                {subject.subjectName}
-              </Typography>
-            </Stack>
-
-            {/* Right: Custom Icon */}
-            <Box
-              sx={{
-                minWidth: 60, // reserve space
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
+      <Link href={`/klases/${subject.gradeId}/kursi/${subject.courseId}`}>
+        <CardActionArea>
+          <CardContent>
+            <Stack
+              direction="row"
+              spacing={1}
+              alignItems="flex-start"
+              justifyContent="space-between"
             >
-              <CustomIcon icon={subject.icon as SubjectType} size={50} />
-            </Box>
-          </Stack>
-        </CardContent>
-      </CardActionArea>
+              {/* Left: Subject Info */}
+              <Stack spacing={3}>
+                <Typography
+                  gutterBottom
+                  sx={{
+                    fontSize: "1rem",
+                    fontWeight: 700,
+                    textTransform: "uppercase",
+                    height: 40,
+                  }}
+                  component="div"
+                >
+                  {subject.subjectName}
+                </Typography>
+              </Stack>
 
+              {/* Right: Custom Icon */}
+              <Box
+                sx={{
+                  minWidth: 60, // reserve space
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <CustomIcon icon={subject.icon as SubjectType} size={50} />
+              </Box>
+            </Stack>
+          </CardContent>
+        </CardActionArea>
+      </Link>
       <CardActions
         sx={{
           display: "flex",

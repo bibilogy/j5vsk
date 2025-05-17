@@ -264,4 +264,112 @@ router.patch(
   }
 );
 
+type CourseItem = {
+  gradeGroupName: string;
+  subjectName: string;
+  subjectField: string;
+  courseTarget: string;
+};
+
+router.get(
+  "/grade-groups-with-data",
+  async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+      const courses = await prisma.courses.findMany({
+        select: {
+          course_id: true,
+          course_targets: {
+            select: {
+              target: true,
+            },
+          },
+          subjects: {
+            select: {
+              name: true,
+              field: true,
+            },
+          },
+          enrollments: {
+            take: 1,
+            select: {
+              students: {
+                select: {
+                  grades: {
+                    select: {
+                      grade_groups: {
+                        select: {
+                          name: true,
+                        },
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+      });
+
+      // Step 1: Flatten and type-safely filter
+      const flattened = courses
+        .map((course): CourseItem | null => {
+          const gradeGroupName =
+            course.enrollments[0]?.students?.grades?.grade_groups?.name;
+          const courseTarget = course.course_targets?.target;
+
+          if (!gradeGroupName || !courseTarget) {
+            return null;
+          }
+
+          return {
+            gradeGroupName,
+            subjectName: course.subjects.name,
+            subjectField: course.subjects.field,
+            courseTarget,
+          };
+        })
+        .filter((item): item is CourseItem => item !== null); // ✅ type-safe filter
+
+      // Step 2: Group by gradeGroupName and ensure unique subjects
+      const grouped: Record<string, CourseItem[]> = {};
+
+      for (const item of flattened) {
+        const key = item.gradeGroupName;
+
+        if (!grouped[key]) {
+          grouped[key] = [];
+        }
+
+        const isDuplicate = grouped[key].some(
+          (existing) =>
+            existing.subjectName === item.subjectName &&
+            existing.subjectField === item.subjectField
+        );
+
+        if (!isDuplicate) {
+          grouped[key].push(item);
+        }
+      }
+
+      // Step 3: Format response
+      const data = Object.entries(grouped).map(
+        ([gradeGroupName, subjects]) => ({
+          gradeGroupName,
+          subjects: subjects.map(
+            ({ subjectName, subjectField, courseTarget }) => ({
+              subjectName,
+              subjectField: fieldNameMap[subjectField] || subjectField,
+              courseTarget,
+            })
+          ),
+        })
+      );
+
+      res.json({ data });
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
 export default router;

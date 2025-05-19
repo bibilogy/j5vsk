@@ -221,7 +221,7 @@ export default function TestPendingsList({
         }}
         initialState={{
           pagination: {
-            paginationModel: { pageSize: 50 },
+            paginationModel: { pageSize: 100 },
           },
         }}
         localeText={{

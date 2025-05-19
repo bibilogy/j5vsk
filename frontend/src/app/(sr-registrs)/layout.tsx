@@ -5,7 +5,7 @@ import { Container, Typography } from "@mui/material";
 import CustomMenu from "../components/CustomMenu";
 
 export const metadata: Metadata = {
-  title: "Kombinētie pārbaudes darbi",
+  title: "Sasniedzamie rezultāti",
   description:
     "Tīmekļa lietotne Jelgavas 5.vidusskolas gada pārbaudījumu uzskaitei",
   creator: "Vadims Mamedovs",

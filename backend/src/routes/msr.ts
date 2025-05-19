@@ -70,7 +70,9 @@ router.get(
           return {
             grade_group_id: group.grade_group_id,
             name: group.name,
-            courses: Array.from(uniqueCourses.values()),
+            courses: Array.from(uniqueCourses.values()).sort((a, b) =>
+              a.subject_name.localeCompare(b.subject_name)
+            ),
           };
         })
         // ✅ Remove grade groups with empty courses

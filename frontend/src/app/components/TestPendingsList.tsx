@@ -261,7 +261,7 @@ export default function TestPendingsList({
           filterOperatorIsNotEmpty: "Nav tukša",
           filterOperatorIsAnyOf: "Jebkura no",
         }}
-        pageSizeOptions={[50]}
+        pageSizeOptions={[100]}
         slots={{
           noRowsOverlay: CustomNoRowsOverlay,
           footer: () => (

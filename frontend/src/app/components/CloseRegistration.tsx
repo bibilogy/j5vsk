@@ -22,7 +22,7 @@ export default function CloseRegistration() {
         }}
       >
         <Typography variant="h6" sx={{ color: "#e74c3c", fontWeight: "700" }}>
-          Slēgts
+          KPD reģistrs ir slēgts
         </Typography>
         <Typography sx={{ color: "#333" }}>
           Pieteikumu pieņemšana ir pabeigta.

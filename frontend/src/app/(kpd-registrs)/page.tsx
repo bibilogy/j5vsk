@@ -4,6 +4,7 @@ import { Skeleton } from "@mui/material";
 import { TestPending } from "../lib/types";
 import { useEffect, useState } from "react";
 import CloseRegistration from "../components/CloseRegistration";
+import ReadOnlyTestPendingsList from "../components/ReadOnlyTestPendingsList";
 
 export default function Home() {
   const apiUrl = process.env.NEXT_PUBLIC_API_ENDPOINT;
@@ -35,6 +36,6 @@ export default function Home() {
     />
   ) : (
     // <TestPendingsList testsPending={tests} />
-    <CloseRegistration />
+    <ReadOnlyTestPendingsList testsPending={tests} />
   );
 }

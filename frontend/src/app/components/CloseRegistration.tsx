@@ -7,7 +7,6 @@ export default function CloseRegistration() {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        height: "100%",
       }}
     >
       <Box

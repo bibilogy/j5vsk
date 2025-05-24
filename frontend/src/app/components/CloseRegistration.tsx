@@ -1,4 +1,5 @@
 import { Box, Stack, Typography } from "@mui/material";
+import CustomIcon from "./CustomIcon";
 
 export default function CloseRegistration() {
   return (
@@ -20,6 +21,16 @@ export default function CloseRegistration() {
           boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
         }}
       >
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <CustomIcon icon="shop-sign" size={200} />
+        </Box>
+
         <Typography variant="h6" sx={{ color: "#e74c3c", fontWeight: "700" }}>
           KPD reģistrs ir slēgts
         </Typography>

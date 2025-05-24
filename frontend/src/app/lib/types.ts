@@ -66,7 +66,8 @@ export type SubjectType =
   | "sports"
   | "talk-and-literature"
   | "talk"
-  | "theater";
+  | "theater"
+  | "shop-sign";
 
 export type TestPending = {
   enrollmentId: number;

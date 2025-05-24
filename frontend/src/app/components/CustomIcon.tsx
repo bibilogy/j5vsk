@@ -22,6 +22,7 @@ import Sports from "./Icons/Sports";
 import Talk from "./Icons/Talk";
 import TalkAndRead from "./Icons/TalkAndRead";
 import Theater from "./Icons/Theater";
+import ShopSignIcon from "./Icons/ShopSignIcon";
 import { CustomIconProps } from "../lib/types";
 
 const CustomIcon: React.FC<CustomIconProps> = ({ icon, size = 200 }) => {
@@ -72,6 +73,8 @@ const CustomIcon: React.FC<CustomIconProps> = ({ icon, size = 200 }) => {
       return <Talk size={size} />;
     case "theater":
       return <Theater size={size} />;
+    case "shop-sign":
+      return <ShopSignIcon size={size} />;
     default:
       return null;
   }

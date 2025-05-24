@@ -8,36 +8,30 @@ export default function CloseRegistration() {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
+        gap: "10px",
+        textAlign: "center",
+        margin: "100px auto",
+        maxWidth: "400px",
+        backgroundColor: "transparent",
+        padding: "20px",
       }}
     >
       <Box
-        style={{
-          textAlign: "center",
-          margin: "100px auto",
-          maxWidth: "400px",
-          backgroundColor: "#fff",
-          padding: "20px",
-          borderRadius: "8px",
-          boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
         }}
       >
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <CustomIcon icon="shop-sign" size={200} />
-        </Box>
-
-        <Typography variant="h6" sx={{ color: "#e74c3c", fontWeight: "700" }}>
-          KPD reģistrs ir slēgts
-        </Typography>
-        <Typography sx={{ color: "#333" }}>
-          Pieteikumu pieņemšana ir pabeigta.
-        </Typography>
+        <CustomIcon icon="shop-sign" size={100} />
       </Box>
+
+      <Typography variant="h6" sx={{ color: "#e74c3c", fontWeight: "700" }}>
+        KPD reģistrs ir slēgts
+      </Typography>
+      <Typography sx={{ color: "#333" }}>
+        Pieteikumu pieņemšana ir pabeigta.
+      </Typography>
     </Stack>
   );
 }

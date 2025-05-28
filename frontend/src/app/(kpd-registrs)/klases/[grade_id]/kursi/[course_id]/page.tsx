@@ -74,52 +74,52 @@ export default function StudentsPage() {
   }
 
   return (
-    // <Stack spacing={2}>
-    //   <Stack
-    //     spacing={1}
-    //     sx={{
-    //       flexDirection: "row",
-    //       gap: "20px",
-    //       backgroundColor: "#eee",
-    //       borderRadius: "15px",
-    //       padding: "20px",
-    //     }}
-    //   >
-    //     <Stack>
-    //       <CustomIcon icon={course?.subjectIcon as SubjectType} size={70} />
-    //     </Stack>
-    //     <Stack spacing={1}>
-    //       <Typography
-    //         gutterBottom
-    //         sx={{
-    //           fontSize: "1rem",
-    //           fontWeight: 700,
-    //         }}
-    //         component="div"
-    //       >
-    //         {(course?.subjectName?.toUpperCase() || "No Subject").toUpperCase()}
-    //         , {course?.gradeName || "No Grade"}
-    //       </Typography>
+    <Stack spacing={2}>
+      <Stack
+        spacing={1}
+        sx={{
+          flexDirection: "row",
+          gap: "20px",
+          backgroundColor: "#eee",
+          borderRadius: "15px",
+          padding: "20px",
+        }}
+      >
+        <Stack>
+          <CustomIcon icon={course?.subjectIcon as SubjectType} size={70} />
+        </Stack>
+        <Stack spacing={1}>
+          <Typography
+            gutterBottom
+            sx={{
+              fontSize: "1rem",
+              fontWeight: 700,
+            }}
+            component="div"
+          >
+            {(course?.subjectName?.toUpperCase() || "No Subject").toUpperCase()}
+            , {course?.gradeName || "No Grade"}
+          </Typography>
 
-    //       <Stack>
-    //         {course.teacherNames.length > 1 ? "Skolotāji: " : "Skolotājs: "}
-    //         {course?.teacherNames.join(", ")}
-    //       </Stack>
-    //     </Stack>
-    //   </Stack>
+          <Stack>
+            {course.teacherNames.length > 1 ? "Skolotāji: " : "Skolotājs: "}
+            {course?.teacherNames.join(", ")}
+          </Stack>
+        </Stack>
+      </Stack>
 
-    //   <Stack
-    //     spacing={1}
-    //     sx={{
-    //       backgroundColor: "#eee",
-    //       padding: "20px",
-    //       borderRadius: "15px",
-    //     }}
-    //   >
-    //     {/* Render the student list */}
-    //     <StudentList studentList={course?.students || []} />
-    //   </Stack>
-    // </Stack>
-    <CloseRegistration />
+      <Stack
+        spacing={1}
+        sx={{
+          backgroundColor: "#eee",
+          padding: "20px",
+          borderRadius: "15px",
+        }}
+      >
+        {/* Render the student list */}
+        <StudentList studentList={course?.students || []} />
+      </Stack>
+    </Stack>
+    // <CloseRegistration />
   );
 }

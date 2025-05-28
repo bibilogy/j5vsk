@@ -56,55 +56,55 @@ export default function GradeSubjects({
     );
   }
   return (
-    // <Stack sx={{ padding: "0 20px" }}>
-    //   {/* Grade name or Skeleton */}
-    //   <Stack
-    //     sx={{
-    //       height: 40,
-    //       display: "flex",
-    //       alignItems: { xs: "center", lg: "flex-start" },
-    //       marginBottom: "15px",
-    //     }}
-    //   >
-    //     <Typography
-    //       variant="h6"
-    //       sx={{
-    //         fontWeight: 700,
-    //         fontSize: "1.2rem",
-    //         textTransform: "uppercase",
-    //       }}
-    //     >
-    //       {isLoading ? null : subjects?.[0]?.gradeName}
-    //     </Typography>
-    //   </Stack>
+    <Stack sx={{ padding: "0 20px" }}>
+      {/* Grade name or Skeleton */}
+      <Stack
+        sx={{
+          height: 40,
+          display: "flex",
+          alignItems: { xs: "center", lg: "flex-start" },
+          marginBottom: "15px",
+        }}
+      >
+        <Typography
+          variant="h6"
+          sx={{
+            fontWeight: 700,
+            fontSize: "1.2rem",
+            textTransform: "uppercase",
+          }}
+        >
+          {isLoading ? null : subjects?.[0]?.gradeName}
+        </Typography>
+      </Stack>
 
-    //   {/* Grid: Always present, conditional content */}
-    //   <Grid
-    //     container
-    //     spacing={4}
-    //     sx={{
-    //       justifyContent: { xs: "center", lg: "flex-start" },
-    //       alignItems: "center",
-    //     }}
-    //   >
-    //     {isLoading
-    //       ? [...Array(12)].map((_, index) => (
-    //           <Grid key={index}>
-    //             <Skeleton
-    //               animation="wave"
-    //               variant="rectangular"
-    //               width={280}
-    //               height={150}
-    //             />
-    //           </Grid>
-    //         ))
-    //       : subjects?.map((subject) => (
-    //           <Grid key={subject.courseId}>
-    //             <SubjectCard subject={subject} />
-    //           </Grid>
-    //         ))}
-    //   </Grid>
-    // </Stack>
-    <CloseRegistration />
+      {/* Grid: Always present, conditional content */}
+      <Grid
+        container
+        spacing={4}
+        sx={{
+          justifyContent: { xs: "center", lg: "flex-start" },
+          alignItems: "center",
+        }}
+      >
+        {isLoading
+          ? [...Array(12)].map((_, index) => (
+              <Grid key={index}>
+                <Skeleton
+                  animation="wave"
+                  variant="rectangular"
+                  width={280}
+                  height={150}
+                />
+              </Grid>
+            ))
+          : subjects?.map((subject) => (
+              <Grid key={subject.courseId}>
+                <SubjectCard subject={subject} />
+              </Grid>
+            ))}
+      </Grid>
+    </Stack>
+    // <CloseRegistration />
   );
 }

@@ -35,7 +35,7 @@ export default function Home() {
       height="100%"
     />
   ) : (
-    // <TestPendingsList testsPending={tests} />
-    <ReadOnlyTestPendingsList testsPending={tests} />
+    <TestPendingsList testsPending={tests} />
+    // <ReadOnlyTestPendingsList testsPending={tests} />
   );
 }

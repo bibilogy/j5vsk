@@ -8,7 +8,6 @@ import { useEffect, useMemo, useState } from "react";
 
 export default function HomePage() {
   const [pendingTests, setPendingTests] = useState<PendingTestEnrollment[]>();
-
   useEffect(() => {
     fetchPendingTestEnrollments().then(setPendingTests);
   }, []);
@@ -25,6 +24,8 @@ export default function HomePage() {
         rowData={rowData}
         columnDefs={colDefs}
         getRowId={(row) => String(row.enrollment_id)}
+        loading={pendingTests === undefined}
+        hasFooter
       />
     </div>
   );

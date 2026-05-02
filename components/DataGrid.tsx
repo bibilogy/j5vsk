@@ -1,7 +1,7 @@
 // components/DataGrid.tsx
 "use client";
 
-import { useMemo } from "react";
+import { HashLoader } from "react-spinners";
 import { AgGridReact } from "ag-grid-react";
 import {
   ColDef,
@@ -9,6 +9,9 @@ import {
   AllCommunityModule,
   themeQuartz,
 } from "ag-grid-community";
+import { useRef } from "react";
+import { Button } from "./ui/button";
+import { Download } from "lucide-react";
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 
@@ -32,6 +35,7 @@ const myTheme = themeQuartz.withParams({
 });
 
 const localeText = {
+  // filters
   filterOoo: "Filtrēt...",
   equals: "Vienāds",
   notEqual: "Nav vienāds",
@@ -53,34 +57,83 @@ const localeText = {
   clearFilter: "Notīrīt",
   cancelFilter: "Atcelt",
   noRowsToShow: "Nav datu",
+  // pagination
+  page: "Lappuse",
+  nextPage: "Nākamā lappuse",
+  lastPage: "Pēdējā lappuse",
+  firstPage: "Pirmā lappuse",
+  previousPage: "Iepriekšējā lappuse",
+  pageSizeSelectorLabel: "Rindas lapā:",
+  of: "no",
+  to: "līdz",
+  more: "vairāk",
 };
+
+const LoadingOverlay = () => (
+  <div className="flex items-center justify-center h-full">
+    <HashLoader color="#a992bb" size={35} />
+  </div>
+);
 
 type DataGridProps<T> = {
   rowData: T[];
   columnDefs: ColDef<T>[];
   getRowId: (row: T) => string;
+  loading?: boolean;
+  hasFooter?: boolean;
 };
 
 export default function DataGrid<T>({
   rowData,
   columnDefs,
   getRowId,
+  loading,
+  hasFooter,
 }: DataGridProps<T>) {
+  const gridRef = useRef<AgGridReact<T>>(null);
+
+  const handleExport = () => {
+    gridRef.current?.api.exportDataAsCsv({
+      fileName: "eksports.csv",
+    });
+  };
+
   return (
     <div
-      className="flex-1 overflow-hidden"
+      className="flex-1 overflow-hidden flex flex-col"
       style={{ height: "100%", width: "100%" }}
     >
-      <AgGridReact
-        theme={myTheme}
-        rowData={rowData}
-        columnDefs={columnDefs}
-        getRowId={(p) => getRowId(p.data)}
-        domLayout="normal"
-        localeText={localeText}
-        enableCellTextSelection
-        ensureDomOrder
-      />
+      <div className="relative flex-1">
+        <AgGridReact
+          ref={gridRef}
+          theme={myTheme}
+          rowData={rowData}
+          columnDefs={columnDefs}
+          getRowId={(p) => getRowId(p.data)}
+          domLayout="normal"
+          localeText={localeText}
+          enableCellTextSelection
+          ensureDomOrder
+          loadingOverlayComponent={LoadingOverlay}
+          loading={loading}
+          pagination={hasFooter}
+          paginationPageSize={hasFooter ? 20 : undefined}
+          paginationPageSizeSelector={hasFooter ? [10, 20, 50] : false}
+        />
+        {hasFooter && (
+          <div className="absolute bottom-0 left-0 h-[48px] flex items-center pl-3">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={handleExport}
+              className="bg-white/30 border-white/50 text-purple-900/70 hover:bg-white/45 hover:text-purple-950 text-[11px] font-medium"
+            >
+              <Download size={13} className="mr-1.5" />
+              Eksportēt
+            </Button>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

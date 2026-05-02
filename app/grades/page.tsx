@@ -4,13 +4,17 @@ import Link from "next/link";
 import { fetchGradeGroupsAndGrades } from "@/actions/data-fetching";
 import Folder from "../../components/Folder/Folder";
 import { Grade } from "@/types/types";
+import { HashLoader } from "react-spinners";
 
 export default function GradesPage() {
   const [grades, setGrades] = useState<Grade[]>();
+  const [isLoading, setIsLoading] = useState(true);
   const [activeGroupIds, setActiveGroupIds] = useState<number[]>([]);
 
   useEffect(() => {
-    fetchGradeGroupsAndGrades().then(setGrades);
+    fetchGradeGroupsAndGrades()
+      .then(setGrades)
+      .finally(() => setIsLoading(false)); // ← runs after fetch
   }, []);
 
   const gradeGroups = grades
@@ -34,6 +38,13 @@ export default function GradesPage() {
     activeGroupIds.length === 0
       ? grades
       : grades?.filter((g) => activeGroupIds.includes(g.grade_group_id));
+
+  if (isLoading)
+    return (
+      <div className="flex items-center justify-center h-full">
+        <HashLoader color="#a992bb" size={35} />
+      </div>
+    );
 
   return (
     <div className="flex flex-col gap-4 h-full">
@@ -59,7 +70,7 @@ export default function GradesPage() {
           {filteredGrades?.map((g) => (
             <Link
               key={g.grade_id}
-              href={`/grades/${g.grade_id}`} // ← ID in URL, no store needed
+              href={`/grades/${g.grade_id}`}
               className="flex flex-col items-center gap-1 cursor-pointer group"
             >
               <Folder color="#82B4C4" />

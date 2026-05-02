@@ -6,16 +6,27 @@ import { Course, Grade } from "@/types/types";
 import { fetchCoursesByGradeId, fetchGradeById } from "@/actions/data-fetching";
 import CourseCard from "@/components/CourseCard";
 import GradeHeader from "@/components/GradeHeader";
+import { HashLoader } from "react-spinners";
 
 export default function CoursesPage() {
   const { gradeId } = useParams<{ gradeId: string }>();
   const [grade, setGrade] = useState<Grade>();
   const [courses, setCourses] = useState<Course[]>();
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    fetchGradeById(Number(gradeId)).then(setGrade);
-    fetchCoursesByGradeId(Number(gradeId)).then(setCourses);
+    Promise.all([
+      fetchGradeById(Number(gradeId)).then(setGrade),
+      fetchCoursesByGradeId(Number(gradeId)).then(setCourses),
+    ]).finally(() => setIsLoading(false));
   }, [gradeId]);
+
+  if (isLoading)
+    return (
+      <div className="flex items-center justify-center h-full">
+        <HashLoader color="#a992bb" size={35} />
+      </div>
+    );
 
   if (!grade) return null;
 

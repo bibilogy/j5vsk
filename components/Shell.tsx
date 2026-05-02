@@ -71,7 +71,7 @@ export default function Shell({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="min-h-screen flex flex-col lg:flex-row lg:items-center lg:justify-center p-4 lg:p-8 pb-24 lg:pb-8">
-      <div className="flex gap-4 w-full max-w-4xl lg:h-[600px] lg:items-center">
+      <div className="flex gap-4 w-full max-w-4xl lg:h-[700px] lg:items-center">
         {/* Sidebar — desktop */}
         <aside className="hidden lg:flex flex-col items-center justify-center px-2 py-4 gap-2 w-[52px] h-fit rounded-[20px] bg-white/20 backdrop-blur-lg border border-white/45 self-center">
           {navItems.map(({ tab, icon, href }) => {

@@ -89,6 +89,7 @@ export default function CourseDetailsPage() {
         rowData={rowData}
         columnDefs={colDefs}
         getRowId={(row) => String(row.student_id)}
+        loading={course === undefined || courseDetail === undefined}
       />
     </div>
   );

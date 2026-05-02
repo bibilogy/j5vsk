@@ -4,7 +4,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ClipboardCheck, Crosshair } from "lucide-react";
 import { tabs } from "@/types/types";
-import { useAppStore } from "@/store/useAppStore";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -29,7 +28,7 @@ const breadcrumbMap: Record<
     label: "Klase",
     parent: { label: "KPD reģistrs", href: "/grades" },
   },
-  "/grades/courses/course-details": {
+  "/grades/course-details": {
     label: "Priekšmets",
     parent: { label: "Klase", href: "/grades/courses" },
   },
@@ -38,7 +37,6 @@ const breadcrumbMap: Record<
 
 export default function Shell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const { setActiveTab, clearFromCourse, clearFromGrade } = useAppStore();
 
   const isActive = (href: string) => pathname.startsWith(href);
 
@@ -50,11 +48,26 @@ export default function Shell({ children }: { children: React.ReactNode }) {
     `px-3 py-1 rounded-full text-[11px] font-medium border transition-all duration-200
     ${active ? "bg-white/65 border-white/60 text-purple-950" : "bg-white/30 border-white/50 text-purple-900/70 hover:bg-white/45"}`;
 
-  const currentCrumb =
-    breadcrumbMap[pathname] ??
-    Object.entries(breadcrumbMap)
-      .filter(([key]) => pathname.startsWith(key))
-      .sort((a, b) => b[0].length - a[0].length)[0]?.[1];
+  // In Shell — replace the static breadcrumbMap lookup with this:
+  const currentCrumb = (() => {
+    if (pathname === "/") return { label: "" };
+    if (pathname === "/grades") return { label: "Klases" };
+    if (pathname === "/targets") return { label: "SR reģistrs" };
+    if (/^\/grades\/[^/]+$/.test(pathname))
+      return {
+        label: "Mācību priekšmeti",
+        parent: { label: "Klases", href: "/grades" },
+      };
+    if (/^\/grades\/[^/]+\/courses\/[^/]+$/.test(pathname))
+      return {
+        label: "Pieteikšanās",
+        parent: {
+          label: "Mācību priekšmeti",
+          href: `/grades/${pathname.split("/")[2]}`,
+        },
+      };
+    return undefined;
+  })();
 
   return (
     <div className="min-h-screen flex flex-col lg:flex-row lg:items-center lg:justify-center p-4 lg:p-8 pb-24 lg:pb-8">
@@ -71,7 +84,6 @@ export default function Shell({ children }: { children: React.ReactNode }) {
               <Link
                 key={tab.tab}
                 href={href}
-                onClick={() => setActiveTab(tab)}
                 className={sidebarItemClass(false)}
               >
                 {icon}
@@ -86,7 +98,6 @@ export default function Shell({ children }: { children: React.ReactNode }) {
             {/* Breadcrumb */}
             <Breadcrumb>
               <BreadcrumbList>
-                {/* Always show Sākums */}
                 <BreadcrumbItem>
                   {pathname === "/" ? (
                     <BreadcrumbPage className="text-[11px] font-semibold tracking-widest text-purple-950/90 uppercase">
@@ -96,7 +107,6 @@ export default function Shell({ children }: { children: React.ReactNode }) {
                     <BreadcrumbLink asChild>
                       <Link
                         href="/"
-                        onClick={() => clearFromGrade()}
                         className="text-[11px] font-semibold tracking-widest text-purple-900/50 uppercase hover:text-purple-900/80 transition-colors"
                       >
                         Sākums
@@ -105,30 +115,22 @@ export default function Shell({ children }: { children: React.ReactNode }) {
                   )}
                 </BreadcrumbItem>
 
-                {/* Parent crumb */}
                 {currentCrumb?.parent && (
                   <>
                     <BreadcrumbSeparator className="text-purple-900/30" />
                     <BreadcrumbItem>
                       <BreadcrumbLink asChild>
                         <Link
-                          href={currentCrumb.parent?.href ?? "/"}
-                          onClick={() => {
-                            if (currentCrumb.parent?.href === "/grades")
-                              clearFromGrade();
-                            if (currentCrumb.parent?.href === "/grades/courses")
-                              clearFromCourse();
-                          }}
+                          href={currentCrumb.parent.href}
                           className="text-[11px] font-semibold tracking-widest text-purple-900/50 uppercase hover:text-purple-900/80 transition-colors"
                         >
-                          {currentCrumb.parent?.label}
+                          {currentCrumb.parent.label}
                         </Link>
                       </BreadcrumbLink>
                     </BreadcrumbItem>
                   </>
                 )}
 
-                {/* Current page */}
                 {currentCrumb?.label && pathname !== "/" && (
                   <>
                     <BreadcrumbSeparator className="text-purple-900/30" />
@@ -150,12 +152,7 @@ export default function Shell({ children }: { children: React.ReactNode }) {
                     {tab.tab}
                   </span>
                 ) : (
-                  <Link
-                    key={tab.tab}
-                    href={href}
-                    onClick={() => setActiveTab(tab)}
-                    className={tabClass(false)}
-                  >
+                  <Link key={tab.tab} href={href} className={tabClass(false)}>
                     {tab.tab}
                   </Link>
                 );
@@ -173,7 +170,6 @@ export default function Shell({ children }: { children: React.ReactNode }) {
           <Link
             key={tab.tab}
             href={href}
-            onClick={() => setActiveTab(tab)}
             className={sidebarItemClass(isActive(href))}
           >
             {icon}

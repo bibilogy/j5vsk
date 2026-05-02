@@ -17,7 +17,7 @@ export default function CourseDetailsHeader({
       <div className="hidden md:block flex-shrink-0">
         <Image
           src={`/icons/${activeCourse.icon}.svg`}
-          alt={activeCourse.name}
+          alt={activeCourse.name ?? "Course icon"}
           width={65}
           height={65}
           priority

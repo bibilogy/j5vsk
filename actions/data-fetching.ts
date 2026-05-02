@@ -81,3 +81,73 @@ export const updateIsTestPending = async (
 
   if (error) throw new Error("Error updating enrollment");
 };
+
+// fetch single grade by id
+export const fetchGradeById = async (gradeId: number) => {
+  const { data, error } = await supabase
+    .from("grades")
+    .select(
+      `
+      *,
+      grade_groups (
+        grade_group_id,
+        name
+      ),
+      class_teachers (
+        teachers (
+          name
+        )
+      )
+    `,
+    )
+    .eq("grade_id", gradeId)
+    .single();
+
+  if (error) throw new Error("Error getting grade");
+
+  const subject = Array.isArray(data.class_teachers)
+    ? data.class_teachers
+    : [data.class_teachers];
+
+  return {
+    ...data,
+    class_teachers: subject
+      .map((ct: { teachers: { name: string } | null }) => ct?.teachers?.name)
+      .filter(Boolean) as string[],
+  };
+};
+
+// fetch single course by id
+export const fetchCourseById = async (courseId: number) => {
+  const { data, error } = await supabase
+    .from("courses")
+    .select(
+      `
+      course_id,
+      course_target_id,
+      subjects (
+        subject_id,
+        name,
+        field,
+        icon
+      )
+    `,
+    )
+    .eq("course_id", courseId)
+    .single();
+
+  if (error) throw new Error("Error getting course");
+
+  const subject = Array.isArray(data.subjects)
+    ? data.subjects[0]
+    : data.subjects;
+
+  return {
+    course_id: data.course_id,
+    course_target_id: data.course_target_id,
+    name: subject.name,
+    field: subject.field,
+    icon: subject.icon,
+    student_count: 0, // not needed on this page, satisfies the Course type
+  };
+};

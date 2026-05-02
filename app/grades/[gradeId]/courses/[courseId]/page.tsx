@@ -1,44 +1,37 @@
-// app/grades/courses/course-details/page.tsx
+// app/grades/[gradeId]/courses/[courseId]/page.tsx
 "use client";
 
 import {
   fetchStudentsByGradeAndCourseIds,
+  fetchCourseById,
   updateIsTestPending,
 } from "@/actions/data-fetching";
-import { useAppStore } from "@/store/useAppStore";
-import { CourseDetail, Student } from "@/types/types";
-import { useRouter } from "next/navigation";
+import { CourseDetail, Student, Course } from "@/types/types";
+import { useParams } from "next/navigation";
 import { useEffect, useState, useMemo, useCallback } from "react";
 import CourseDetailsHeader from "@/components/CourseDetailsHeader";
 import { getStudentColumnDefs } from "@/types/definitions/studentColumns";
 import DataGrid from "@/components/DataGrid";
 
 export default function CourseDetailsPage() {
-  const { activeGrade, activeCourse } = useAppStore();
+  const { gradeId, courseId } = useParams<{
+    gradeId: string;
+    courseId: string;
+  }>();
+  const [course, setCourse] = useState<Course>();
   const [courseDetail, setCourseDetail] = useState<CourseDetail>();
   const [showPendingOnly, setShowPendingOnly] = useState(false);
-  const router = useRouter();
 
   useEffect(() => {
-    if (!activeGrade) router.replace("/");
-  }, [activeGrade]);
-
-  useEffect(() => {
-    if (activeGrade && activeCourse) {
-      fetchStudentsByGradeAndCourseIds(
-        activeGrade.grade_id,
-        activeCourse.course_id,
-      ).then(setCourseDetail);
-    }
-  }, [activeGrade?.grade_id, activeCourse?.course_id]);
+    fetchCourseById(Number(courseId)).then(setCourse);
+    fetchStudentsByGradeAndCourseIds(Number(gradeId), Number(courseId)).then(
+      setCourseDetail,
+    );
+  }, [gradeId, courseId]);
 
   const handleCheckboxChange = useCallback(
     async (student: Student, newValue: boolean) => {
-      if (!activeCourse) return;
-
-      useEffect(() => {
-        if (!activeGrade) router.replace("/grades");
-      }, [activeGrade]);
+      if (!courseId) return;
 
       setCourseDetail((prev) => {
         if (!prev) return prev;
@@ -55,7 +48,7 @@ export default function CourseDetailsPage() {
       try {
         await updateIsTestPending(
           student.student_id,
-          activeCourse.course_id,
+          Number(courseId),
           newValue,
         );
       } catch {
@@ -72,7 +65,7 @@ export default function CourseDetailsPage() {
         });
       }
     },
-    [activeCourse],
+    [courseId],
   );
 
   const colDefs = useMemo(
@@ -87,14 +80,11 @@ export default function CourseDetailsPage() {
       : students;
   }, [courseDetail, showPendingOnly]);
 
-  if (!activeGrade || !activeCourse) return null;
+  if (!course) return null;
 
   return (
     <div className="flex flex-col gap-4 h-full">
-      <CourseDetailsHeader
-        activeCourse={activeCourse}
-        courseDetail={courseDetail}
-      />
+      <CourseDetailsHeader activeCourse={course} courseDetail={courseDetail} />
       <DataGrid
         rowData={rowData}
         columnDefs={colDefs}

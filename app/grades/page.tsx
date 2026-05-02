@@ -2,12 +2,10 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { fetchGradeGroupsAndGrades } from "@/actions/data-fetching";
-import { useAppStore } from "@/store/useAppStore";
 import Folder from "../../components/Folder/Folder";
 import { Grade } from "@/types/types";
 
 export default function GradesPage() {
-  const { setActiveGrade } = useAppStore();
   const [grades, setGrades] = useState<Grade[]>();
   const [activeGroupIds, setActiveGroupIds] = useState<number[]>([]);
 
@@ -39,7 +37,6 @@ export default function GradesPage() {
 
   return (
     <div className="flex flex-col gap-4 h-full">
-      {/* Badges — never scrolls */}
       <div className="flex flex-wrap gap-2 flex-shrink-0 justify-center">
         {gradeGroups.map((gg) => (
           <button
@@ -57,14 +54,12 @@ export default function GradesPage() {
         ))}
       </div>
 
-      {/* Folders — scrolls independently */}
       <div className="overflow-y-auto flex-1 pt-4">
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-x-4 gap-y-8">
           {filteredGrades?.map((g) => (
             <Link
               key={g.grade_id}
-              href="/grades/courses"
-              onClick={() => setActiveGrade(g)}
+              href={`/grades/${g.grade_id}`} // ← ID in URL, no store needed
               className="flex flex-col items-center gap-1 cursor-pointer group"
             >
               <Folder color="#82B4C4" />

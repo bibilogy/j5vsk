@@ -11,10 +11,9 @@ AS $$
       COUNT(e.enrollment_id) AS student_count
     FROM courses c
     JOIN subjects s ON c.subject_id = s.subject_id
-    LEFT JOIN enrollments e ON c.course_id = e.course_id
-    LEFT JOIN students st ON e.student_id = st.student_id AND st.grade_id = p_grade_id
+    JOIN enrollments e ON c.course_id = e.course_id
+    JOIN students st ON e.student_id = st.student_id AND st.grade_id = p_grade_id
     GROUP BY c.course_id, s.name, s.icon
-    HAVING COUNT(e.enrollment_id) > 0
     ORDER BY s.name
   ) t;
 $$;

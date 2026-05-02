@@ -37,12 +37,12 @@ export default function GradeHeader({ grade }: { grade: Grade }) {
           </div>
           <div>
             <span className="text-[10px] font-semibold tracking-widest text-purple-900/50 uppercase">
-              {grade.class_teachers.length === 1
+              {grade?.class_teachers?.length === 1
                 ? "Klases audzinātājs"
                 : "Klases audzinātāji"}
             </span>
             <p className="text-sm font-medium text-purple-950">
-              {grade.class_teachers.length
+              {grade?.class_teachers?.length
                 ? grade.class_teachers.join(", ")
                 : "—"}
             </p>

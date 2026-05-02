@@ -1,0 +1,185 @@
+"use client";
+
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { ClipboardCheck, Crosshair } from "lucide-react";
+import { tabs } from "@/types/types";
+import { useAppStore } from "@/store/useAppStore";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
+
+const navItems = [
+  { tab: tabs[0], icon: <ClipboardCheck size={18} />, href: "/grades" },
+  { tab: tabs[1], icon: <Crosshair size={18} />, href: "/targets" },
+];
+
+const breadcrumbMap: Record<
+  string,
+  { label: string; parent?: { label: string; href: string } }
+> = {
+  "/": { label: "" },
+  "/grades": { label: "KPD reģistrs" },
+  "/grades/courses": {
+    label: "Klase",
+    parent: { label: "KPD reģistrs", href: "/grades" },
+  },
+  "/grades/courses/course-details": {
+    label: "Priekšmets",
+    parent: { label: "Klase", href: "/grades/courses" },
+  },
+  "/targets": { label: "SR reģistrs" },
+};
+
+export default function Shell({ children }: { children: React.ReactNode }) {
+  const pathname = usePathname();
+  const { setActiveTab, clearFromCourse, clearFromGrade } = useAppStore();
+
+  const isActive = (href: string) => pathname.startsWith(href);
+
+  const sidebarItemClass = (active: boolean) =>
+    `w-9 h-9 rounded-xl flex items-center justify-center transition-all duration-200
+    ${active ? "bg-white/50 text-purple-900 shadow-sm" : "text-purple-900/60 hover:bg-white/35"}`;
+
+  const tabClass = (active: boolean) =>
+    `px-3 py-1 rounded-full text-[11px] font-medium border transition-all duration-200
+    ${active ? "bg-white/65 border-white/60 text-purple-950" : "bg-white/30 border-white/50 text-purple-900/70 hover:bg-white/45"}`;
+
+  const currentCrumb =
+    breadcrumbMap[pathname] ??
+    Object.entries(breadcrumbMap)
+      .filter(([key]) => pathname.startsWith(key))
+      .sort((a, b) => b[0].length - a[0].length)[0]?.[1];
+
+  return (
+    <div className="min-h-screen flex flex-col lg:flex-row lg:items-center lg:justify-center p-4 lg:p-8 pb-24 lg:pb-8">
+      <div className="flex gap-4 w-full max-w-4xl lg:h-[600px] lg:items-center">
+        {/* Sidebar — desktop */}
+        <aside className="hidden lg:flex flex-col items-center justify-center px-2 py-4 gap-2 w-[52px] h-fit rounded-[20px] bg-white/20 backdrop-blur-lg border border-white/45 self-center">
+          {navItems.map(({ tab, icon, href }) => {
+            const active = isActive(href);
+            return active ? (
+              <span key={tab.tab} className={sidebarItemClass(true)}>
+                {icon}
+              </span>
+            ) : (
+              <Link
+                key={tab.tab}
+                href={href}
+                onClick={() => setActiveTab(tab)}
+                className={sidebarItemClass(false)}
+              >
+                {icon}
+              </Link>
+            );
+          })}
+        </aside>
+
+        {/* App window */}
+        <div className="flex-1 h-full flex flex-col rounded-[20px] bg-white/20 backdrop-blur-lg border border-white/45 overflow-hidden">
+          <div className="px-5 py-4 border-b border-white/30 flex items-center justify-between">
+            {/* Breadcrumb */}
+            <Breadcrumb>
+              <BreadcrumbList>
+                {/* Always show Sākums */}
+                <BreadcrumbItem>
+                  {pathname === "/" ? (
+                    <BreadcrumbPage className="text-[11px] font-semibold tracking-widest text-purple-950/90 uppercase">
+                      Sākums
+                    </BreadcrumbPage>
+                  ) : (
+                    <BreadcrumbLink asChild>
+                      <Link
+                        href="/"
+                        onClick={() => clearFromGrade()}
+                        className="text-[11px] font-semibold tracking-widest text-purple-900/50 uppercase hover:text-purple-900/80 transition-colors"
+                      >
+                        Sākums
+                      </Link>
+                    </BreadcrumbLink>
+                  )}
+                </BreadcrumbItem>
+
+                {/* Parent crumb */}
+                {currentCrumb?.parent && (
+                  <>
+                    <BreadcrumbSeparator className="text-purple-900/30" />
+                    <BreadcrumbItem>
+                      <BreadcrumbLink asChild>
+                        <Link
+                          href={currentCrumb.parent?.href ?? "/"}
+                          onClick={() => {
+                            if (currentCrumb.parent?.href === "/grades")
+                              clearFromGrade();
+                            if (currentCrumb.parent?.href === "/grades/courses")
+                              clearFromCourse();
+                          }}
+                          className="text-[11px] font-semibold tracking-widest text-purple-900/50 uppercase hover:text-purple-900/80 transition-colors"
+                        >
+                          {currentCrumb.parent?.label}
+                        </Link>
+                      </BreadcrumbLink>
+                    </BreadcrumbItem>
+                  </>
+                )}
+
+                {/* Current page */}
+                {currentCrumb?.label && pathname !== "/" && (
+                  <>
+                    <BreadcrumbSeparator className="text-purple-900/30" />
+                    <BreadcrumbItem>
+                      <BreadcrumbPage className="text-[11px] font-semibold tracking-widest text-purple-950/90 uppercase">
+                        {currentCrumb.label}
+                      </BreadcrumbPage>
+                    </BreadcrumbItem>
+                  </>
+                )}
+              </BreadcrumbList>
+            </Breadcrumb>
+
+            <div className="gap-2 hidden md:flex">
+              {navItems.map(({ tab, href }) => {
+                const active = isActive(href);
+                return active ? (
+                  <span key={tab.tab} className={tabClass(true)}>
+                    {tab.tab}
+                  </span>
+                ) : (
+                  <Link
+                    key={tab.tab}
+                    href={href}
+                    onClick={() => setActiveTab(tab)}
+                    className={tabClass(false)}
+                  >
+                    {tab.tab}
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+
+          <div className="p-8 flex-1 overflow-auto">{children}</div>
+        </div>
+      </div>
+
+      {/* Sidebar — mobile */}
+      <aside className="lg:hidden fixed bottom-4 left-1/2 -translate-x-1/2 z-50 flex flex-row items-center px-4 py-2 gap-2 w-fit rounded-[20px] bg-white/20 backdrop-blur-lg border border-white/45">
+        {navItems.map(({ tab, icon, href }) => (
+          <Link
+            key={tab.tab}
+            href={href}
+            onClick={() => setActiveTab(tab)}
+            className={sidebarItemClass(isActive(href))}
+          >
+            {icon}
+          </Link>
+        ))}
+      </aside>
+    </div>
+  );
+}

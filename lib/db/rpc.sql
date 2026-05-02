@@ -1,0 +1,82 @@
+CREATE OR REPLACE FUNCTION get_courses_by_grade_id(p_grade_id INT)
+RETURNS SETOF json
+LANGUAGE sql
+AS $$
+  SELECT json_agg(row_to_json(t))
+  FROM (
+    SELECT
+      c.course_id,
+      s.name,
+      s.icon,
+      COUNT(e.enrollment_id) AS student_count
+    FROM courses c
+    JOIN subjects s ON c.subject_id = s.subject_id
+    LEFT JOIN enrollments e ON c.course_id = e.course_id
+    LEFT JOIN students st ON e.student_id = st.student_id AND st.grade_id = p_grade_id
+    GROUP BY c.course_id, s.name, s.icon
+    HAVING COUNT(e.enrollment_id) > 0
+    ORDER BY s.name
+  ) t;
+$$;
+
+CREATE OR REPLACE FUNCTION get_grades_with_groups()
+RETURNS SETOF json
+LANGUAGE sql
+AS $$
+  SELECT json_agg(row_to_json(t))
+  FROM (
+    SELECT 
+      g.grade_id,
+      g.name,
+      g.grade_group_id,
+      g.student_count,
+      gg.name as group_name,
+      COALESCE(
+        ARRAY_AGG(t.name ORDER BY t.name) FILTER (WHERE t.name IS NOT NULL),
+        '{}'
+      ) as class_teachers
+    FROM grades g
+    JOIN grade_groups gg ON g.grade_group_id = gg.grade_group_id
+    LEFT JOIN class_teachers ct ON g.grade_id = ct.grade_id
+    LEFT JOIN teachers t ON ct.teacher_id = t.teacher_id
+    GROUP BY g.grade_id, g.name, g.grade_group_id, g.student_count, gg.name
+    ORDER BY g.grade_id
+  ) t;
+$$;
+
+
+CREATE OR REPLACE FUNCTION get_students_by_grade_and_course_ids(
+  p_grade_id INT,
+  p_course_id INT
+)
+RETURNS json
+LANGUAGE sql
+AS $$
+  SELECT json_build_object(
+    'course_id', c.course_id,
+    'course_name', s.name,
+    'course_field', s.field,
+    'teachers', (
+      SELECT COALESCE(json_agg(t.name ORDER BY t.name), '[]'::json)
+      FROM teacher_assignments ta
+      JOIN teachers t ON ta.teacher_id = t.teacher_id
+      WHERE ta.course_id = p_course_id
+    ),
+    'students', (
+      SELECT COALESCE(json_agg(
+        json_build_object(
+          'student_id', st.student_id,
+          'name', st.name,
+          'is_awaiting_test', e.is_test_pending
+        ) ORDER BY st.name
+      ), '[]'::json)
+      FROM enrollments e
+      JOIN students st ON e.student_id = st.student_id
+      WHERE e.course_id = p_course_id
+        AND st.grade_id = p_grade_id
+    )
+  )
+  FROM courses c
+  JOIN subjects s ON c.subject_id = s.subject_id
+  WHERE c.course_id = p_course_id;
+$$;

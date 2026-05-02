@@ -1,14 +1,31 @@
-// app/page.tsx
 "use client";
 
-import { useAppStore } from "@/store/useAppStore";
-import { tabs } from "@/types/types";
-import KpdWindow from "@/components/KPDWindow";
-import SrWindow from "@/components/SRWindow";
+import { fetchPendingTestEnrollments } from "@/actions/data-fetching";
+import DataGrid from "@/components/DataGrid";
+import { getPendingTestColumnDefs } from "@/types/definitions/pendingTestColumns";
+import { PendingTestEnrollment } from "@/types/types";
+import { useEffect, useMemo, useState } from "react";
 
 export default function HomePage() {
-  // const { activeTab } = useAppStore();
+  const [pendingTests, setPendingTests] = useState<PendingTestEnrollment[]>();
 
-  // return activeTab.tab === tabs[0].tab ? <KpdWindow /> : <SrWindow />;
-  return null;
+  useEffect(() => {
+    fetchPendingTestEnrollments().then(setPendingTests);
+  }, []);
+
+  const colDefs = useMemo(() => getPendingTestColumnDefs(), []);
+
+  const rowData = useMemo(() => {
+    return pendingTests ?? [];
+  }, [pendingTests]);
+
+  return (
+    <div className="flex flex-col gap-4 h-full">
+      <DataGrid
+        rowData={rowData}
+        columnDefs={colDefs}
+        getRowId={(row) => String(row.enrollment_id)}
+      />
+    </div>
+  );
 }

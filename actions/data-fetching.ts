@@ -151,3 +151,9 @@ export const fetchCourseById = async (courseId: number) => {
     student_count: 0, // not needed on this page, satisfies the Course type
   };
 };
+
+export const fetchPendingTestEnrollments = async () => {
+  const { data, error } = await supabase.rpc("get_pending_test_enrollments");
+  if (error) throw new Error("Error getting pending test enrollments");
+  return data?.[0] ?? [];
+};

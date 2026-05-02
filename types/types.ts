@@ -34,3 +34,20 @@ export type CourseDetail = {
   teachers: string[];
   students: Student[];
 };
+
+export type SubjectField =
+  | "Sociālā un pilsoniskā"
+  | "Kultūras izpratne un pašizpausme mākslā"
+  | "Valodas"
+  | "Dabaszinātnes"
+  | "Matemātika"
+  | "Tehnoloģijas"
+  | "Veselība un fiziskās aktivitātes";
+
+export type PendingTestEnrollment = {
+  enrollment_id: number;
+  student_name: string;
+  grade_name: string;
+  subject_name: string;
+  subject_field: SubjectField;
+};

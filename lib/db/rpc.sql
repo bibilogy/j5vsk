@@ -79,3 +79,26 @@ AS $$
   JOIN subjects s ON c.subject_id = s.subject_id
   WHERE c.course_id = p_course_id;
 $$;
+
+
+CREATE OR REPLACE FUNCTION get_pending_test_enrollments()
+RETURNS SETOF json
+LANGUAGE sql
+AS $$
+  SELECT json_agg(row_to_json(t))
+  FROM (
+    SELECT
+    e.enrollment_id,
+      st.name         AS student_name,
+      g.name          AS grade_name,
+      s.name          AS subject_name,
+      s.field         AS subject_field
+    FROM enrollments e
+    JOIN students st ON e.student_id = st.student_id
+    JOIN grades g    ON st.grade_id = g.grade_id
+    JOIN courses c   ON e.course_id = c.course_id
+    JOIN subjects s  ON c.subject_id = s.subject_id
+    WHERE e.is_test_pending = TRUE
+    ORDER BY g.name, st.name
+  ) t;
+$$;

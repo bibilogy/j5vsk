@@ -24,7 +24,7 @@ export default function CoursesPage() {
   if (isLoading)
     return (
       <div className="flex items-center justify-center h-full">
-        <HashLoader color="#a992bb" size={35} />
+        <HashLoader color="#B4A0C4" size={35} />
       </div>
     );
 
@@ -34,7 +34,7 @@ export default function CoursesPage() {
     <div className="flex flex-col gap-6 h-full">
       <GradeHeader grade={grade} />
 
-      <div className="overflow-y-auto flex-1 custom-scroll px-1">
+      <div className="overflow-y-auto flex-1 custom-scroll px-3">
         <div className="grid grid-cols-3 gap-3 pr-2 pt-1 pb-4 -mx-1">
           {courses?.map((c) => (
             <CourseCard

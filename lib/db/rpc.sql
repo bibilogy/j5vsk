@@ -55,6 +55,7 @@ AS $$
     'course_id', c.course_id,
     'course_name', s.name,
     'course_field', s.field,
+    'grade_name', g.name,
     'teachers', (
       SELECT COALESCE(json_agg(t.name ORDER BY t.name), '[]'::json)
       FROM teacher_assignments ta
@@ -77,6 +78,7 @@ AS $$
   )
   FROM courses c
   JOIN subjects s ON c.subject_id = s.subject_id
+  JOIN grades g ON g.grade_id = p_grade_id
   WHERE c.course_id = p_course_id;
 $$;
 
@@ -100,5 +102,28 @@ AS $$
     JOIN subjects s  ON c.subject_id = s.subject_id
     WHERE e.is_test_pending = TRUE
     ORDER BY g.name, st.name
+  ) t;
+$$;
+
+CREATE OR REPLACE FUNCTION get_courses_by_grade_group_id(p_grade_group_id INT)
+RETURNS SETOF json
+LANGUAGE sql
+AS $$
+  SELECT json_agg(row_to_json(t) ORDER BY t.subject_name)
+  FROM (
+    SELECT DISTINCT ON (c.subject_id)
+      c.course_id,
+      s.name        AS subject_name,
+      s.icon        AS subject_icon,
+      s.field       AS subject_field,
+      gg.name       AS grade_group_name
+    FROM courses c
+    JOIN subjects s       ON c.subject_id = s.subject_id
+    JOIN enrollments e    ON c.course_id = e.course_id
+    JOIN students st      ON e.student_id = st.student_id
+    JOIN grades g         ON st.grade_id = g.grade_id
+    JOIN grade_groups gg  ON g.grade_group_id = gg.grade_group_id
+    WHERE gg.grade_group_id = p_grade_group_id
+    ORDER BY c.subject_id, c.course_id
   ) t;
 $$;

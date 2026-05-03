@@ -15,7 +15,7 @@ import {
 
 const navItems = [
   { tab: tabs[0], icon: <ClipboardCheck size={18} />, href: "/grades" },
-  { tab: tabs[1], icon: <Crosshair size={18} />, href: "/targets" },
+  { tab: tabs[1], icon: <Crosshair size={18} />, href: "/grade-groups" }, // ← changed
 ];
 
 const breadcrumbMap: Record<
@@ -48,11 +48,10 @@ export default function Shell({ children }: { children: React.ReactNode }) {
     `px-3 py-1 rounded-full text-[11px] font-medium border transition-all duration-200
     ${active ? "bg-white/65 border-white/60 text-purple-950" : "bg-white/30 border-white/50 text-purple-900/70 hover:bg-white/45"}`;
 
-  // In Shell — replace the static breadcrumbMap lookup with this:
   const currentCrumb = (() => {
     if (pathname === "/") return { label: "" };
     if (pathname === "/grades") return { label: "Klases" };
-    if (pathname === "/targets") return { label: "SR reģistrs" };
+    if (pathname === "/grade-groups") return { label: "Klašu grupa" };
     if (/^\/grades\/[^/]+$/.test(pathname))
       return {
         label: "Mācību priekšmeti",
@@ -66,12 +65,25 @@ export default function Shell({ children }: { children: React.ReactNode }) {
           href: `/grades/${pathname.split("/")[2]}`,
         },
       };
+    if (/^\/grade-groups\/[^/]+$/.test(pathname))
+      return {
+        label: "Mācību priekšmeti",
+        parent: { label: "Klašu grupa", href: "/grade-groups" },
+      };
+    if (/^\/grade-groups\/[^/]+\/courses\/[^/]+$/.test(pathname))
+      return {
+        label: "Sasniedzāmie rezultāti",
+        parent: {
+          label: "Mācību priekšmeti",
+          href: `/grade-groups/${pathname.split("/")[2]}`,
+        },
+      };
     return undefined;
   })();
 
   return (
     <div className="min-h-screen flex flex-col lg:flex-row lg:items-center lg:justify-center p-4 lg:p-8 pb-24 lg:pb-8">
-      <div className="flex gap-4 w-full max-w-4xl lg:h-[700px] lg:items-center">
+      <div className="flex gap-4 w-full max-w-5xl lg:h-[700px] lg:items-center">
         {/* Sidebar — desktop */}
         <aside className="hidden lg:flex flex-col items-center justify-center px-2 py-4 gap-2 w-[52px] h-fit rounded-[20px] bg-white/20 backdrop-blur-lg border border-white/45 self-center">
           {navItems.map(({ tab, icon, href }) => {

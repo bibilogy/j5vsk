@@ -31,6 +31,7 @@ export type CourseDetail = {
   course_id: number;
   course_name: string;
   course_field: string;
+  grade_name: string;
   teachers: string[];
   students: Student[];
 };
@@ -50,4 +51,12 @@ export type PendingTestEnrollment = {
   grade_name: string;
   subject_name: string;
   subject_field: SubjectField;
+};
+
+export type GradeGroupCourse = {
+  course_id: number;
+  subject_name: string;
+  subject_icon: string;
+  subject_field: SubjectField;
+  grade_group_name: string;
 };

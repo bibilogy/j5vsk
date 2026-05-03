@@ -117,8 +117,8 @@ export default function DataGrid<T>({
           loadingOverlayComponent={LoadingOverlay}
           loading={loading}
           pagination={hasFooter}
-          paginationPageSize={hasFooter ? 20 : undefined}
-          paginationPageSizeSelector={hasFooter ? [10, 20, 50] : false}
+          paginationPageSize={hasFooter ? 50 : undefined}
+          paginationPageSizeSelector={hasFooter ? [50, 100, 150] : false}
         />
         {hasFooter && (
           <div className="absolute bottom-0 left-0 h-[48px] flex items-center pl-3">

@@ -42,7 +42,7 @@ export default function GradesPage() {
   if (isLoading)
     return (
       <div className="flex items-center justify-center h-full">
-        <HashLoader color="#a992bb" size={35} />
+        <HashLoader color="#B4A0C4" size={35} />
       </div>
     );
 
@@ -73,7 +73,7 @@ export default function GradesPage() {
               href={`/grades/${g.grade_id}`}
               className="flex flex-col items-center gap-1 cursor-pointer group"
             >
-              <Folder color="#82B4C4" />
+              <Folder color="#B4A0C4" />
               <span className="text-xs text-purple-950/70 font-medium group-hover:text-purple-950 transition-colors">
                 {g.name}
               </span>

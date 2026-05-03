@@ -157,3 +157,11 @@ export const fetchPendingTestEnrollments = async () => {
   if (error) throw new Error("Error getting pending test enrollments");
   return data?.[0] ?? [];
 };
+
+export const fetchCoursesByGradeGroupId = async (gradeGroupId: number) => {
+  const { data, error } = await supabase.rpc("get_courses_by_grade_group_id", {
+    p_grade_group_id: gradeGroupId,
+  });
+  if (error) throw new Error("Error getting courses by grade group");
+  return data?.[0] ?? [];
+};

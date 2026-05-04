@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<svg width="390" height="400" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+ <defs>
+  <path d="m0,457.19c124.48,77.75 254.73,93.51 389.92,-6.06" fill="none" fill-rule="evenodd" id="path4241-4" stroke="#000000" stroke-width="1px"/>
+  <path d="m16.16,57.17c119.93,-92.26 268.86,-56.58 326.02,-6.43" fill="none" fill-rule="evenodd" id="path4182-5" stroke="#000000" stroke-width="1px"/>
+ </defs>
+ <metadata id="metadata7">image/svg+xml</metadata>
+ <g class="layer">
+  <title>Layer 1</title>
+  <g id="svg_3" transform="translate(-2 -54) translate(-512 77) matrix(1 0 0 1 507 -52)">
+   <path clip-rule="nonzero" d="m58.73,184.73l-43.91,34.05c54.76,62.41 94.14,159 162.65,192.24c15.38,7.47 32.24,11.74 51.07,11.71c40.2,-1.23 78.94,-23.11 97.36,-62c23.08,-48.76 4.49,-110.77 -46.27,-133.94c-42.81,-19.54 -97.07,-2.92 -116.58,42.1c-15.97,36.85 -1.27,83.43 38.09,99.18c30.91,12.37 69.92,-0.48 81.74,-34.35c4.35,-12.5 3.77,-25.99 -1.33,-37.92c-5.1,-11.93 -15.55,-22.56 -29.93,-26.26c-9.63,-2.48 -19.49,-1.34 -28.39,3.29c-19.22,13.25 -21.33,26.69 -21.09,44.71c5.53,-15.7 29.35,-30.81 43.37,-20.5c5.04,4.19 6.95,5.43 8.86,10.38c1.92,5 2.37,11.44 0.59,16.56c-5.73,16.41 -26.46,23.2 -42.84,16.64c-22.68,-9.08 -31.65,-37.55 -21.94,-59.98c12.49,-28.82 48.75,-39.93 77.17,-26.95c82.73,46.75 21.49,155 -53.73,138.49c-55.11,-13.45 -99.98,-91.1 -131.01,-153.34c-10.33,-20.72 -15.56,-39.74 -23.88,-54.11l0,0z" fill="#ffffff" fill-rule="evenodd" id="path4151" stroke-dashoffset="0" stroke-miterlimit="4" stroke-width="29.57"/>
+   <path d="m275.38,210.35l16.99,11.34l39.43,-145.68l-35.19,-8.73l-21.23,143.07z" fill="#ffffff" fill-rule="evenodd" id="path4157" stroke="#ffffff" stroke-width="1.02px" transform="rotate(-1.75712 303.59 144.485)"/>
+   <path d="m328.17,256.88l-11.87,-23.25l51.17,-92.97l22.24,21.52l-61.54,94.7z" fill="#ffffff" fill-rule="evenodd" id="path4159" stroke="#ffffff" stroke-width="1.12px"/>
+   <path d="m236.13,212.51l19.59,0.02l-1.57,-174.15l-39.13,0.72l21.11,173.4l0,0.01z" fill="#ffffff" fill-rule="evenodd" id="path4161" stroke="#ffffff" stroke-width="1.07px"/>
+   <path d="m193.9,220.7l16.42,-15.66l-46.43,-130.65l-38.04,15.98l68.05,130.33z" fill="#ffffff" fill-rule="evenodd" id="path4163" stroke="#ffffff" stroke-width="1.01px"/>
+  </g>
+ </g>
+</svg>

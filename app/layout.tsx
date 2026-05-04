@@ -5,7 +5,7 @@ import "./globals.css";
 import Shell from "@/components/Shell";
 import { cn } from "@/lib/utils";
 
-const geist = Geist({subsets:['latin'],variable:'--font-sans'});
+const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -25,6 +25,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={cn("font-sans", geist.variable)}>
+      <head>
+        <link rel="icon" href="/logo.svg" />
+      </head>
       <body className="font-[family-name:var(--font-poppins)] bg-[#DFDBE5] bg-repeat">
         <Shell>{children}</Shell>
       </body>

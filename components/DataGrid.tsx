@@ -128,7 +128,7 @@ export default function DataGrid<T>({
           paginationPageSizeSelector={hasFooter ? [50, 100, 150] : false}
         />
         {hasFooter && (
-          <div className="absolute bottom-0 left-0 h-[48px] flex items-center pl-3">
+          <div className="absolute bottom-0 left-0 h-[48px] hidden md:flex items-center pl-3">
             <Button
               variant="outline"
               size="sm"

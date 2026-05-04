@@ -45,10 +45,7 @@ export default function SubjectsPage() {
       <GradeGroupHeader name={groupName} />
 
       <div className="overflow-y-auto flex-1 custom-scroll px-1">
-        <div
-          className="gap-3 pt-1 pb-4"
-          style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)" }}
-        >
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 pt-1 pb-4">
           {courses?.map((c) => (
             <Link
               key={c.course_id}

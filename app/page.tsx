@@ -44,13 +44,13 @@ export default function HomePage() {
             value="pending"
             className="text-purple-900/60 text-xs font-medium rounded-lg data-[state=active]:bg-white/60 data-[state=active]:text-purple-900 data-[state=active]:shadow-sm px-4 py-1.5"
           >
-            Kombinētie pārbaudes darbi
+            <span>KPD reģistrs</span>
           </TabsTrigger>
           <TabsTrigger
             value="targets"
             className="text-purple-900/60 text-xs font-medium rounded-lg data-[state=active]:bg-white/60 data-[state=active]:text-purple-900 data-[state=active]:shadow-sm px-4 py-1.5"
           >
-            Sasniedzāmie rezultāti
+            <span>SR reģistrs</span>
           </TabsTrigger>
         </TabsList>
 

@@ -62,10 +62,10 @@ export default function CourseDetailsHeader({
         </div>
 
         <div className="hidden md:block w-px self-stretch bg-white/40" />
-        <div className="block md:hidden w-full h-px bg-white/40" />
+        {/* <div className="block md:hidden w-full h-px bg-white/40" /> */}
 
         {/* Mācību joma */}
-        <div className="flex items-start gap-2">
+        <div className="hidden md:flex items-start gap-2">
           <div className="w-6 h-6 rounded-lg bg-white/40 flex items-center justify-center flex-shrink-0 mt-0.5">
             <BookOpen size={12} className="text-purple-900" />
           </div>
@@ -84,10 +84,10 @@ export default function CourseDetailsHeader({
         </div>
 
         <div className="hidden md:block w-px self-stretch bg-white/40" />
-        <div className="block md:hidden w-full h-px bg-white/40" />
+        {/* <div className="block md:hidden w-full h-px bg-white/40" /> */}
 
         {/* Skolotāji */}
-        <div className="flex items-start gap-2">
+        <div className="hidden md:flex items-start gap-2">
           <div className="w-6 h-6 rounded-lg bg-white/40 flex items-center justify-center flex-shrink-0 mt-0.5">
             <Users size={12} className="text-purple-900" />
           </div>

@@ -29,9 +29,9 @@ export default function GradeHeader({ grade }: { grade: Grade }) {
         </div>
 
         <div className="hidden md:block w-px h-8 bg-white/40" />
-        <div className="block md:hidden w-full h-px bg-white/40" />
+        {/* <div className="block md:hidden w-full h-px bg-white/40" /> */}
 
-        <div className="flex items-center gap-2">
+        <div className="items-center gap-2 hidden md:flex">
           <div className="w-6 h-6 rounded-lg bg-white/40 flex items-center justify-center flex-shrink-0">
             <BookOpen size={12} className="text-purple-900" />
           </div>
@@ -50,9 +50,9 @@ export default function GradeHeader({ grade }: { grade: Grade }) {
         </div>
 
         <div className="hidden md:block w-px h-8 bg-white/40" />
-        <div className="block md:hidden w-full h-px bg-white/40" />
+        {/* <div className="block md:hidden w-full h-px bg-white/40" /> */}
 
-        <div className="flex items-center gap-2">
+        <div className="hidden md:flex items-center gap-2">
           <div className="w-6 h-6 rounded-lg bg-white/40 flex items-center justify-center flex-shrink-0">
             <Users size={12} className="text-purple-900" />
           </div>

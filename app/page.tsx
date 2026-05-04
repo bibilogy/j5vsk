@@ -10,6 +10,7 @@ import { getCourseTargetColumnDefs } from "@/types/definitions/courseTargetColum
 import { PendingTestEnrollment, _CourseTarget } from "@/types/types";
 import { useEffect, useMemo, useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { getMobileTestColumnDefs } from "@/types/definitions/getMobileTestColumnDefs";
 
 export default function HomePage() {
   const [pendingTests, setPendingTests] = useState<PendingTestEnrollment[]>();
@@ -27,6 +28,7 @@ export default function HomePage() {
   }, [activeTab, courseTargets]);
 
   const pendingColDefs = useMemo(() => getPendingTestColumnDefs(), []);
+  const mobileColDefs = useMemo(() => getMobileTestColumnDefs(), []);
   const targetColDefs = useMemo(() => getCourseTargetColumnDefs(), []);
 
   const pendingRowData = useMemo(() => pendingTests ?? [], [pendingTests]);
@@ -54,14 +56,28 @@ export default function HomePage() {
           </TabsTrigger>
         </TabsList>
 
-        <TabsContent value="pending" className="flex-1 mt-0 min-h-0">
-          <DataGrid
-            rowData={pendingRowData}
-            columnDefs={pendingColDefs}
-            getRowId={(row) => String(row.enrollment_id)}
-            loading={pendingTests === undefined}
-            hasFooter
-          />
+        <TabsContent
+          value="pending"
+          className="flex-1 mt-0 min-h-0 flex flex-col"
+        >
+          <div className="hidden md:flex flex-col h-full min-h-0">
+            <DataGrid
+              rowData={pendingRowData}
+              columnDefs={mobileColDefs}
+              getRowId={(row) => String(row.enrollment_id)}
+              loading={pendingTests === undefined}
+              hasFooter
+            />
+          </div>
+          <div className="md:hidden flex-1 h-full min-h-0">
+            <DataGrid
+              rowData={pendingRowData}
+              columnDefs={mobileColDefs}
+              getRowId={(row) => String(row.enrollment_id)}
+              loading={pendingTests === undefined}
+              hasFooter
+            />
+          </div>
         </TabsContent>
 
         <TabsContent value="targets" className="flex-1 mt-0 min-h-0">

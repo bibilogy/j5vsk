@@ -3,13 +3,9 @@ import { supabase } from "@/lib/supabase";
 
 // fetch all grade groups
 export const fetchGradeGroups = async () => {
-  const { data, error } = await supabase
-    .from("grade_groups")
-    .select("*")
-    .order("grade_group_id");
-
+  const { data, error } = await supabase.rpc("get_grade_groups_with_targets");
   if (error) throw new Error("Error getting grade groups list");
-  return data;
+  return data?.[0] ?? [];
 };
 
 // fetch all grades by grade id
@@ -164,4 +160,25 @@ export const fetchCoursesByGradeGroupId = async (gradeGroupId: number) => {
   });
   if (error) throw new Error("Error getting courses by grade group");
   return data?.[0] ?? [];
+};
+
+export const fetchCourseTarget = async (courseId: number) => {
+  const { data, error } = await supabase.rpc("get_course_target", {
+    p_course_id: courseId,
+  });
+
+  if (error) throw new Error("Error getting course target");
+  return data?.[0] ?? null;
+};
+
+export const updateCourseTarget = async (
+  courseTargetId: number,
+  target: string,
+) => {
+  const { error } = await supabase.rpc("update_course_target", {
+    p_course_target_id: courseTargetId,
+    p_target: target,
+  });
+
+  if (error) throw new Error("Error updating course target");
 };

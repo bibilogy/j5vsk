@@ -16,10 +16,11 @@ export default function CourseCard({
   return (
     <Link
       href={`/grades/${gradeId}/courses/${course.course_id}`}
-      className="relative flex flex-col justify-between rounded-[16px] bg-white/30 backdrop-blur-lg border border-white/45 p-4 aspect-[16/7] transition-all duration-200 hover:-translate-y-1 hover:shadow-lg hover:bg-white/40 active:translate-y-0 active:shadow-none"
+      style={{ height: "120px" }}
+      className="relative flex flex-col justify-between rounded-[16px] bg-white/30 backdrop-blur-lg border border-white/45 p-4 transition-all duration-200 hover:-translate-y-1 hover:shadow-lg hover:bg-white/40 active:translate-y-0 active:shadow-none"
     >
       <div className="flex items-start justify-between">
-        <span className="text-base font-semibold text-purple-950 leading-tight max-w-[60%]">
+        <span className="text-sm font-semibold text-purple-900/70 leading-tight max-w-[60%]">
           {course.name}
         </span>
         <Image
@@ -29,7 +30,7 @@ export default function CourseCard({
           height={36}
           style={{
             filter:
-              "brightness(0) saturate(100%) invert(8%) sepia(60%) saturate(4000%) hue-rotate(270deg) brightness(60%)",
+              "brightness(0) saturate(100%) invert(8%) sepia(60%) saturate(4000%) hue-rotate(270deg) brightness(80%)",
           }}
         />
       </div>

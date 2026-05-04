@@ -35,7 +35,10 @@ export default function CoursesPage() {
       <GradeHeader grade={grade} />
 
       <div className="overflow-y-auto flex-1 custom-scroll px-3">
-        <div className="grid grid-cols-3 gap-3 pr-2 pt-1 pb-4 -mx-1">
+        <div
+          className="gap-3 pt-1 pb-4"
+          style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)" }}
+        >
           {courses?.map((c) => (
             <CourseCard
               key={c.course_id}

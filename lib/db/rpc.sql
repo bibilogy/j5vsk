@@ -127,3 +127,51 @@ AS $$
     ORDER BY c.subject_id, c.course_id
   ) t;
 $$;
+
+CREATE OR REPLACE FUNCTION get_grade_groups_with_targets()
+RETURNS SETOF json
+LANGUAGE sql
+AS $$
+  SELECT json_agg(row_to_json(t) ORDER BY t.grade_group_id)
+  FROM (
+    SELECT DISTINCT
+      gg.grade_group_id,
+      gg.name
+    FROM grade_groups gg
+    JOIN grades g        ON g.grade_group_id = gg.grade_group_id
+    JOIN students st     ON st.grade_id = g.grade_id
+    JOIN enrollments e   ON e.student_id = st.student_id
+    JOIN courses c       ON c.course_id = e.course_id
+    WHERE c.course_target_id IS NOT NULL
+  ) t;
+$$;
+
+CREATE OR REPLACE FUNCTION get_course_target(p_course_id INT)
+RETURNS TABLE (
+    course_target_id INT,
+    description VARCHAR,
+    target TEXT,
+    icon VARCHAR
+)
+LANGUAGE sql
+STABLE
+AS $$
+    SELECT 
+        ct.course_target_id,
+        ct.description,
+        ct.target,
+        s.icon
+    FROM courses c
+    JOIN course_targets ct ON ct.course_target_id = c.course_target_id
+    JOIN subjects s ON s.subject_id = c.subject_id
+    WHERE c.course_id = p_course_id;
+$$;
+
+CREATE OR REPLACE FUNCTION update_course_target(p_course_target_id INT, p_target TEXT)
+RETURNS VOID
+LANGUAGE sql
+AS $$
+    UPDATE course_targets
+    SET target = p_target
+    WHERE course_target_id = p_course_target_id;
+$$;

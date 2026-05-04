@@ -60,3 +60,9 @@ export type GradeGroupCourse = {
   subject_field: SubjectField;
   grade_group_name: string;
 };
+
+export type CourseTarget = {
+  description: string;
+  target: string | null;
+  icon: string;
+};

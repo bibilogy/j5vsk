@@ -31,15 +31,13 @@ const darkenColor = (hex: string, percent: number): string => {
 
 const Folder: React.FC<FolderProps> = ({
   color = "#5227FF",
-  size = 1,
+  size = 16,
   items = [],
   className = "",
 }) => {
   const maxItems = 3;
   const papers = items.slice(0, maxItems);
-  while (papers.length < maxItems) {
-    papers.push(null);
-  }
+  while (papers.length < maxItems) papers.push(null);
 
   const [open, setOpen] = useState(false);
   const [paperOffsets, setPaperOffsets] = useState<{ x: number; y: number }[]>(
@@ -59,30 +57,28 @@ const Folder: React.FC<FolderProps> = ({
   };
 
   const handlePaperMouseMove = (
-    e: React.MouseEvent<HTMLDivElement, MouseEvent>,
+    e: React.MouseEvent<HTMLDivElement>,
     index: number,
   ) => {
     if (!open) return;
     const rect = e.currentTarget.getBoundingClientRect();
-    const centerX = rect.left + rect.width / 2;
-    const centerY = rect.top + rect.height / 2;
-    const offsetX = (e.clientX - centerX) * 0.15;
-    const offsetY = (e.clientY - centerY) * 0.15;
+    const offsetX = (e.clientX - (rect.left + rect.width / 2)) * 0.15;
+    const offsetY = (e.clientY - (rect.top + rect.height / 2)) * 0.15;
     setPaperOffsets((prev) => {
-      const newOffsets = [...prev];
-      newOffsets[index] = { x: offsetX, y: offsetY };
-      return newOffsets;
+      const next = [...prev];
+      next[index] = { x: offsetX, y: offsetY };
+      return next;
     });
   };
 
   const handlePaperMouseLeave = (
-    e: React.MouseEvent<HTMLDivElement, MouseEvent>,
+    _e: React.MouseEvent<HTMLDivElement>,
     index: number,
   ) => {
     setPaperOffsets((prev) => {
-      const newOffsets = [...prev];
-      newOffsets[index] = { x: 0, y: 0 };
-      return newOffsets;
+      const next = [...prev];
+      next[index] = { x: 0, y: 0 };
+      return next;
     });
   };
 
@@ -92,15 +88,13 @@ const Folder: React.FC<FolderProps> = ({
     "--paper-1": paper1,
     "--paper-2": paper2,
     "--paper-3": paper3,
+    fontSize: `${size}px`, // ← controls the entire folder size via em units
   } as React.CSSProperties;
 
-  const folderClassName = `folder ${open ? "open" : ""}`.trim();
-  const scaleStyle = { transform: `scale(${size})` };
-
   return (
-    <div style={scaleStyle} className={className}>
+    <div className={className}>
       <div
-        className={folderClassName}
+        className={`folder ${open ? "open" : ""}`.trim()}
         style={folderStyle}
         onClick={handleClick}
       >

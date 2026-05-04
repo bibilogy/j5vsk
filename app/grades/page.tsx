@@ -6,15 +6,32 @@ import Folder from "../../components/Folder/Folder";
 import { Grade } from "@/types/types";
 import { HashLoader } from "react-spinners";
 
+const useResponsiveSize = () => {
+  const [size, setSize] = useState(16);
+  useEffect(() => {
+    const update = () => {
+      const w = window.innerWidth;
+      if (w < 640) setSize(12);
+      else if (w < 1024) setSize(14);
+      else setSize(16);
+    };
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
+  return size;
+};
+
 export default function GradesPage() {
   const [grades, setGrades] = useState<Grade[]>();
   const [isLoading, setIsLoading] = useState(true);
   const [activeGroupIds, setActiveGroupIds] = useState<number[]>([]);
+  const folderSize = useResponsiveSize();
 
   useEffect(() => {
     fetchGradeGroupsAndGrades()
       .then(setGrades)
-      .finally(() => setIsLoading(false)); // ← runs after fetch
+      .finally(() => setIsLoading(false));
   }, []);
 
   const gradeGroups = grades
@@ -73,7 +90,7 @@ export default function GradesPage() {
               href={`/grades/${g.grade_id}`}
               className="flex flex-col items-center gap-1 cursor-pointer group"
             >
-              <Folder color="#B4A0C4" />
+              <Folder color="#B4A0C4" size={folderSize} />
               <span className="text-xs text-purple-950/70 font-medium group-hover:text-purple-950 transition-colors">
                 {g.name}
               </span>

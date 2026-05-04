@@ -23,7 +23,7 @@ export default function GradeGroupsPage() {
   if (isLoading)
     return (
       <div className="flex items-center justify-center h-full">
-        <HashLoader color="#82B4C4" size={35} />
+        <HashLoader color="#C4A882" size={35} />
       </div>
     );
 
@@ -37,7 +37,7 @@ export default function GradeGroupsPage() {
               href={`/grade-groups/${gg.grade_group_id}`}
               className="flex flex-col items-center gap-1 cursor-pointer group"
             >
-              <Folder color="#82B4C4" />
+              <Folder color="#C4A882" />
               <span className="text-xs font-medium text-purple-950/70 group-hover:text-purple-950 transition-colors text-center">
                 {gg.name}
               </span>

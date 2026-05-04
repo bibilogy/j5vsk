@@ -134,6 +134,16 @@ body {
   }
 }
 
+.file-upload-btn {
+  --btn-color: #b4a0c4;
+  color: var(--btn-color);
+}
+
+.file-upload-btn:hover {
+  --btn-color: #9c87b3;
+  text-decoration-color: rgba(156, 135, 179, 0.8);
+}
+
 * {
   scrollbar-width: thin;
   scrollbar-color: rgba(155, 142, 196, 0.4) transparent;

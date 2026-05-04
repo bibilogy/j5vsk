@@ -11,7 +11,7 @@ import {
 } from "ag-grid-community";
 import { useRef } from "react";
 import { Button } from "./ui/button";
-import { Download } from "lucide-react";
+import { Download, FolderOpen } from "lucide-react";
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 
@@ -56,7 +56,6 @@ const localeText = {
   resetFilter: "Atiestatīt",
   clearFilter: "Notīrīt",
   cancelFilter: "Atcelt",
-  noRowsToShow: "Nav datu",
   // pagination
   page: "Lappuse",
   nextPage: "Nākamā lappuse",
@@ -72,6 +71,13 @@ const localeText = {
 const LoadingOverlay = () => (
   <div className="flex items-center justify-center h-full">
     <HashLoader color="#a992bb" size={35} />
+  </div>
+);
+
+const NoRowsOverlay = () => (
+  <div className="flex items-center justify-center gap-2 text-purple-900/40">
+    <FolderOpen size={18} />
+    <span className="text-sm font-medium">Nav datu</span>
   </div>
 );
 
@@ -115,6 +121,7 @@ export default function DataGrid<T>({
           enableCellTextSelection
           ensureDomOrder
           loadingOverlayComponent={LoadingOverlay}
+          noRowsOverlayComponent={NoRowsOverlay}
           loading={loading}
           pagination={hasFooter}
           paginationPageSize={hasFooter ? 50 : undefined}

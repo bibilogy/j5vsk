@@ -66,3 +66,10 @@ export type CourseTarget = {
   target: string | null;
   icon: string;
 };
+
+export type _CourseTarget = {
+  course_target_id: number;
+  description: string;
+  target: string;
+  subject_field: string;
+};

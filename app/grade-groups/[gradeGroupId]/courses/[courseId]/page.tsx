@@ -141,6 +141,10 @@ export default function CourseTargetsPage() {
             width={55}
             height={55}
             priority
+            style={{
+              filter:
+                "brightness(0) saturate(100%) invert(72%) sepia(25%) saturate(400%) hue-rotate(5deg) brightness(95%) contrast(85%)",
+            }}
           />
         </div>
         <div className="flex flex-col md:flex-row md:items-center gap-3 md:gap-6 rounded-[16px] bg-white/30 backdrop-blur-lg border border-white/45 px-5 py-3 flex-1">
@@ -184,9 +188,9 @@ export default function CourseTargetsPage() {
             }}
           >
             <Info
-              style={{ width: 14, height: 14, color: "#1e1b4b", flexShrink: 0 }}
+              style={{ width: 14, height: 14, color: "#9f7bba", flexShrink: 0 }}
             />
-            <span style={{ color: "rgba(30,27,75,0.7)", fontSize: "10px" }}>
+            <span style={{ color: "#9f7bba", fontSize: "10px" }}>
               Izmaiņas tiek saglabātas automātiski.
             </span>
           </div>

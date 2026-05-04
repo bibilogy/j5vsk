@@ -175,3 +175,26 @@ AS $$
     SET target = p_target
     WHERE course_target_id = p_course_target_id;
 $$;
+
+CREATE OR REPLACE FUNCTION get_course_targets()
+RETURNS TABLE (
+    course_target_id INT,
+    description VARCHAR(100),
+    target TEXT,
+    subject_field subject_field
+) AS $$
+BEGIN
+    RETURN QUERY
+    SELECT DISTINCT ON (ct.description, s.field)
+        ct.course_target_id,
+        ct.description,
+        ct.target,
+        s.field AS subject_field
+    FROM course_targets ct
+    JOIN courses c ON c.course_target_id = ct.course_target_id
+    JOIN subjects s ON s.subject_id = c.subject_id
+    WHERE ct.target IS NOT NULL
+      AND TRIM(ct.target) <> ''
+    ORDER BY ct.description, s.field, ct.course_target_id;
+END;
+$$ LANGUAGE plpgsql;

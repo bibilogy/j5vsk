@@ -1,5 +1,6 @@
 "use server";
 import { supabase } from "@/lib/supabase";
+import { _CourseTarget } from "@/types/types";
 
 // fetch all grade groups
 export const fetchGradeGroups = async () => {
@@ -181,4 +182,10 @@ export const updateCourseTarget = async (
   });
 
   if (error) throw new Error("Error updating course target");
+};
+
+export const fetchCourseTargets = async (): Promise<_CourseTarget[]> => {
+  const { data, error } = await supabase.rpc("get_course_targets");
+  if (error) throw new Error("Error getting course targets");
+  return data ?? [];
 };

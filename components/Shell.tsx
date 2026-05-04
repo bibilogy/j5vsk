@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ClipboardCheck, Crosshair } from "lucide-react";
+import { ClipboardCheck, Crosshair, Menu } from "lucide-react";
 import { tabs } from "@/types/types";
 import {
   Breadcrumb,
@@ -12,6 +12,12 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "./ui/dropdown-menu";
 
 const navItems = [
   { tab: tabs[0], icon: <ClipboardCheck size={18} />, href: "/grades" },
@@ -167,20 +173,36 @@ export default function Shell({ children }: { children: React.ReactNode }) {
                 </BreadcrumbList>
               </Breadcrumb>
 
-              <div className="gap-2 hidden md:flex">
-                {navItems.map(({ tab, href }) => {
-                  const active = isActive(href);
-                  return active ? (
-                    <span key={tab.tab} className={tabClass(true)}>
-                      {tab.tab}
-                    </span>
-                  ) : (
-                    <Link key={tab.tab} href={href} className={tabClass(false)}>
-                      {tab.tab}
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <button className="w-8 h-8 flex items-center justify-center rounded-lg text-purple-900/60 hover:bg-white/35 transition-all duration-200">
+                    <Menu size={18} />
+                  </button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent
+                  align="end"
+                  className="bg-white/70 backdrop-blur-lg border-white/50"
+                >
+                  <DropdownMenuItem asChild>
+                    <Link
+                      href="/grades"
+                      className="text-purple-900/80 text-xs font-medium cursor-pointer"
+                    >
+                      <ClipboardCheck size={14} className="mr-2" />
+                      KPD reģistrs
                     </Link>
-                  );
-                })}
-              </div>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link
+                      href="/grade-groups"
+                      className="text-purple-900/80 text-xs font-medium cursor-pointer"
+                    >
+                      <Crosshair size={14} className="mr-2" />
+                      SR reģistrs
+                    </Link>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             </div>
 
             <div className="p-4 lg:p-8 flex-1 overflow-auto">{children}</div>

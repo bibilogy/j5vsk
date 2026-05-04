@@ -63,13 +63,13 @@ export default function HomePage() {
           <div className="hidden md:flex flex-col h-full min-h-0">
             <DataGrid
               rowData={pendingRowData}
-              columnDefs={mobileColDefs}
+              columnDefs={pendingColDefs}
               getRowId={(row) => String(row.enrollment_id)}
               loading={pendingTests === undefined}
               hasFooter
             />
           </div>
-          <div className="md:hidden flex-1 h-full min-h-0">
+          <div className="md:hidden flex flex-col h-full min-h-0">
             <DataGrid
               rowData={pendingRowData}
               columnDefs={mobileColDefs}

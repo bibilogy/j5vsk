@@ -24,32 +24,11 @@ const navItems = [
   { tab: tabs[1], icon: <Crosshair size={18} />, href: "/grade-groups" },
 ];
 
-const breadcrumbMap: Record<
-  string,
-  { label: string; parent?: { label: string; href: string } }
-> = {
-  "/": { label: "" },
-  "/grades": { label: "KPD reģistrs" },
-  "/grades/courses": {
-    label: "Klase",
-    parent: { label: "KPD reģistrs", href: "/grades" },
-  },
-  "/grades/course-details": {
-    label: "Priekšmets",
-    parent: { label: "Klase", href: "/grades/courses" },
-  },
-  "/targets": { label: "SR reģistrs" },
-};
-
 export default function Shell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const isSR = pathname.startsWith("/grade-groups");
 
   const isActive = (href: string) => pathname.startsWith(href);
-
-  const sidebarItemClass = (active: boolean) =>
-    `w-9 h-9 rounded-xl flex items-center justify-center transition-all duration-200
-    ${active ? "bg-white/50 text-purple-900 shadow-sm" : "text-purple-900/60 hover:bg-white/35"}`;
 
   const tabClass = (active: boolean) =>
     `px-3 py-1 rounded-full text-[11px] font-medium border transition-all duration-200
@@ -88,11 +67,14 @@ export default function Shell({ children }: { children: React.ReactNode }) {
     return undefined;
   })();
 
+  const sidebarItemClass = (active: boolean) =>
+    `w-9 h-9 rounded-xl flex items-center justify-center transition-all duration-200
+    ${active ? "bg-white/50 text-purple-900 shadow-sm" : "text-purple-900/60 hover:bg-white/35"}`;
+
   return (
     <div className="min-h-screen flex items-start lg:items-center justify-center p-4 pt-6 lg:pt-4">
       <div className="flex gap-4 items-stretch w-full lg:w-[clamp(600px,70vw,1100px)] h-screen lg:h-[clamp(480px,70vh,900px)]">
-        {/* Sidebar — desktop */}
-        <aside className="hidden lg:flex flex-col items-center justify-center px-2 py-4 gap-2 w-[52px] h-fit self-center flex-shrink-0 rounded-[20px] bg-white/20 backdrop-blur-lg border border-white/45">
+        <aside className="flex md:hidden fixed bottom-4 left-1/2 -translate-x-1/2 z-50 flex-row items-center px-4 py-2 gap-2 w-fit rounded-[20px] bg-white/20 backdrop-blur-lg border border-white/45">
           {navItems.map(({ tab, icon, href }) => {
             const active = isActive(href);
             return active ? (
@@ -173,55 +155,61 @@ export default function Shell({ children }: { children: React.ReactNode }) {
                 </BreadcrumbList>
               </Breadcrumb>
 
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <button className="w-8 h-8 flex items-center justify-center rounded-lg text-purple-900/60 hover:bg-white/35 transition-all duration-200">
-                    <Menu size={18} />
-                  </button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent
-                  align="end"
-                  className="bg-white/70 backdrop-blur-lg border-white/50"
-                >
-                  <DropdownMenuItem asChild>
-                    <Link
-                      href="/grades"
-                      className="text-purple-900/80 text-xs font-medium cursor-pointer"
-                    >
-                      <ClipboardCheck size={14} className="mr-2" />
-                      KPD reģistrs
+              {/* Desktop tab badges */}
+              <div className="gap-2 hidden lg:flex">
+                {navItems.map(({ tab, href }) => {
+                  const active = isActive(href);
+                  return active ? (
+                    <span key={tab.tab} className={tabClass(true)}>
+                      {tab.tab}
+                    </span>
+                  ) : (
+                    <Link key={tab.tab} href={href} className={tabClass(false)}>
+                      {tab.tab}
                     </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    <Link
-                      href="/grade-groups"
-                      className="text-purple-900/80 text-xs font-medium cursor-pointer"
-                    >
-                      <Crosshair size={14} className="mr-2" />
-                      SR reģistrs
-                    </Link>
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
+                  );
+                })}
+              </div>
+
+              {/* Mobile hamburger menu */}
+              <div className="lg:hidden">
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <button className="w-8 h-8 flex items-center justify-center rounded-lg text-purple-900/60 hover:bg-white/35 transition-all duration-200">
+                      <Menu size={18} />
+                    </button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent
+                    align="end"
+                    className="bg-white/70 backdrop-blur-lg border-white/50"
+                  >
+                    <DropdownMenuItem asChild>
+                      <Link
+                        href="/grades"
+                        className="text-purple-900/80 text-xs font-medium cursor-pointer"
+                      >
+                        <ClipboardCheck size={14} className="mr-2" />
+                        KPD reģistrs
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                      <Link
+                        href="/grade-groups"
+                        className="text-purple-900/80 text-xs font-medium cursor-pointer"
+                      >
+                        <Crosshair size={14} className="mr-2" />
+                        SR reģistrs
+                      </Link>
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </div>
             </div>
 
             <div className="p-4 lg:p-8 flex-1 overflow-auto">{children}</div>
           </div>
         </div>
       </div>
-
-      {/* Sidebar — mobile */}
-      <aside className="lg:hidden fixed bottom-4 left-1/2 -translate-x-1/2 z-50 flex flex-row items-center px-4 py-2 gap-2 w-fit rounded-[20px] bg-white/20 backdrop-blur-lg border border-white/45">
-        {navItems.map(({ tab, icon, href }) => (
-          <Link
-            key={tab.tab}
-            href={href}
-            className={sidebarItemClass(isActive(href))}
-          >
-            {icon}
-          </Link>
-        ))}
-      </aside>
     </div>
   );
 }

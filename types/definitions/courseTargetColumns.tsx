@@ -5,7 +5,7 @@ export function getCourseTargetColumnDefs(): ColDef<_CourseTarget>[] {
   return [
     {
       field: "description",
-      headerName: "Apraksts",
+      headerName: "Klašu grupa",
       flex: 2,
       filter: true,
     },

@@ -87,7 +87,7 @@ type DataGridProps<T> = {
   columnDefs: ColDef<T>[];
   getRowId: (row: T) => string;
   loading?: boolean;
-  hasFooter?: boolean;
+  hasExport?: boolean;
   onRowClicked?: (event: RowClickedEvent<T>) => void; // add this
   rowClass?: string;
 };
@@ -97,7 +97,7 @@ export default function DataGrid<T>({
   columnDefs,
   getRowId,
   loading,
-  hasFooter,
+  hasExport = false,
   onRowClicked, // add this
   rowClass, // add this
 }: DataGridProps<T>) {
@@ -128,13 +128,13 @@ export default function DataGrid<T>({
           loadingOverlayComponent={LoadingOverlay}
           noRowsOverlayComponent={NoRowsOverlay}
           loading={loading}
-          pagination={hasFooter}
-          paginationPageSize={hasFooter ? 50 : undefined}
-          paginationPageSizeSelector={hasFooter ? [50, 100, 150] : false}
+          pagination={true}
+          paginationPageSize={50}
+          paginationPageSizeSelector={[50, 100, 150]}
           onRowClicked={onRowClicked} // add this
           rowClass={rowClass} // add this
         />
-        {hasFooter && (
+        {hasExport && (
           <div className="absolute bottom-0 left-0 h-[48px] hidden md:flex items-center pl-3">
             <Button
               variant="outline"

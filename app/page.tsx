@@ -68,7 +68,7 @@ export default function HomePage() {
               columnDefs={pendingColDefs}
               getRowId={(row) => String(row.enrollment_id)}
               loading={pendingTests === undefined}
-              hasFooter
+              hasExport
             />
           </div>
           <div className="md:hidden flex flex-col h-full min-h-0">

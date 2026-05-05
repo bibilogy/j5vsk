@@ -185,7 +185,10 @@ export const updateCourseTarget = async (
 };
 
 export const fetchCourseTargets = async (): Promise<_CourseTarget[]> => {
-  const { data, error } = await supabase.rpc("get_course_targets");
-  if (error) throw new Error("Error getting course targets");
+  const { data, error } = (await supabase.rpc("get_course_targets")) as any;
+  if (error) {
+    console.error("Supabase error:", error);
+    throw new Error("Error getting course targets");
+  }
   return data ?? [];
 };

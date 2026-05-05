@@ -181,7 +181,9 @@ RETURNS TABLE (
     course_target_id INT,
     description VARCHAR(100),
     target TEXT,
-    subject_field subject_field
+    subject_field subject_field,
+    grade_group_id INT,
+    course_id INT
 ) AS $$
 BEGIN
     RETURN QUERY
@@ -189,10 +191,15 @@ BEGIN
         ct.course_target_id,
         ct.description,
         ct.target,
-        s.field AS subject_field
+        s.field AS subject_field,
+        g.grade_group_id,
+        c.course_id
     FROM course_targets ct
     JOIN courses c ON c.course_target_id = ct.course_target_id
     JOIN subjects s ON s.subject_id = c.subject_id
+    JOIN enrollments e ON e.course_id = c.course_id
+    JOIN students st ON st.student_id = e.student_id
+    JOIN grades g ON g.grade_id = st.grade_id
     WHERE ct.target IS NOT NULL
       AND TRIM(ct.target) <> ''
     ORDER BY ct.description, s.field, ct.course_target_id;

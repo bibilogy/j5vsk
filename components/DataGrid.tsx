@@ -8,6 +8,7 @@ import {
   ModuleRegistry,
   AllCommunityModule,
   themeQuartz,
+  RowClickedEvent,
 } from "ag-grid-community";
 import { useRef } from "react";
 import { Button } from "./ui/button";
@@ -87,6 +88,8 @@ type DataGridProps<T> = {
   getRowId: (row: T) => string;
   loading?: boolean;
   hasFooter?: boolean;
+  onRowClicked?: (event: RowClickedEvent<T>) => void; // add this
+  rowClass?: string;
 };
 
 export default function DataGrid<T>({
@@ -95,6 +98,8 @@ export default function DataGrid<T>({
   getRowId,
   loading,
   hasFooter,
+  onRowClicked, // add this
+  rowClass, // add this
 }: DataGridProps<T>) {
   const gridRef = useRef<AgGridReact<T>>(null);
 
@@ -126,6 +131,8 @@ export default function DataGrid<T>({
           pagination={hasFooter}
           paginationPageSize={hasFooter ? 50 : undefined}
           paginationPageSizeSelector={hasFooter ? [50, 100, 150] : false}
+          onRowClicked={onRowClicked} // add this
+          rowClass={rowClass} // add this
         />
         {hasFooter && (
           <div className="absolute bottom-0 left-0 h-[48px] hidden md:flex items-center pl-3">

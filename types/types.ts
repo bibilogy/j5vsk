@@ -72,4 +72,6 @@ export type _CourseTarget = {
   description: string;
   target: string;
   subject_field: string;
+  grade_group_id: number;
+  course_id: number;
 };

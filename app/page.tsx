@@ -11,11 +11,13 @@ import { PendingTestEnrollment, _CourseTarget } from "@/types/types";
 import { useEffect, useMemo, useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { getMobileTestColumnDefs } from "@/types/definitions/getMobileTestColumnDefs";
+import { useRouter } from "next/navigation";
 
 export default function HomePage() {
   const [pendingTests, setPendingTests] = useState<PendingTestEnrollment[]>();
   const [courseTargets, setCourseTargets] = useState<_CourseTarget[]>();
   const [activeTab, setActiveTab] = useState("pending");
+  const router = useRouter();
 
   useEffect(() => {
     fetchPendingTestEnrollments().then(setPendingTests);
@@ -86,6 +88,12 @@ export default function HomePage() {
             columnDefs={targetColDefs}
             getRowId={(row) => String(row.course_target_id)}
             loading={courseTargets === undefined}
+            onRowClicked={(row) =>
+              router.push(
+                `/grade-groups/${row?.data?.grade_group_id}/courses/${row?.data?.course_id}`,
+              )
+            }
+            rowClass="cursor-pointer"
             hasFooter
           />
         </TabsContent>

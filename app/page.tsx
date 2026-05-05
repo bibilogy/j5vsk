@@ -77,7 +77,6 @@ export default function HomePage() {
               columnDefs={mobileColDefs}
               getRowId={(row) => String(row.enrollment_id)}
               loading={pendingTests === undefined}
-              hasFooter
             />
           </div>
         </TabsContent>
@@ -94,7 +93,6 @@ export default function HomePage() {
               )
             }
             rowClass="cursor-pointer"
-            hasFooter
           />
         </TabsContent>
       </Tabs>

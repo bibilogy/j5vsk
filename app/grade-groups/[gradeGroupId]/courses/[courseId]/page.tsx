@@ -228,7 +228,7 @@ export default function CourseTargetsPage() {
               }}
             >
               <Upload style={{ width: 13, height: 13, flexShrink: 0 }} />
-              <span>Pievienot failu</span>
+              <span>Pievienot no faila</span>
             </button>
           </div>
         </div>

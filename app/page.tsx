@@ -12,6 +12,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { getMobileTestColumnDefs } from "@/types/definitions/getMobileTestColumnDefs";
 import { useRouter } from "next/navigation";
+import { LayoutList } from "lucide-react";
 
 export default function HomePage() {
   const [pendingTests, setPendingTests] = useState<PendingTestEnrollment[]>();
@@ -46,14 +47,16 @@ export default function HomePage() {
         <TabsList className="w-fit bg-white/30 border border-white/40 rounded-xl px-1 py-1 self-start">
           <TabsTrigger
             value="pending"
-            className="text-purple-900/60 text-xs font-medium rounded-lg data-[state=active]:bg-white/60 data-[state=active]:text-purple-900 data-[state=active]:shadow-sm px-4 py-1.5"
+            className="flex items-center gap-1.5 text-purple-900/60 text-xs font-medium rounded-lg data-[state=active]:bg-white/60 data-[state=active]:text-purple-900 data-[state=active]:shadow-sm px-4 py-1.5"
           >
+            <LayoutList className="w-4 h-4" />
             <span>KPD reģistrs</span>
           </TabsTrigger>
           <TabsTrigger
             value="targets"
-            className="text-purple-900/60 text-xs font-medium rounded-lg data-[state=active]:bg-white/60 data-[state=active]:text-purple-900 data-[state=active]:shadow-sm px-4 py-1.5"
+            className="text-purple-900/60 gap-1.5 text-xs font-medium rounded-lg data-[state=active]:bg-white/60 data-[state=active]:text-purple-900 data-[state=active]:shadow-sm px-4 py-1.5"
           >
+            <LayoutList className="w-4 h-4" />
             <span>SR reģistrs</span>
           </TabsTrigger>
         </TabsList>

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ClipboardCheck, Crosshair, Menu } from "lucide-react";
+import { ClipboardCheck, Crosshair, Menu, Search } from "lucide-react";
 import { tabs } from "@/types/types";
 import {
   Breadcrumb,
@@ -20,8 +20,8 @@ import {
 } from "./ui/dropdown-menu";
 
 const navItems = [
-  { tab: tabs[0], icon: <ClipboardCheck size={18} />, href: "/grades" },
-  { tab: tabs[1], icon: <Crosshair size={18} />, href: "/grade-groups" },
+  { tab: tabs[0], icon: <Search size={18} />, href: "/grades" },
+  { tab: tabs[1], icon: <Search size={18} />, href: "/grade-groups" },
 ];
 
 export default function Shell({ children }: { children: React.ReactNode }) {
@@ -31,9 +31,8 @@ export default function Shell({ children }: { children: React.ReactNode }) {
   const isActive = (href: string) => pathname.startsWith(href);
 
   const tabClass = (active: boolean) =>
-    `px-3 py-1 rounded-full text-[11px] font-medium border transition-all duration-200
+    `flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-medium border transition-all duration-200
     ${active ? "bg-white/65 border-white/60 text-purple-950" : "bg-white/30 border-white/50 text-purple-900/70 hover:bg-white/45"}`;
-
   const currentCrumb = (() => {
     if (pathname === "/") return { label: "" };
     if (pathname === "/grades") return { label: "Klases" };
@@ -74,7 +73,7 @@ export default function Shell({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen flex items-start lg:items-center justify-center p-4 pt-6 lg:pt-4">
       <div className="flex gap-4 items-stretch w-full lg:w-[clamp(600px,70vw,1100px)] h-screen lg:h-[clamp(480px,70vh,900px)]">
-        <aside className="flex md:hidden fixed bottom-4 left-1/2 -translate-x-1/2 z-50 flex-row items-center px-4 py-2 gap-2 w-fit rounded-[20px] bg-white/20 backdrop-blur-lg border border-white/45">
+        {/* <aside className="flex md:hidden fixed bottom-4 left-1/2 -translate-x-1/2 z-50 flex-row items-center px-4 py-2 gap-2 w-fit rounded-[20px] bg-white/20 backdrop-blur-lg border border-white/45">
           {navItems.map(({ tab, icon, href }) => {
             const active = isActive(href);
             return active ? (
@@ -91,7 +90,7 @@ export default function Shell({ children }: { children: React.ReactNode }) {
               </Link>
             );
           })}
-        </aside>
+        </aside> */}
 
         {/* App window wrapper */}
         <div className="flex-1 flex flex-col min-w-0">
@@ -156,16 +155,16 @@ export default function Shell({ children }: { children: React.ReactNode }) {
               </Breadcrumb>
 
               {/* Desktop tab badges */}
-              <div className="gap-2 hidden lg:flex">
-                {navItems.map(({ tab, href }) => {
+              <div className="flex flex-row items-center gap-2">
+                {navItems.map(({ tab, href, icon }) => {
                   const active = isActive(href);
                   return active ? (
                     <span key={tab.tab} className={tabClass(true)}>
-                      {tab.tab}
+                      {icon} {tab.tab}
                     </span>
                   ) : (
                     <Link key={tab.tab} href={href} className={tabClass(false)}>
-                      {tab.tab}
+                      {icon} {tab.tab}
                     </Link>
                   );
                 })}

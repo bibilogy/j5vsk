@@ -155,7 +155,7 @@ export default function Shell({ children }: { children: React.ReactNode }) {
               </Breadcrumb>
 
               {/* Desktop tab badges */}
-              <div className="flex flex-row items-center gap-2">
+              <div className="hidden lg:flex flex-row items-center gap-2">
                 {navItems.map(({ tab, href, icon }) => {
                   const active = isActive(href);
                   return active ? (

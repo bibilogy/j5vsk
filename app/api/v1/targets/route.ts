@@ -1,3 +1,13 @@
+import { NextRequest, NextResponse } from "next/server";
+import { supabase } from "@/lib/supabase";
+
+type CourseTargetByGradeGroup = {
+    grade_group_name: string;
+    subject_name: string;
+    target: string;
+};
+
+// api/v1/targets/route.ts
 export async function POST(req: NextRequest) {
     const apiKey = req.headers.get("x-api-key");
     if (!apiKey || apiKey !== process.env.API_SECRET_KEY) {

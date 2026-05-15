@@ -205,3 +205,32 @@ BEGIN
     ORDER BY ct.description, s.field, ct.course_target_id;
 END;
 $$ LANGUAGE plpgsql;
+
+
+   CREATE OR REPLACE FUNCTION get_course_targets_by_grade_group()
+RETURNS JSON
+LANGUAGE plpgsql
+SECURITY DEFINER
+SET search_path = public
+AS $$
+BEGIN
+RETURN (
+    SELECT JSON_AGG(result)
+    FROM (
+             SELECT DISTINCT
+                 gg.name AS grade_group_name,
+                 s.name  AS subject_name,
+                 ct.target
+             FROM course_targets ct
+                      JOIN courses      c  ON c.course_target_id = ct.course_target_id
+                      JOIN subjects     s  ON s.subject_id       = c.subject_id
+                      JOIN enrollments  e  ON e.course_id        = c.course_id
+                      JOIN students     st ON st.student_id      = e.student_id
+                      JOIN grades       g  ON g.grade_id         = st.grade_id
+                      JOIN grade_groups gg ON gg.grade_group_id  = g.grade_group_id
+             WHERE ct.target IS NOT NULL
+         ) result
+);
+END;
+$$;
+GRANT EXECUTE ON FUNCTION get_course_targets_by_grade_group() TO anon, authenticated;

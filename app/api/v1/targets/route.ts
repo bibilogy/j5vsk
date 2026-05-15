@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { supabase } from "@/lib/supabase";
 
+
 type CourseTargetByGradeGroup = {
     grade_group_name: string;
     subject_name: string;

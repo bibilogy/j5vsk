@@ -177,16 +177,34 @@ export default function Shell({ children }: { children: React.ReactNode }) {
                         </Link>
                       );
                     })
-                  : navItems.map(({ tab }) => (
-                      <span
-                        key={tab.tab}
-                        className={
-                          tabClass(false) + " cursor-not-allowed opacity-60"
-                        }
-                      >
-                        <Lock size={14} /> {tab.tab}
-                      </span>
-                    ))}
+                  : navItems.map(({ tab, href, icon }, index) => {
+                      if (index === 0) {
+                        return (
+                          <span
+                            key={tab.tab}
+                            className={
+                              tabClass(false) + " cursor-not-allowed opacity-60"
+                            }
+                          >
+                            <Lock size={14} /> {tab.tab}
+                          </span>
+                        );
+                      }
+                      const active = isActive(href);
+                      return active ? (
+                        <span key={tab.tab} className={tabClass(true)}>
+                          {icon} {tab.tab}
+                        </span>
+                      ) : (
+                        <Link
+                          key={tab.tab}
+                          href={href}
+                          className={tabClass(false)}
+                        >
+                          {icon} {tab.tab}
+                        </Link>
+                      );
+                    })}
               </div>
 
               {/* Mobile hamburger menu */}

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ClipboardCheck, Crosshair, Menu, Search } from "lucide-react";
+import { ClipboardCheck, Crosshair, Lock, Menu, Search } from "lucide-react";
 import { tabs } from "@/types/types";
 import {
   Breadcrumb,
@@ -23,6 +23,8 @@ const navItems = [
   { tab: tabs[0], icon: <Search size={18} />, href: "/grades" },
   { tab: tabs[1], icon: <Search size={18} />, href: "/grade-groups" },
 ];
+
+const isRegistrationOpen = false;
 
 export default function Shell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -155,19 +157,36 @@ export default function Shell({ children }: { children: React.ReactNode }) {
               </Breadcrumb>
 
               {/* Desktop tab badges */}
+
+              {/* Desktop tab badges */}
               <div className="hidden lg:flex flex-row items-center gap-2">
-                {navItems.map(({ tab, href, icon }) => {
-                  const active = isActive(href);
-                  return active ? (
-                    <span key={tab.tab} className={tabClass(true)}>
-                      {icon} {tab.tab}
-                    </span>
-                  ) : (
-                    <Link key={tab.tab} href={href} className={tabClass(false)}>
-                      {icon} {tab.tab}
-                    </Link>
-                  );
-                })}
+                {isRegistrationOpen
+                  ? navItems.map(({ tab, href, icon }) => {
+                      const active = isActive(href);
+                      return active ? (
+                        <span key={tab.tab} className={tabClass(true)}>
+                          {icon} {tab.tab}
+                        </span>
+                      ) : (
+                        <Link
+                          key={tab.tab}
+                          href={href}
+                          className={tabClass(false)}
+                        >
+                          {icon} {tab.tab}
+                        </Link>
+                      );
+                    })
+                  : navItems.map(({ tab }) => (
+                      <span
+                        key={tab.tab}
+                        className={
+                          tabClass(false) + " cursor-not-allowed opacity-60"
+                        }
+                      >
+                        <Lock size={14} /> {tab.tab}
+                      </span>
+                    ))}
               </div>
 
               {/* Mobile hamburger menu */}

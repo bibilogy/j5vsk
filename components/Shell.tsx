@@ -24,7 +24,7 @@ const navItems = [
   { tab: tabs[1], icon: <Search size={18} />, href: "/grade-groups" },
 ];
 
-const isRegistrationOpen = false;
+const isRegistrationOpen = true;
 
 export default function Shell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();

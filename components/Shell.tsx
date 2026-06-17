@@ -203,28 +203,51 @@ export default function Shell({ children }: { children: React.ReactNode }) {
                     align="end"
                     className="bg-white/70 backdrop-blur-lg border-white/50 p-2 min-w-[180px]"
                   >
-                    <DropdownMenuItem asChild>
-                      <Link
-                        href="/grades"
-                        className="flex items-center gap-3 px-3 py-3 rounded-xl text-purple-900/80 text-sm font-medium cursor-pointer hover:bg-white/60 transition-colors"
-                      >
-                        <div className="w-8 h-8 rounded-lg bg-purple-100/60 flex items-center justify-center text-purple-700">
-                          <ClipboardCheck size={16} />
-                        </div>
-                        KPD reģistrs
-                      </Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
-                      <Link
-                        href="/grade-groups"
-                        className="flex items-center gap-3 px-3 py-3 rounded-xl text-purple-900/80 text-sm font-medium cursor-pointer hover:bg-white/60 transition-colors"
-                      >
-                        <div className="w-8 h-8 rounded-lg bg-[#C4A882]/20 flex items-center justify-center text-[#8B6914]">
-                          <Crosshair size={16} />
-                        </div>
-                        SR reģistrs
-                      </Link>
-                    </DropdownMenuItem>
+                    {isRegistrationOpen ? (
+                      <>
+                        <DropdownMenuItem asChild>
+                          <Link
+                            href="/grades"
+                            className="flex items-center gap-3 px-3 py-3 rounded-xl text-purple-900/80 text-sm font-medium cursor-pointer hover:bg-white/60 transition-colors"
+                          >
+                            <div className="w-8 h-8 rounded-lg bg-purple-100/60 flex items-center justify-center text-purple-700">
+                              <ClipboardCheck size={16} />
+                            </div>
+                            KPD reģistrs
+                          </Link>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem asChild>
+                          <Link
+                            href="/grade-groups"
+                            className="flex items-center gap-3 px-3 py-3 rounded-xl text-purple-900/80 text-sm font-medium cursor-pointer hover:bg-white/60 transition-colors"
+                          >
+                            <div className="w-8 h-8 rounded-lg bg-[#C4A882]/20 flex items-center justify-center text-[#8B6914]">
+                              <Crosshair size={16} />
+                            </div>
+                            SR reģistrs
+                          </Link>
+                        </DropdownMenuItem>
+                      </>
+                    ) : (
+                      <>
+                        <DropdownMenuItem disabled>
+                          <div className="flex items-center gap-3 px-3 py-3 rounded-xl text-purple-900/40 text-sm font-medium cursor-not-allowed">
+                            <div className="w-8 h-8 rounded-lg bg-purple-100/30 flex items-center justify-center text-purple-700/40">
+                              <Lock size={16} />
+                            </div>
+                            KPD reģistrs
+                          </div>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem disabled>
+                          <div className="flex items-center gap-3 px-3 py-3 rounded-xl text-purple-900/40 text-sm font-medium cursor-not-allowed">
+                            <div className="w-8 h-8 rounded-lg bg-[#C4A882]/10 flex items-center justify-center text-[#8B6914]/40">
+                              <Lock size={16} />
+                            </div>
+                            SR reģistrs
+                          </div>
+                        </DropdownMenuItem>
+                      </>
+                    )}
                   </DropdownMenuContent>
                 </DropdownMenu>
               </div>

@@ -24,7 +24,7 @@ const navItems = [
   { tab: tabs[1], icon: <Search size={18} />, href: "/grade-groups" },
 ];
 
-const isRegistrationOpen = true;
+const isRegistrationOpen = false;
 
 export default function Shell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -177,32 +177,16 @@ export default function Shell({ children }: { children: React.ReactNode }) {
                         </Link>
                       );
                     })
-                  : navItems.map(({ tab, href, icon }, index) => {
-                      if (index === 0) {
-                        return (
-                          <span
-                            key={tab.tab}
-                            className={
-                              tabClass(false) + " cursor-not-allowed opacity-60"
-                            }
-                          >
-                            <Lock size={14} /> {tab.tab}
-                          </span>
-                        );
-                      }
-                      const active = isActive(href);
-                      return active ? (
-                        <span key={tab.tab} className={tabClass(true)}>
-                          {icon} {tab.tab}
-                        </span>
-                      ) : (
-                        <Link
+                  : navItems.map(({ tab, href, icon }) => {
+                      return (
+                        <span
                           key={tab.tab}
-                          href={href}
-                          className={tabClass(false)}
+                          className={
+                            tabClass(false) + " cursor-not-allowed opacity-60"
+                          }
                         >
-                          {icon} {tab.tab}
-                        </Link>
+                          <Lock size={14} /> {tab.tab}
+                        </span>
                       );
                     })}
               </div>
